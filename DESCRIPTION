@@ -1,0 +1,16 @@
+Package: prmisc
+Type: Package
+Title: Miscellaneous printing
+Author: Martin Papenberg <martin.papenberg@hhu.de>
+Maintainer: Martin Papenberg <martin.papenberg@hhu.de>
+Depends: R (>= 3.0.0)
+Description: Miscellaneous printing of stat results in Rmarkdown
+License: Public domain
+Encoding: UTF-8
+LazyLoad: yes
+URL: https://github.com/m-Py/prmisc
+Authors@R: c(person(given="Martin", family="Papenberg",
+        email="martin.papenberg@hhu.de", role=c("aut", "cre")))
+Version: 0.01-0
+Date: 2018-03-12
+RoxygenNote: 6.0.1
