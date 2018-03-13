@@ -167,15 +167,19 @@ print_cortest <- function(cor_object, decimals=2, decimals_p = 3) {
 
 #' Force printing a specified number of decimals for a number
 #'
-#' @param x the value to be printed
+#' @param x the values to be printed
 #' @param n_digits how many decimals are to be printed
 #'
 #' @return The number in the required format
 #' 
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
-#' 
+#'
 force_decimals <- function(x, n_digits) {
+    return(vectorize_print(x, n_digits, force_decimals_))
+}
+
+force_decimals_ <- function(x, n_digits) {
     x <- as.numeric(x)
     return(format(round(x, n_digits), nsmall = n_digits))
 }
@@ -183,15 +187,19 @@ force_decimals <- function(x, n_digits) {
 #' Force printing a specified number of decimals and leave out a leading
 #' zero
 #'
-#' @param x the value to be printed
+#' @param x the values to be printed
 #' @param n_digits how many decimals are to be printed
 #'
 #' @return The number in the required format
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
-#' 
+#'
 decimals_only <- function(x, n_digits) {
+    return(vectorize_print(x, n_digits, decimals_only_))
+}
+
+decimals_only_ <- function(x, n_digits) {
     x <- as.numeric(x)
     n_small <- force_decimals(x, n_digits)
     cut_decimal <- paste(".", strsplit(as.character(n_small), ".", 
@@ -200,10 +208,11 @@ decimals_only <- function(x, n_digits) {
     return(cut_decimal)
 }
 
-#' Print a number
+#' Print a number having a specified number of digits or as integer
 #'
-#' @param x A number
-#' @param n_digits The number of digits that should be printed if x is a decimal number
+#' @param x A vector of numbers
+#' @param n_digits The number of digits that should be printed if x is a
+#'     decimal number
 #'
 #' @return The number in the required format
 #' 
@@ -213,9 +222,18 @@ decimals_only <- function(x, n_digits) {
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
 #' 
-
 force_or_cut <- function(x, n_digits) {
+    return(vectorize_print(x, n_digits, force_or_cut_))
+}
+
+force_or_cut_ <- function(x, n_digits) {
     x <- as.numeric(x)
-    if (x%%1==0) return(x)
-    else return(force_decimals(x, n_digits))
+    if (x%%1==0) return(as.character(x))
+    else return(force_decimals_(x, n_digits))
+}
+
+## An abstract function used to vectorize all number printing functions
+vectorize_print <- function(x, n_digits, FUN) {
+    x_ <- vapply(x, FUN, FUN.VALUE="character", n_digits)
+    return(x_)
 }
