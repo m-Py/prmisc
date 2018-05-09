@@ -65,15 +65,19 @@ print_anova <- function(afex_object, row, es, font="nonitalic",
 #' @param decimals how many decimals should be printed
 #' @param decimals_p how many decimals should be printed for the p-value
 #'     (defaults to 3)
+#' @param within Logical vector of length 1. Was the t-test a
+#'     within-subjects comparison? Determines whether Cohen's d is
+#'     printed as d_z when TRUE. Defaults to FALSE.
 #'
 #' @details Note that the R package `papaja` contains functionality for
 #'     printing many different statistical tests. This is just for my
-#'     personal use as I have used it in recent writeups.
+#'     personal use that I have used it in recent writeups.
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
 #' 
-print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3) {
+print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
+                        within = FALSE) {
     
     if (t_object$p.value >= 0.001) {
         p <- paste("$p = ", decimals_only(t_object$p.value, decimals_p), 
@@ -84,7 +88,9 @@ print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3) {
     
     t <- paste("$t(", round(t_object$parameter, decimals), ") = ", sep="")
     t <- paste(t, force_decimals(t_object$statistic, decimals), "$", sep="")
-    d <- paste("$d = ", force_decimals(d_object$estimate, decimals), "$", 
+    d <- "$d = "
+    if (within) d <- "$d_z = "
+    d <- paste(d, force_decimals(d_object$estimate, decimals), "$", 
                sep="")
     return(paste(t, p, d, sep=", "))
 }

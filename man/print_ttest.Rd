@@ -4,7 +4,8 @@
 \alias{print_ttest}
 \title{Print the results of a t-test}
 \usage{
-print_ttest(t_object, d_object, decimals = 2, decimals_p = 3)
+print_ttest(t_object, d_object, decimals = 2, decimals_p = 3,
+  within = FALSE)
 }
 \arguments{
 \item{t_object}{an object returned by `afex`s ANOVA functions}
@@ -15,6 +16,10 @@ print_ttest(t_object, d_object, decimals = 2, decimals_p = 3)
 
 \item{decimals_p}{how many decimals should be printed for the p-value
 (defaults to 3)}
+
+\item{within}{Logical vector of length 1. Was the t-test a
+within-subjects comparison? Determines whether Cohen's d is
+printed as d_z when TRUE. Defaults to FALSE.}
 }
 \description{
 Print the results of a t-test
@@ -22,7 +27,7 @@ Print the results of a t-test
 \details{
 Note that the R package `papaja` contains functionality for
     printing many different statistical tests. This is just for my
-    personal use as I have used it in recent writeups.
+    personal use that I have used it in recent writeups.
 }
 \author{
 Martin Papenberg \email{martin.papenberg@hhu.de}

@@ -12,7 +12,7 @@ Miscellaneous printing.
 Package: \tab prmisc\cr
 Type: \tab Package\cr
 Version: \tab 0.01-0\cr
-Date: \tab 2018-03-12\cr
+Date: \tab 2018-05-09\cr
 Depends: \tab R (>= 3.0.0)\cr
 Encoding: \tab UTF-8\cr
 License: \tab Public domain\cr

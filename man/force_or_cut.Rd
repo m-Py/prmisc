@@ -2,20 +2,21 @@
 % Please edit documentation in R/print_results.R
 \name{force_or_cut}
 \alias{force_or_cut}
-\title{Print a number}
+\title{Print a number having a specified number of digits or as integer}
 \usage{
 force_or_cut(x, n_digits)
 }
 \arguments{
-\item{x}{A number}
+\item{x}{A vector of numbers}
 
-\item{n_digits}{The number of digits that should be printed if x is a decimal number}
+\item{n_digits}{The number of digits that should be printed if x is a
+decimal number}
 }
 \value{
 The number in the required format
 }
 \description{
-Print a number
+Print a number having a specified number of digits or as integer
 }
 \details{
 If x integer, only the integer is printed, if x is a decimal

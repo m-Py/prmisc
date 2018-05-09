@@ -1,5 +1,5 @@
-pckDIR <- "/home/martin2/git/prmisc/"
-myRlib <- "/home/martin2/R/x86_64-pc-linux-gnu-library/3.4/"
+pckDIR <- "/home/martin/git/prmisc/"
+myRlib <- "/home/martin/R/x86_64-pc-linux-gnu-library/3.4/"
 ##myRlib <- "/home/martin/R/i686-pc-linux-gnu-library/3.4/"
 
 library("roxyPackage")

@@ -8,7 +8,7 @@ zero}
 decimals_only(x, n_digits)
 }
 \arguments{
-\item{x}{the value to be printed}
+\item{x}{the values to be printed}
 
 \item{n_digits}{how many decimals are to be printed}
 }
