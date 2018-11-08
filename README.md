@@ -32,9 +32,10 @@ print_ttest(ttest, cohend) # include this call in Rmd inline code
 
 ```R
 x <- matrix(c(12, 5, 7, 7), ncol = 2)
-print_chi2(table = x) # does not use continuity correction
+print_chi2(x) # does not use continuity correction by default
 
 # [1] "$\\chi^2(1, N = 31) = 1.37$, $p = .242$, $\\phi = .21$"
+print_chi2(x, correct = TRUE) # use continuity correction
 ```
 
 ## Correlation coefficient
@@ -73,9 +74,11 @@ print_anova(aov_results, 3, es = "ges", font = "italic") # interaction effect
 ## Some functions for printing numbers
 
 ```R
-## Round will not produce the same results in Rmd
 force_decimals(c(1.23456, 0.873, 2.3456), n_digits = 2)
 # [1] "1.23" "0.87" "2.35"
+
+## Note that function `round` will not produce the same results as
+## force_decimals in Rmd output
 
 ## Leave integers intact:
 force_or_cut(c(1:3, 1.23456, 0.873, 2.3456), n_digits = 2)
@@ -84,7 +87,7 @@ force_or_cut(c(1:3, 1.23456, 0.873, 2.3456), n_digits = 2)
 force_decimals(c(1:3, 1.23456, 0.873, 2.3456), n_digits = 2)
 # [1] "1.00" "2.00" "3.00" "1.23" "0.87" "2.35"
 
-## Show only decimals (e.g., fpr p-values or correlation coefficients)
+## Show only decimals (e.g., for p-values or correlation coefficients)
 decimals_only(c(0.23456, 0.873, 0.3456), n_digits = 3)
 # [1] ".235" ".873" ".346"
 ```
