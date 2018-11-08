@@ -99,10 +99,12 @@ print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
 
 #' Printing the results of a chisquare test
 #'
-#' @param table a contingency table
+#' @param table A contingency table
 #' @param es Boolean. Should the phi coefficient be printed (only makes
 #'     sense for 2x2 contingency tables!)
-#' @param chi2.object an object that is returned by `chisq.test`
+#' @param chi2.object an object that is returned by `chisq.test` (do 
+#'   not pass if argument `table` was passed).
+#' @param correct Boolean. Apply a continuity correction? See `?chisq.test`
 #' @param decimals how many decimals should be printed
 #' @param decimals_p how many decimals should be printed for the p-value
 #'     (defaults to 3)
@@ -110,36 +112,32 @@ print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
 #' @return A string describing the chi-squared test
 #'
 #' @details The returned effect size (the phi-coefficient) only makes
-#'     sense for 2x2 contingency tables
+#'     sense for 2x2 contingency tables.
 #' 
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
 #' 
 
-print_chi2 <- function(table=NULL, es=TRUE, chi2.object=NULL, 
-                       decimals=2, decimals_p = 3) {
+print_chi2 <- function(tab=NULL, es=TRUE, chi2.object=NULL, 
+                       correct = FALSE, decimals=2, decimals_p = 3) {
   N <- ""
-  if (!is.null(table)) {
-    chi2.object <- chisq.test(table, correct=FALSE)
-    N <- paste(", N = ", sum(table), sep="")
+  if (!is.null(tab)) {
+    chi2.object <- chisq.test(tab, correct = correct)
+    N <- paste0(", N = ", sum(tab))
   }
-  
   if (chi2.object$p.value >= 0.001) {
-    p <- paste("$p = ", decimals_only(chi2.object$p.value, 3), 
-               "$", sep="")
+    p <- paste0("$p = ", decimals_only(chi2.object$p.value, decimals_p), "$")
   }
   if (chi2.object$p.value < 0.005 & decimals_p <= 2) p <- "$p < .01$"
   if (chi2.object$p.value < 0.001) p <- "$p < .001$"
   
-  c <- paste("$\\chi^2(", chi2.object$parameter, N, 
-             ") = ", sep="")
-  c <- paste(c, force_decimals(chi2.object$statistic, decimals), "$", sep="")
-  phi <- paste("$\\phi = ",
-               decimals_only(sqrt(chi2.object$statistic/sum(table)), 
-                             decimals),
-               "$", sep="")
-  if (es == FALSE) rtn <- paste(c, p, sep=", ") # do not print effect size
-  if (es == TRUE)  rtn <- paste(c, p, phi, sep=", ")
+  c <- paste0("$\\chi^2(", chi2.object$parameter, N, ") = ")
+  c <- paste0(c, force_decimals(chi2.object$statistic, decimals), "$")
+  phi <- paste0("$\\phi = ",
+               decimals_only(sqrt(chi2.object$statistic/sum(tab)), 
+                             decimals), "$")
+  if (es == FALSE) rtn <- paste(c, p, sep = ", ") # do not print effect size
+  if (es == TRUE)  rtn <- paste(c, p, phi, sep = ", ")
   # effect size something!
   return(rtn)
 }
