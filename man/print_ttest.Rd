@@ -5,7 +5,7 @@
 \title{Print the results of a t-test}
 \usage{
 print_ttest(t_object, d_object, decimals = 2, decimals_p = 3,
-  within = FALSE)
+  paired = FALSE)
 }
 \arguments{
 \item{t_object}{an object returned by `afex`s ANOVA functions}
@@ -17,7 +17,7 @@ print_ttest(t_object, d_object, decimals = 2, decimals_p = 3,
 \item{decimals_p}{how many decimals should be printed for the p-value
 (defaults to 3)}
 
-\item{within}{Logical vector of length 1. Was the t-test a
+\item{paired}{Logical vector of length 1. Was the t-test a
 within-subjects comparison? Determines whether Cohen's d is
 printed as d_z when TRUE. Defaults to FALSE.}
 }

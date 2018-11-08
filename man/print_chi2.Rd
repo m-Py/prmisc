@@ -2,32 +2,33 @@
 % Please edit documentation in R/print_results.R
 \name{print_chi2}
 \alias{print_chi2}
-\title{Printing the results of a chisquare test}
+\title{Printing the results of a chi-square test}
 \usage{
-print_chi2(tab = NULL, es = TRUE, chi2.object = NULL,
+print_chi2(tab = NULL, chi2.object = NULL, es = TRUE,
   correct = FALSE, decimals = 2, decimals_p = 3)
 }
 \arguments{
+\item{tab}{A contingency table}
+
+\item{chi2.object}{an object that is returned by `chisq.test` (do 
+not pass if argument `tab` is passed).}
+
 \item{es}{Boolean. Should the phi coefficient be printed (only makes
 sense for 2x2 contingency tables!)}
 
-\item{chi2.object}{an object that is returned by `chisq.test` (do 
-not pass if argument `table` was passed).}
-
 \item{correct}{Boolean. Apply a continuity correction? See `?chisq.test`}
 
-\item{decimals}{how many decimals should be printed}
+\item{decimals}{How many decimals should be printed}
 
-\item{decimals_p}{how many decimals should be printed for the p-value
+\item{decimals_p}{How many decimals should be printed for the p-value
 (defaults to 3)}
-
-\item{table}{A contingency table}
 }
 \value{
-A string describing the chi-squared test
+A string describing the results of the chi-square test to be 
+  printed in Rmarkdown documents.
 }
 \description{
-Printing the results of a chisquare test
+Printing the results of a chi-square test
 }
 \details{
 The returned effect size (the phi-coefficient) only makes
