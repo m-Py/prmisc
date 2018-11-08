@@ -9,8 +9,8 @@ License: Public domain
 Encoding: UTF-8
 LazyLoad: yes
 URL: https://github.com/m-Py/prmisc
-Authors@R: c(person(given="Martin", family="Papenberg", email="martin.papenberg@hhu.de",
-          role=c("aut", "cre")))
-Version: 0.01-0
-Date: 2018-05-09
-RoxygenNote: 6.0.1
+Authors@R: c(person(given="Martin", family="Papenberg",
+        email="martin.papenberg@hhu.de", role=c("aut", "cre")))
+Version: 0.01-1
+Date: 2018-11-08
+RoxygenNote: 6.1.0
