@@ -3,6 +3,7 @@
 export(decimals_only)
 export(force_decimals)
 export(force_or_cut)
+export(format_p)
 export(print_anova)
 export(print_chi2)
 export(print_cortest)

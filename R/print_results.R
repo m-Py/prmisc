@@ -23,17 +23,8 @@ print_anova <- function(afex_object, row, es, font="nonitalic",
   
   # Print p-value
   p_value <- aov.table[row,"Pr(>F)"]
-  
-  if (p_value >= 0.001) {
-    p <- paste0("$p = ", decimals_only(p_value, decimals_p), "$")
-  }
-  if (p_value < 0.005 & decimals_p <= 2) {
-    p <- "$p < .01$"
-  }
-  if (p_value < 0.001) {
-    p <- "$p < .001$"
-  }
-  
+  p <- format_p(p_value, decimals_p)
+
   if (es == "pes") es.symbol <- "p"
   else if (es == "ges") es.symbol <- "G"
   
@@ -77,15 +68,7 @@ print_anova <- function(afex_object, row, es, font="nonitalic",
 #' 
 print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
                         paired = FALSE) {
-  if (t_object$p.value >= 0.001) {
-    p <- paste0("$p = ", decimals_only(t_object$p.value, decimals_p), "$")
-  }
-  if (round(t_object$p.value, decimals_p) == 1) {
-    p <- paste0("$p > .", paste0(rep("9", decimals_p), collapse = ""), "$")
-  }
-  if (t_object$p.value < 0.005 & decimals_p <= 2) p <- "$p < .01$"
-  if (t_object$p.value < 0.001) p <- "$p < .001$"
-  
+  p <- format_p(t_object$p.value, decimals_p)
   t <- paste0("$t(", round(t_object$parameter, decimals), ") = ")
   t <- paste0(t, force_decimals(t_object$statistic, decimals), "$")
   d <- "$d = "
@@ -123,12 +106,7 @@ print_chi2 <- function(tab = NULL, chi2.object = NULL, es = TRUE,
     chi2.object <- chisq.test(tab, correct = correct)
     N <- paste0(", N = ", sum(tab))
   }
-  if (chi2.object$p.value >= 0.001) {
-    p <- paste0("$p = ", decimals_only(chi2.object$p.value, decimals_p), "$")
-  }
-  if (chi2.object$p.value < 0.005 & decimals_p <= 2) p <- "$p < .01$"
-  if (chi2.object$p.value < 0.001) p <- "$p < .001$"
-  
+  p <- format_p(chi2.object$p.value, decimals_p)
   c <- paste0("$\\chi^2(", chi2.object$parameter, N, ") = ")
   c <- paste0(c, force_decimals(chi2.object$statistic, decimals), "$")
   phi <- decimals_only(sqrt(chi2.object$statistic / sum(tab)), decimals)
@@ -152,19 +130,37 @@ print_chi2 <- function(tab = NULL, chi2.object = NULL, es = TRUE,
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
 #' 
-print_cortest <- function(cor_object, decimals=2, decimals_p = 3) {
-  if (cor_object$p.value >= 0.001) {
-    p <- paste0("$p = ", decimals_only(cor_object$p.value, decimals_p), "$")
-  }
-  
-  if (cor_object$p.value < 0.005 & decimals_p <= 2) p <- "$p < .01$"
-  if (cor_object$p.value < 0.001) p <- "$p < .001$"    
-  
-  # for *r*, remove 0. before estimate
+print_cortest <- function(cor_object, decimals = 2, decimals_p = 3) {
+  p <- format_p(cor_object$p.value, decimals_p)
   cor <- paste0("$r = ", decimals_only(cor_object$estimate, decimals), "$")
   rtn <- paste(cor, p, sep = ", ")
   return(rtn)
 }
+
+
+#' Format a p-value according to APA standards
+#' @param pvalue The p-value
+#' @param decimals The number of decimals to be printed
+#' @return A string representation of the p value to be used in Rmarkdown
+#'   documents.
+#' 
+#' @export
+#' 
+format_p <- function(pvalue, decimals) {
+  if (pvalue < 0 | pvalue > 1) 
+    stop("p value is smaller than 0 or larger than 1")
+  if (pvalue >= 0.001) {
+    p <- paste0("$p = ", decimals_only(pvalue, decimals), "$")
+  }
+  ## Special case: p-value is 1 (or the rounded p-value is 1)
+  if (round(pvalue, decimals) == 1) {
+    p <- paste0("$p > .", paste0(rep("9", decimals), collapse = ""), "$")
+  }
+  if (pvalue < 0.005 & decimals <= 2) p <- "$p < .01$"
+  if (pvalue < 0.001) p <- "$p < .001$"
+  return(p)
+}
+
 
 #' Force printing a specified number of decimals for a number
 #'

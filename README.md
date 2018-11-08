@@ -90,4 +90,23 @@ force_decimals(c(1:3, 1.23456, 0.873, 2.3456), n_digits = 2)
 ## Show only decimals (e.g., for p-values or correlation coefficients)
 decimals_only(c(0.23456, 0.873, 0.3456), n_digits = 3)
 # [1] ".235" ".873" ".346"
+
+## Format a p-value
+format_p(0.03123, 3)
+
+[1] "$p = .031$"
+
+format_p(0.000001231, 3)
+
+[1] "$p < .001$"
+
+format_p(0.3123, 2)
+
+[1] "$p = .31$"
+
+format_p(.9999, 3)
+
+[1] "$p > .999$"
+
+format_p(1, 3)
 ```
