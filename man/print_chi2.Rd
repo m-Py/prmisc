@@ -12,15 +12,17 @@ print_chi2(tab = NULL, chi2.object = NULL, es = TRUE, correct = FALSE,
 `chi2.object`.}
 
 \item{chi2.object}{an object that is returned by `chisq.test`. Do not
-combine with argument `tab`. Can also handle objects returned by 
+combine with argument `tab`. Can also handle objects returned by
 `spgs::chisq.unif.test`.}
 
-\item{es}{Boolean. Should the phi coefficient be printed. This argument
-only has an effect if `tab` is passed as a 2x2 contingency
-table. Does not have an effect if `chi2.object` is passed.}
+\item{es}{Boolean. Should the phi coefficient be printed. This
+argument only has an effect if `tab` is passed as a 2x2
+contingency table. Does not have an effect if `chi2.object` is
+passed.}
 
 \item{correct}{Boolean. Apply a continuity correction? See
-`?chisq.test`}
+`?chisq.test`. Only has an effect if the chi-square-test 
+is computed by this function, i.e., if `tab` was passed.}
 
 \item{decimals}{How many decimals should be printed}
 

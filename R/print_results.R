@@ -89,7 +89,8 @@ print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
 #'     contingency table. Does not have an effect if `chi2.object` is
 #'     passed.
 #' @param correct Boolean. Apply a continuity correction? See
-#'     `?chisq.test`
+#'     `?chisq.test`. Only has an effect if the chi-square-test 
+#'     is computed by this function, i.e., if `tab` was passed.
 #' @param decimals How many decimals should be printed
 #' @param decimals_p How many decimals should be printed for the p-value
 #'     (defaults to 3)
@@ -103,8 +104,10 @@ print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
 
 print_chi2 <- function(tab = NULL, chi2.object = NULL, es = TRUE,
                        correct = FALSE, decimals = 2, decimals_p = 3) {
+  ## Test input
   table_passed <- !is.null(tab)
-  chi2_passed  <- !is.null(chi2.object) 
+  chi2_passed  <- !is.null(chi2.object)
+  is_2x2_contingency <- table_passed & all(dim(tab) == c(2, 2)) & length(dim(tab) == 2)
   if (table_passed & chi2_passed)
     stop("Error: only one of the arguments `tab` and `chi2.object` can be passed.")
   if (!(table_passed | chi2_passed))
@@ -120,9 +123,11 @@ print_chi2 <- function(tab = NULL, chi2.object = NULL, es = TRUE,
   c <- paste0(c, force_decimals(chi2.object$statistic, decimals), "$")
   phi <- decimals_only(sqrt(chi2.object$statistic / sum(tab)), decimals)
   phi <- paste0("$\\phi = ", phi, "$")
-  if (es == FALSE) 
+  
+  ## Create return string
+  if (es == FALSE | !is_2x2_contingency)
     rtn <- paste(c, p, sep = ", ") # do not print effect size
-  if (es == TRUE & table_passed & all(dim(tab) == c(2, 2)) & length(dim(tab) == 2))
+  if (es == TRUE & is_2x2_contingency)
     rtn <- paste(c, p, phi, sep = ", ") # print effect size for 2x2 contigency tables
   return(rtn)
 }
