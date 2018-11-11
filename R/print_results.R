@@ -33,9 +33,9 @@ print_anova <- function(afex_object, row, es, font="nonitalic",
              force_or_cut(aov.table[row,"den Df"], decimals), ") = ", 
              force_decimals(aov.table[row,"F"], decimals), "$")
   
-  # Print eta^2; either according to APA-style nonitalic (using font="nonitalic"),
-  # or using font = "italic"; font = "nonitalic" requires latex 
-  # package \upgreek (for \upeta)
+  # Print eta^2; either according to APA-style nonitalic (using
+  # font="nonitalic"), or using font = "italic"; font = "nonitalic"
+  # requires latex package \upgreek (for \upeta)
   if (font == "nonitalic") {
     eta_symbol <- paste0("$\\upeta_\\mathrm{", es.symbol ,"}^2 = ")
   } else if (font == "italic") {
@@ -79,21 +79,23 @@ print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
 
 #' Printing the results of a chi-square test
 #'
-#' @param tab A contingency table
-#' @param es Boolean. Should the phi coefficient be printed (only makes
-#'     sense for 2x2 contingency tables!)
-#' @param chi2.object an object that is returned by `chisq.test` (do 
-#'   not pass if argument `tab` is passed).
-#' @param correct Boolean. Apply a continuity correction? See `?chisq.test`
+#' @param tab A contingency table. Do not combine with argument
+#'     `chi2.object`.
+#' @param chi2.object an object that is returned by `chisq.test`. Do not
+#'     combine with argument `tab`. Can also handle objects returned by
+#'     `spgs::chisq.unif.test`.
+#' @param es Boolean. Should the phi coefficient be printed. This
+#'     argument only has an effect if `tab` is passed as a 2x2
+#'     contingency table. Does not have an effect if `chi2.object` is
+#'     passed.
+#' @param correct Boolean. Apply a continuity correction? See
+#'     `?chisq.test`
 #' @param decimals How many decimals should be printed
 #' @param decimals_p How many decimals should be printed for the p-value
 #'     (defaults to 3)
 #'
 #' @return A string describing the results of the chi-square test to be 
 #'   printed in Rmarkdown documents.
-#'
-#' @details The returned effect size (the phi-coefficient) only makes
-#'     sense for 2x2 contingency tables.
 #' 
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
@@ -101,19 +103,27 @@ print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
 
 print_chi2 <- function(tab = NULL, chi2.object = NULL, es = TRUE,
                        correct = FALSE, decimals = 2, decimals_p = 3) {
+  table_passed <- !is.null(tab)
+  chi2_passed  <- !is.null(chi2.object) 
+  if (table_passed & chi2_passed)
+    stop("Error: only one of the arguments `tab` and `chi2.object` can be passed.")
+  if (!(table_passed | chi2_passed))
+    stop("Error: one of the arguments `tab` and `chi2.object` has to be passed.")
+  
   N <- ""
-  if (!is.null(tab)) {
+  if (table_passed) {
     chi2.object <- chisq.test(tab, correct = correct)
     N <- paste0(", N = ", sum(tab))
   }
   p <- format_p(chi2.object$p.value, decimals_p)
-  c <- paste0("$\\chi^2(", chi2.object$parameter, N, ") = ")
+  c <- paste0("$\\chi^2(", chi2.object$parameter[1], N, ") = ")
   c <- paste0(c, force_decimals(chi2.object$statistic, decimals), "$")
   phi <- decimals_only(sqrt(chi2.object$statistic / sum(tab)), decimals)
   phi <- paste0("$\\phi = ", phi, "$")
-  if (es == FALSE) rtn <- paste(c, p, sep = ", ") # do not print effect size
-  if (es == TRUE)  rtn <- paste(c, p, phi, sep = ", ")
-  # effect size something!
+  if (es == FALSE) 
+    rtn <- paste(c, p, sep = ", ") # do not print effect size
+  if (es == TRUE & table_passed & all(dim(tab) == c(2, 2)) & length(dim(tab) == 2))
+    rtn <- paste(c, p, phi, sep = ", ") # print effect size for 2x2 contigency tables
   return(rtn)
 }
 

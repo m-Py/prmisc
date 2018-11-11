@@ -4,19 +4,23 @@
 \alias{print_chi2}
 \title{Printing the results of a chi-square test}
 \usage{
-print_chi2(tab = NULL, chi2.object = NULL, es = TRUE,
-  correct = FALSE, decimals = 2, decimals_p = 3)
+print_chi2(tab = NULL, chi2.object = NULL, es = TRUE, correct = FALSE,
+  decimals = 2, decimals_p = 3)
 }
 \arguments{
-\item{tab}{A contingency table}
+\item{tab}{A contingency table. Do not combine with argument
+`chi2.object`.}
 
-\item{chi2.object}{an object that is returned by `chisq.test` (do 
-not pass if argument `tab` is passed).}
+\item{chi2.object}{an object that is returned by `chisq.test`. Do not
+combine with argument `tab`. Can also handle objects returned by 
+`spgs::chisq.unif.test`.}
 
-\item{es}{Boolean. Should the phi coefficient be printed (only makes
-sense for 2x2 contingency tables!)}
+\item{es}{Boolean. Should the phi coefficient be printed. This argument
+only has an effect if `tab` is passed as a 2x2 contingency
+table. Does not have an effect if `chi2.object` is passed.}
 
-\item{correct}{Boolean. Apply a continuity correction? See `?chisq.test`}
+\item{correct}{Boolean. Apply a continuity correction? See
+`?chisq.test`}
 
 \item{decimals}{How many decimals should be printed}
 
@@ -29,10 +33,6 @@ A string describing the results of the chi-square test to be
 }
 \description{
 Printing the results of a chi-square test
-}
-\details{
-The returned effect size (the phi-coefficient) only makes
-    sense for 2x2 contingency tables.
 }
 \author{
 Martin Papenberg \email{martin.papenberg@hhu.de}
