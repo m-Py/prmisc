@@ -29,6 +29,9 @@
 #' print_chi2(x, correct = TRUE) # uses continuity correction
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
+#' 
+#' @importFrom stats chisq.test
+#' 
 #' @export
 #'
 
