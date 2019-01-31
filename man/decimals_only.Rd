@@ -4,12 +4,15 @@
 \alias{decimals_only}
 \title{Printing a specified number of decimals and ignore leading zeros}
 \usage{
-decimals_only(x, decimals = 2)
+decimals_only(x, decimals = 2, decimals1 = FALSE)
 }
 \arguments{
 \item{x}{the values to be printed}
 
 \item{decimals}{how many decimals are to be printed. Defaults to 2.}
+
+\item{decimals1}{Boolean - should a value of exactly 1 be converted 
+to 1.00. Defaults to FALSE.}
 }
 \value{
 The number in the required format
