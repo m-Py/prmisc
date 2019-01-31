@@ -15,23 +15,24 @@
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
-#' 
-print_anova <- function(afex_object, row, es, font="nonitalic", 
-                        decimals=2, decimals_p = 3) {
+#'
+
+print_anova <- function(afex_object, row, es, font="nonitalic",
+                        decimals = 2, decimals_p = 3) {
   
   aov.table <- afex_object$anova # contains the relevant values
   
   # Print p-value
   p_value <- aov.table[row,"Pr(>F)"]
   p <- format_p(p_value, decimals_p)
-
+  
   if (es == "pes") es.symbol <- "p"
   else if (es == "ges") es.symbol <- "G"
   
   # Print F-value
-  F <- paste0("$F(", force_or_cut(aov.table[row,"num Df"], decimals), "$, $", 
-             force_or_cut(aov.table[row,"den Df"], decimals), ") = ", 
-             force_decimals(aov.table[row,"F"], decimals), "$")
+  F <- paste0("$F(", force_or_cut(aov.table[row,"num Df"], decimals), "$, $",
+              force_or_cut(aov.table[row,"den Df"], decimals), ") = ",
+              force_decimals(aov.table[row,"F"], decimals), "$")
   
   # Print eta^2; either according to APA-style nonitalic (using
   # font="nonitalic"), or using font = "italic"; font = "nonitalic"
@@ -41,14 +42,14 @@ print_anova <- function(afex_object, row, es, font="nonitalic",
   } else if (font == "italic") {
     eta_symbol <- paste0("$\\eta_", es.symbol, "^2 = ")
   } else {
-    stop("error in function print_anova: argument 'font' must be 
+    stop("error in function print_anova: argument 'font' must be
          'nonitalic' or 'italic'")
   }
   eta <- paste0(eta_symbol, decimals_only(aov.table[row,es], decimals), "$")
   return(paste(F, p, eta, sep = ", "))
-  }
+}
 
-#' Print the results of a t-test 
+#' Print the results of a t-test
 #'
 #' @param t_object an object returned by `afex`s ANOVA functions
 #' @param d_object An object returned by `effsize::cohen.d`
@@ -65,7 +66,7 @@ print_anova <- function(afex_object, row, es, font="nonitalic",
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
-#' 
+#'
 print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
                         paired = FALSE) {
   p <- format_p(t_object$p.value, decimals_p)
@@ -89,18 +90,18 @@ print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
 #'     contingency table. Does not have an effect if `chi2.object` is
 #'     passed.
 #' @param correct Boolean. Apply a continuity correction? See
-#'     `?chisq.test`. Only has an effect if the chi-square-test 
+#'     `?chisq.test`. Only has an effect if the chi-square-test
 #'     is computed by this function, i.e., if `tab` was passed.
 #' @param decimals How many decimals should be printed
 #' @param decimals_p How many decimals should be printed for the p-value
 #'     (defaults to 3)
 #'
-#' @return A string describing the results of the chi-square test to be 
+#' @return A string describing the results of the chi-square test to be
 #'   printed in Rmarkdown documents.
-#' 
+#'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
-#' 
+#'
 
 print_chi2 <- function(tab = NULL, chi2.object = NULL, es = TRUE,
                        correct = FALSE, decimals = 2, decimals_p = 3) {
@@ -184,40 +185,40 @@ format_p_ <- function(pvalue, decimals) {
 #' Force printing a specified number of decimals for a number
 #'
 #' @param x the values to be printed
-#' @param n_digits how many decimals are to be printed
+#' @param decimals how many decimals are to be printed
 #'
 #' @return The number in the required format
-#' 
+#'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
 #'
-force_decimals <- function(x, n_digits) {
-  return(vectorize_print(x, n_digits, force_decimals_))
+force_decimals <- function(x, decimals) {
+  return(vectorize_print(x, decimals, force_decimals_))
 }
 
-force_decimals_ <- function(x, n_digits) {
+force_decimals_ <- function(x, decimals) {
   x <- as.numeric(x)
-  return(format(round(x, n_digits), nsmall = n_digits))
+  return(format(round(x, decimals), nsmall = decimals))
 }
 
 #' Force printing a specified number of decimals and leave out a leading
 #' zero
 #'
 #' @param x the values to be printed
-#' @param n_digits how many decimals are to be printed
+#' @param decimals how many decimals are to be printed
 #'
 #' @return The number in the required format
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
 #'
-decimals_only <- function(x, n_digits) {
-  return(vectorize_print(x, n_digits, decimals_only_))
+decimals_only <- function(x, decimals) {
+  return(vectorize_print(x, decimals, decimals_only_))
 }
 
-decimals_only_ <- function(x, n_digits) {
+decimals_only_ <- function(x, decimals) {
   x <- as.numeric(x)
-  n_small <- force_decimals(x, n_digits)
+  n_small <- force_decimals(x, decimals)
   cut_decimal <- paste0(".", strsplit(as.character(n_small), ".", TRUE)[[1]][2])
   if (x < 0) cut_decimal <- paste0("-", cut_decimal)
   return(cut_decimal)
@@ -226,29 +227,29 @@ decimals_only_ <- function(x, n_digits) {
 #' Print a number having a specified number of digits or as integer
 #'
 #' @param x A vector of numbers
-#' @param n_digits The number of digits that should be printed if x is a
+#' @param decimals The number of digits that should be printed if x is a
 #'     decimal number
 #'
 #' @return The number in the required format
-#' 
+#'
 #' @details If x integer, only the integer is printed, if x is a decimal
 #'     number, the decimals are printed
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
-#' 
-force_or_cut <- function(x, n_digits) {
-  return(vectorize_print(x, n_digits, force_or_cut_))
+#'
+force_or_cut <- function(x, decimals) {
+  return(vectorize_print(x, decimals, force_or_cut_))
 }
 
-force_or_cut_ <- function(x, n_digits) {
+force_or_cut_ <- function(x, decimals) {
   x <- as.numeric(x)
   if (x %% 1 == 0) return(as.character(x))
-  else return(force_decimals_(x, n_digits))
+  else return(force_decimals_(x, decimals))
 }
 
 ## An abstract function used to vectorize all number printing functions
-vectorize_print <- function(x, n_digits, FUN) {
-  x_ <- vapply(x, FUN, FUN.VALUE = "character", n_digits)
+vectorize_print <- function(x, decimals, FUN) {
+  x_ <- vapply(x, FUN, FUN.VALUE = "character", decimals)
   return(x_)
 }

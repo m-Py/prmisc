@@ -5,12 +5,12 @@
 \title{Force printing a specified number of decimals and leave out a leading
 zero}
 \usage{
-decimals_only(x, n_digits)
+decimals_only(x, decimals)
 }
 \arguments{
 \item{x}{the values to be printed}
 
-\item{n_digits}{how many decimals are to be printed}
+\item{decimals}{how many decimals are to be printed}
 }
 \value{
 The number in the required format

@@ -4,12 +4,12 @@
 \alias{force_or_cut}
 \title{Print a number having a specified number of digits or as integer}
 \usage{
-force_or_cut(x, n_digits)
+force_or_cut(x, decimals)
 }
 \arguments{
 \item{x}{A vector of numbers}
 
-\item{n_digits}{The number of digits that should be printed if x is a
+\item{decimals}{The number of digits that should be printed if x is a
 decimal number}
 }
 \value{

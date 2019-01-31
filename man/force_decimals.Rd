@@ -4,12 +4,12 @@
 \alias{force_decimals}
 \title{Force printing a specified number of decimals for a number}
 \usage{
-force_decimals(x, n_digits)
+force_decimals(x, decimals)
 }
 \arguments{
 \item{x}{the values to be printed}
 
-\item{n_digits}{how many decimals are to be printed}
+\item{decimals}{how many decimals are to be printed}
 }
 \value{
 The number in the required format

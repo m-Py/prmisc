@@ -4,10 +4,10 @@
 \alias{format_p}
 \title{Format a p-value according to APA standards}
 \usage{
-format_p(pvalue, decimals)
+format_p(pvalues, decimals)
 }
 \arguments{
-\item{pvalue}{The p-value}
+\item{pvalues}{The p-values}
 
 \item{decimals}{The number of decimals to be printed}
 }

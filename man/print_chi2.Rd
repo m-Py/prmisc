@@ -4,8 +4,8 @@
 \alias{print_chi2}
 \title{Printing the results of a chi-square test}
 \usage{
-print_chi2(tab = NULL, chi2.object = NULL, es = TRUE, correct = FALSE,
-  decimals = 2, decimals_p = 3)
+print_chi2(tab = NULL, chi2.object = NULL, es = TRUE,
+  correct = FALSE, decimals = 2, decimals_p = 3)
 }
 \arguments{
 \item{tab}{A contingency table. Do not combine with argument
