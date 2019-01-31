@@ -22,7 +22,8 @@ passed.}
 
 \item{correct}{Boolean. Apply a continuity correction? See
 `?chisq.test`. Only has an effect if the chi-square-test
-is computed by this function, i.e., if `tab` was passed.}
+is computed by this function, i.e., if `tab` was passed.
+The default value is FALSE.}
 
 \item{decimals}{How many decimals should be printed}
 
@@ -35,6 +36,13 @@ A string describing the results of the chi-square test to be
 }
 \description{
 Printing the results of a chi-square test
+}
+\examples{
+
+x <- matrix(c(12, 5, 7, 7), ncol = 2)
+print_chi2(x) # does not use continuity correction by default
+print_chi2(x, correct = TRUE) # uses continuity correction
+
 }
 \author{
 Martin Papenberg \email{martin.papenberg@hhu.de}

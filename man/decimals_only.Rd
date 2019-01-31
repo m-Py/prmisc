@@ -19,6 +19,11 @@ The number in the required format
 Force printing a specified number of decimals and leave out a leading
 zero
 }
+\examples{
+
+decimals_only(c(0.23456, 0.873, 0.3456), decimals = 3)
+
+}
 \author{
 Martin Papenberg \email{martin.papenberg@hhu.de}
 }

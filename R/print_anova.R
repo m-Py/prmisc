@@ -1,28 +1,39 @@
 
 #' Print the results of an `afex` ANOVA object
 #'
-#' @param afex_object an object returned by one of afex's ANOVA functions
-#' @param es A String "pes" or "ges"; which effect size measure was
-#'     used?
-#' @param font should the effect size symbol eta be printed in "italic"
+#' @param afex_object An object returned by one of afex's ANOVA functions
+#' @param es A String "pes" or "ges" - was a partial eta-squared or a 
+#' generalized eta-squared used?
+#' @param font Should the effect size symbol eta be printed in "italic"
 #'     or "nonitalic". See details.  
-#' @param decimals how many decimals should be printed
-#' @param decimals_p how many decimals should be printed for the p-value
-#'     (defaults to 3)
+#' @param decimals How many decimals should be printed for F values.
+#'     Defaults to 2.
+#' @param decimals_p How many decimals should be printed for p-values
+#'     Defaults to 3.
 #' 
 #' @details 
 #' 
-#' To use this function, you have to install axes and use afex to compute
+#' To use this function, you have to install afex and use afex to compute
 #' an ANOVA object; pass this object as the first argument.
 #'  
 #' According to APA style, the eta symbol should be printed non-italic,
-#' but the standard Latex \eta symbol is italic. To print a 
+#' but the standard Latex \\eta symbol is italic. To print a 
 #' non-italic eta, use font = "nonitalic". However, this option 
 #' requires that you load the package `upgreek` in the YAML header of 
 #' your R markdown document. To this end, use the following: 
 #' 
 #' header-includes:
-#'   -\usepackage{upgreek}
+#'   -\\usepackage{upgreek}
+#'   
+#' @examples 
+#' 
+#' library("afex")
+#' # see ?aov_ez
+#' data(md_12.1)
+#' aov_results <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"))
+#' print_anova(aov_results, es = "ges")
+#' # Print nonitalic eta, which is required according to APA guidelines
+#' print_anova(aov_results, es = "ges", font = "nonitalic")
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export

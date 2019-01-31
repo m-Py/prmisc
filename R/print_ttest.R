@@ -15,7 +15,13 @@
 #' 
 #' To use this function, you need to install the R package effsize and 
 #' compute a Cohen's d object; pass this object as the second argument.
-#'   
+#'
+#' @examples 
+#' 
+#' ttest <- t.test(1:10, y = c(7:20), var.equal = TRUE)
+#' library("effsize") # for Cohen's d
+#' cohend <- cohen.d(1:10, c(7:20))
+#' print_ttest(ttest, cohend) # include this call in Rmd inline code
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export

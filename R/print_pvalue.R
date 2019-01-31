@@ -1,6 +1,5 @@
 
 
-
 #' Format a p-value according to APA standards
 #' 
 #' @param pvalues The p-values
@@ -9,7 +8,19 @@
 #'   documents.
 #' 
 #' @export
+#' 
+#' @examples
+#' 
+#' # Format a p-value, default is 3 decimals
+#' format_p(0.03123)
+#' format_p(0.000001231)
+#' format_p(0.000001231, decimals = 2)
+#' format_p(0.3123, decimals = 2)
+#' # Format several p-values with one function call
+#' format_p(c(0.3123, 0.001, 0.00001, 0.19))
+#' format_p(c(.999, .9999, 1))
 #'
+
 format_p <- function(pvalues, decimals = 3) {
   return(vectorize_print(pvalues, decimals, format_p_))
 }

@@ -6,6 +6,10 @@
 #' @param decimals how many decimals are to be printed. Defaults to 2.
 #'
 #' @return The number in the required format
+#' 
+#' @examples 
+#' 
+#' decimals_only(c(0.23456, 0.873, 0.3456), decimals = 3)
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export

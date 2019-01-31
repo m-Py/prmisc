@@ -21,6 +21,12 @@
 #'
 #' @return A string describing the results of the chi-square test to be
 #'   printed in Rmarkdown documents.
+#'   
+#' @examples 
+#' 
+#' x <- matrix(c(12, 5, 7, 7), ncol = 2)
+#' print_chi2(x) # does not use continuity correction by default
+#' print_chi2(x, correct = TRUE) # uses continuity correction
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
