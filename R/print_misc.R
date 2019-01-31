@@ -22,6 +22,8 @@ force_or_cut <- function(x, decimals = 2) {
 }
 
 force_or_cut_ <- function(x, decimals) {
+  if (is.na(x))
+    return(NA_character_)
   if (x %% 1 == 0) return(as.character(x))
   else return(force_decimals_(x, decimals))
 }
