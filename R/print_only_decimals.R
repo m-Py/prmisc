@@ -27,7 +27,7 @@ decimals_only_ <- function(x, decimals, decimals1) {
   if (!is.na(x_) & x_ == 1 & decimals1 == FALSE)
     return(force_or_cut(x_, decimals))
   if (is.na(x_))
-    return(NA)
+    return(NA_character_)
   n_small <- force_decimals(x_, decimals)
   if (x_ >= 1) {
     ret <- n_small
