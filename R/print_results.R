@@ -112,7 +112,7 @@ print_cortest <- function(cor_object, decimals = 2, decimals_p = 3) {
 #' 
 #' @export
 #'
-format_p <- function(pvalues, decimals) {
+format_p <- function(pvalues, decimals = 3) {
   return(vectorize_print(pvalues, decimals, format_p_))
 }
 
