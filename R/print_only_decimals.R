@@ -15,7 +15,7 @@
 #' @export
 #'
 decimals_only <- function(x, decimals = 2) {
-  if (any(x > 1))
+  if (any(x > 1, na.rm = TRUE))
     warning("At least one number was greater than one, its leading digit was left intact.")
   return(vectorize_print(x, decimals, decimals_only_))
 }
