@@ -1,11 +1,11 @@
 # prmisc
 
-Miscellaneous printing of stat results in Rmarkdown according to APA
-style guidelines. This package covers some basic statistical tests
+Miscellaneous printing of statistical results in Rmarkdown according to
+APA style guidelines. This package covers some basic statistical tests
 (t-test, ANOVA, correlation, chi-squared test) and some basic number
-printing manipulations (formatting p-values, removing leading zeros
-for numbers that cannot be greater than one, and others). For more
-printing functions in R markdown documents see the package
+printing manipulations (formatting p-values, removing leading zeros for
+numbers that cannot be greater than one, and others). For more printing
+functions in R markdown documents see the R package
 [papaja](https://github.com/crsh/papaja).
 
 # Installation
@@ -91,33 +91,24 @@ force_decimals(c(1:3, 1.23456, 0.873, 2.3456), decimals = 2)
 decimals_only(c(0.23456, 0.873, 0.3456), decimals = 3)
 # [1] ".235" ".873" ".346"
 
-## Format a p-value
-format_p(0.03123, 3)
-
+## Format a p-value, default is 3 decimals
+format_p(0.03123)
 # [1] "$p = .031$"
 
 format_p(0.000001231, 3)
-
 # [1] "$p < .001$"
 
-format_p(0.3123, 2)
-
+format_p(0.3123, decimals = 2)
 # [1] "$p = .31$"
 
-format_p(.999, 3)
-
-# [1] "$p = .999$"
-
-format_p(.9999, 3)
-
-# [1] "$p > .999$"
-
-format_p(1, 3)
-
-# [1] "$p > .999$"
-
-## Format several p-values
-format_p(c(0.3123, 0.001, 0.00001, 0.19), 3)
+## Format several p-values with one function call
+format_p(c(0.3123, 0.001, 0.00001, 0.19))
 # [1] "$p = .312$" "$p = .001$" "$p < .001$" "$p = .190$"
+
+format_p(c(.999, .9999, 1))
+# [1] "$p = .999$" "$p > .999$" "$p > .999$"
+
+
+
 
 ```
