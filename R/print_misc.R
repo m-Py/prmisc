@@ -29,6 +29,6 @@ force_or_cut_ <- function(x, decimals) {
 
 ## An abstract function used to vectorize all number printing functions
 vectorize_print <- function(x, decimals, FUN) {
-  x_ <- vapply(x, FUN, FUN.VALUE = "character", decimals)
+  x_ <- sapply(x, FUN, decimals)
   return(x_)
 }

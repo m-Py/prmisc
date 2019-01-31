@@ -21,8 +21,10 @@ decimals_only <- function(x, decimals = 2) {
 }
 
 decimals_only_ <- function(x, decimals) {
-  if (x >= 1)
+  if (!is.na(x) & x >= 1)
     return(force_or_cut(x, decimals))
+  if (is.na(x)) 
+    return(NA)
   x <- as.numeric(x)
   n_small <- force_decimals(x, decimals)
   cut_decimal <- paste0(".", strsplit(as.character(n_small), ".", TRUE)[[1]][2])
