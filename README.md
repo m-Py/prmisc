@@ -4,8 +4,8 @@ Miscellaneous printing of stat results in Rmarkdown according to APA
 style guidelines. This package covers some basic statistical tests
 (t-test, ANOVA, correlation, chi-squared test) and some basic number
 printing manipulations (formatting p-values, removing leading zeros
-for numbers that cannot be greater than one and others). For more
-printing functions for R markdown documents see the package
+for numbers that cannot be greater than one, and others). For more
+printing functions in R markdown documents see the package
 [papaja](https://github.com/crsh/papaja).
 
 # Installation
