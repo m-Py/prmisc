@@ -154,15 +154,19 @@ print_cortest <- function(cor_object, decimals = 2, decimals_p = 3) {
 
 
 #' Format a p-value according to APA standards
-#' @param pvalue The p-value
+#' @param pvalues The p-values
 #' @param decimals The number of decimals to be printed
 #' @return A string representation of the p value to be used in Rmarkdown
 #'   documents.
 #' 
 #' @export
-#' 
-format_p <- function(pvalue, decimals) {
-  if (pvalue < 0 | pvalue > 1) 
+#'
+format_p <- function(pvalues, decimals) {
+  return(vectorize_print(pvalues, decimals, format_p_))
+}
+
+format_p_ <- function(pvalue, decimals) {
+  if (pvalue < 0 | pvalue > 1)
     stop("p value is smaller than 0 or larger than 1")
   if (pvalue >= 0.001) {
     p <- paste0("$p = ", decimals_only(pvalue, decimals), "$")
