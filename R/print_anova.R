@@ -2,8 +2,6 @@
 #' Print the results of an `afex` ANOVA object
 #'
 #' @param afex_object An object returned by one of afex's ANOVA functions
-#' @param es A String "pes" or "ges" - was a partial eta-squared or a 
-#' generalized eta-squared used?
 #' @param font Should the effect size symbol eta be printed in "italic"
 #'     or "nonitalic". See details.  
 #' @param decimals How many decimals should be printed for F values.
@@ -31,39 +29,55 @@
 #' # see ?aov_ez
 #' data(md_12.1)
 #' aov_results <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"))
-#' print_anova(aov_results, es = "ges")
+#' print_anova(aov_results)
 #' # Print nonitalic eta, which is required according to APA guidelines
-#' print_anova(aov_results, es = "ges", font = "nonitalic")
+#' print_anova(aov_results, font = "nonitalic")
+#' # Example using other (or no) effect size index
+#' pes <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"), 
+#'               anova_table = list(es = "pes"))
+#' print_anova(pes)
+#' noes <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"), 
+#'                anova_table = list(es = "none"))
+#' print_anova(noes)
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
 #'
 
-print_anova <- function(afex_object, es, font = "italic",
+print_anova <- function(afex_object, font = "italic",
                         decimals = 2, decimals_p = 3) {
   rows <- rownames(afex_object$anova)
   return_list <- list()
   for (i in seq_along(rows)) {
     ## name the elements of the returned list by effect
-    return_list[[rows[i]]] <- print_anova_(afex_object, i, es, font, decimals, decimals_p)
+    return_list[[rows[i]]] <- print_anova_(afex_object, i, font, decimals, decimals_p)
   }
   return(return_list)
 }
   
 
-print_anova_ <- function(afex_object, row, es, font = "nonitalic",
+print_anova_ <- function(afex_object, row, font = "nonitalic",
                         decimals = 2, decimals_p = 3) {
   
-  aov.table <- afex_object$anova # contains the relevant values
+  aov.table <- afex_object$anova_table # contains the relevant values
   
-  # Print p-value
-  p_value <- aov.table[row,"Pr(>F)"]
-  p <- format_p(p_value, decimals_p)
+  ## Set symbol for effect size
+  cols <- names(aov.table)
+  has_effect_size <- length(cols) == 6 # maybe afex object does not have effect size
+  if (has_effect_size) 
+    es <- cols[5]
+  else 
+    es <- ""
   
   if (es == "pes") es.symbol <- "p"
   else if (es == "ges") es.symbol <- "G"
-  
-  # Print F-value
+  else es.symbol <- "" # if there was no eta-squared in the object
+
+  # p-value
+  p_value <- aov.table[row, "Pr(>F)"]
+  p <- format_p(p_value, decimals_p)
+    
+  # F-value
   F <- paste0("$F(", force_or_cut(aov.table[row,"num Df"], decimals), "$, $",
               force_or_cut(aov.table[row,"den Df"], decimals), ") = ",
               force_decimals(aov.table[row,"F"], decimals), "$")
@@ -80,5 +94,8 @@ print_anova_ <- function(afex_object, row, es, font = "nonitalic",
          'nonitalic' or 'italic'")
   }
   eta <- paste0(eta_symbol, decimals_only(aov.table[row,es], decimals), "$")
-  return(paste(F, p, eta, sep = ", "))
+  ret <- paste(F, p, eta, sep = ", ")
+  if (!has_effect_size)
+    ret <- paste(F, p, sep = ", ")
+  return(ret)
 }

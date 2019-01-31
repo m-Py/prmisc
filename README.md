@@ -64,10 +64,16 @@ library("afex")
 data(md_12.1)
 aov_results <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"))
 
-print_anova(aov_results, es = "ges")
+print_anova(aov_results)
 
 ## Print nonitalic eta, which is required according to APA guidelines
-print_anova(aov_results, es = "ges", font = "nonitalic")
+print_anova(aov_results, font = "nonitalic")
+
+## Example using other (or no) effect size index
+print_anova(aov_ez("id", "rt", md_12.1, within = c("angle", "noise"),
+                   anova_table = list(es = "pes")))
+print_anova(aov_ez("id", "rt", md_12.1, within = c("angle", "noise"),
+                   anova_table = list(es = "none")))
 
 ```
 

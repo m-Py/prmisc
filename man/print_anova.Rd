@@ -4,14 +4,11 @@
 \alias{print_anova}
 \title{Print the results of an `afex` ANOVA object}
 \usage{
-print_anova(afex_object, es, font = "italic", decimals = 2,
+print_anova(afex_object, font = "italic", decimals = 2,
   decimals_p = 3)
 }
 \arguments{
 \item{afex_object}{An object returned by one of afex's ANOVA functions}
-
-\item{es}{A String "pes" or "ges" - was a partial eta-squared or a 
-generalized eta-squared used?}
 
 \item{font}{Should the effect size symbol eta be printed in "italic"
 or "nonitalic". See details.}
@@ -44,9 +41,16 @@ library("afex")
 # see ?aov_ez
 data(md_12.1)
 aov_results <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"))
-print_anova(aov_results, es = "ges")
+print_anova(aov_results)
 # Print nonitalic eta, which is required according to APA guidelines
-print_anova(aov_results, es = "ges", font = "nonitalic")
+print_anova(aov_results, font = "nonitalic")
+# Example using other (or no) effect size index
+pes <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"), 
+              anova_table = list(es = "pes"))
+print_anova(pes)
+noes <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"), 
+               anova_table = list(es = "none"))
+print_anova(noes)
 
 }
 \author{
