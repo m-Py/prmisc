@@ -26,10 +26,11 @@ Print the results of an `afex` ANOVA object
 }
 \details{
 According to APA style, the eta symbol should be printed non-italic,
-but the standard Latex \eta symbol will be italic. To print a 
+but the standard Latex \eta symbol is italic. To print a 
 non-italic eta, use font = "nonitalic". However, this option 
 requires that you load the package `upgreek` in the YAML header of 
 your R markdown document. To this end, use the following: 
+
 header-includes:
   -\usepackage{upgreek}
 }

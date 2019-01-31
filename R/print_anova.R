@@ -1,7 +1,7 @@
 
 #' Print the results of an `afex` ANOVA object
 #'
-#' @param afex_object an object returned by `afex`s ANOVA functions
+#' @param afex_object an object returned by one of afex's ANOVA functions
 #' @param es A String "pes" or "ges"; which effect size measure was
 #'     used?
 #' @param font should the effect size symbol eta be printed in "italic"
@@ -11,11 +11,16 @@
 #'     (defaults to 3)
 #' 
 #' @details 
+#' 
+#' To use this function, you have to install axes and use afex to compute
+#' an ANOVA object; pass this object as the first argument.
+#'  
 #' According to APA style, the eta symbol should be printed non-italic,
-#' but the standard Latex \eta symbol will be italic. To print a 
+#' but the standard Latex \eta symbol is italic. To print a 
 #' non-italic eta, use font = "nonitalic". However, this option 
 #' requires that you load the package `upgreek` in the YAML header of 
 #' your R markdown document. To this end, use the following: 
+#' 
 #' header-includes:
 #'   -\usepackage{upgreek}
 #'

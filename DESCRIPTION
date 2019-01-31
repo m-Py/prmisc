@@ -14,3 +14,7 @@ Authors@R: c(person(given="Martin", family="Papenberg",
 Version: 0.01-4
 Date: 2018-11-08
 RoxygenNote: 6.1.0
+Suggests:
+    afex,
+    effsize,
+    spgs
