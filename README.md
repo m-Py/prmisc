@@ -1,6 +1,12 @@
 # prmisc
 
-Miscellaneous printing of stat results in Rmarkdown.
+Miscellaneous printing of stat results in Rmarkdown according to APA
+style guidelines. This package covers some basic statistical tests
+(t-test, ANOVA, correlation, chi-squared test) and some basic number
+printing manipulations (formatting p-values, removing leading zeros
+for numbers that cannot be greater than one and others). For more
+printing functions for R markdown documents see the package
+[papaja](https://github.com/crsh/papaja).
 
 # Installation
 
@@ -8,11 +14,11 @@ Miscellaneous printing of stat results in Rmarkdown.
 library("devtools") # if not available: install.packages("devtools")
 install_github("m-Py/prmisc")
 
-# load the package via 
+# load the package via
 library("prmisc")
 ```
 
-# Usage 
+# Usage
 
 ## t.test
 
@@ -58,10 +64,10 @@ library("afex")
 data(md_12.1)
 aov_results <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"))
 
-print_anova(aov_results, es = "ges") 
+print_anova(aov_results, es = "ges")
 
 ## Print nonitalic eta, which is required according to APA guidelines
-print_anova(aov_results, es = "ges", font = "nonitalic") 
+print_anova(aov_results, es = "ges", font = "nonitalic")
 
 ```
 
@@ -77,7 +83,7 @@ force_decimals(c(1.23456, 0.873, 2.3456), decimals = 2)
 ## Leave integers intact:
 force_or_cut(c(1:3, 1.23456, 0.873, 2.3456), decimals = 2)
 # [1] "1"    "2"    "3"    "1.23" "0.87" "2.35"
-## Compare: 
+## Compare:
 force_decimals(c(1:3, 1.23456, 0.873, 2.3456), decimals = 2)
 # [1] "1.00" "2.00" "3.00" "1.23" "0.87" "2.35"
 
