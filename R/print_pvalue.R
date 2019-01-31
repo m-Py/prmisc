@@ -35,7 +35,7 @@ format_p_ <- function(pvalue, decimals) {
   if (round(pvalue, decimals) == 1) {
     p <- paste0("$p > .", paste0(rep("9", decimals), collapse = ""), "$")
   }
-  if (pvalue < 0.005 & decimals <= 2) p <- "$p < .01$"
+  if (pvalue < 0.01 & decimals <= 2) p <- "$p < .01$"
   if (pvalue < 0.001) p <- "$p < .001$"
   return(p)
 }
