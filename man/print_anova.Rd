@@ -13,10 +13,10 @@ print_anova(afex_object, font = "italic", decimals = 2,
 \item{font}{Should the effect size symbol eta be printed in "italic"
 or "nonitalic". See details.}
 
-\item{decimals}{How many decimals should be printed for F values.
-Defaults to 2.}
+\item{decimals}{How many decimals should be printed for F values
+and eta-squared. Defaults to 2.}
 
-\item{decimals_p}{How many decimals should be printed for p-values
+\item{decimals_p}{How many decimals should be printed for p-values.
 Defaults to 3.}
 }
 \description{

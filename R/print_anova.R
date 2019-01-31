@@ -4,9 +4,9 @@
 #' @param afex_object An object returned by one of afex's ANOVA functions
 #' @param font Should the effect size symbol eta be printed in "italic"
 #'     or "nonitalic". See details.  
-#' @param decimals How many decimals should be printed for F values.
-#'     Defaults to 2.
-#' @param decimals_p How many decimals should be printed for p-values
+#' @param decimals How many decimals should be printed for F values
+#'     and eta-squared. Defaults to 2.
+#' @param decimals_p How many decimals should be printed for p-values.
 #'     Defaults to 3.
 #' 
 #' @details 
