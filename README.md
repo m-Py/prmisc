@@ -58,17 +58,11 @@ library("afex")
 data(md_12.1)
 aov_results <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"))
 
-print_anova(aov_results, 1, es = "ges") # first effect
-# [1] "$F(1.92$, $17.31) = 40.72$, $p < .001$, $\\upeta_\\mathrm{G}^2 = .39$"
+print_anova(aov_results, es = "ges") 
 
-print_anova(aov_results, 1, es = "ges", font = "italic") # use standard italic eta symbol 
-# [1] "$F(1.92$, $17.31) = 40.72$, $p < .001$, $\\eta_G^2 = .39$"
+## Print nonitalic eta, which is required according to APA guidelines
+print_anova(aov_results, es = "ges", font = "nonitalic") 
 
-print_anova(aov_results, 2, es = "ges", font = "italic") # second effect
-# [1] "$F(1$, $9) = 33.77$, $p < .001$, $\\eta_G^2 = .39$"
-
-print_anova(aov_results, 3, es = "ges", font = "italic") # interaction effect
-# [1] "$F(1.81$, $16.27) = 45.31$, $p < .001$, $\\eta_G^2 = .19$"
 ```
 
 ## Some functions for printing numbers
