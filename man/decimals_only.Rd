@@ -2,8 +2,7 @@
 % Please edit documentation in R/print_only_decimals.R
 \name{decimals_only}
 \alias{decimals_only}
-\title{Force printing a specified number of decimals and leave out a leading
-zero}
+\title{Printing a specified number of decimals and ignore leading zeros}
 \usage{
 decimals_only(x, decimals = 2)
 }
@@ -16,8 +15,7 @@ decimals_only(x, decimals = 2)
 The number in the required format
 }
 \description{
-Force printing a specified number of decimals and leave out a leading
-zero
+Printing a specified number of decimals and ignore leading zeros
 }
 \examples{
 

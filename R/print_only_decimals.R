@@ -1,6 +1,5 @@
 
-#' Force printing a specified number of decimals and leave out a leading
-#' zero
+#' Printing a specified number of decimals and ignore leading zeros 
 #'
 #' @param x the values to be printed
 #' @param decimals how many decimals are to be printed. Defaults to 2.
@@ -21,15 +20,18 @@ decimals_only <- function(x, decimals = 2) {
 }
 
 decimals_only_ <- function(x, decimals) {
-  if (!is.na(x) & x == 1)
-    return(force_or_cut(x, decimals))
-  if (is.na(x)) 
-    return(NA)
   x <- as.numeric(x)
-  n_small <- force_decimals(x, decimals)
-  if (x > 1)
-    return(n_small)
-  cut_decimal <- paste0(".", strsplit(as.character(n_small), ".", TRUE)[[1]][2])
-  if (x < 0) cut_decimal <- paste0("-", cut_decimal)
-  return(cut_decimal)
+  x_ <- abs(x)
+  if (!is.na(x_) & x_ == 1)
+    return(force_or_cut(x_, decimals))
+  if (is.na(x_))
+    return(NA)
+  n_small <- force_decimals(x_, decimals)
+  if (x_ > 1) {
+    ret <- n_small
+  } else {
+    ret <- paste0(".", strsplit(as.character(n_small), ".", TRUE)[[1]][2])
+  }
+  if (x < 0) ret <- paste0("-", ret)
+  return(ret)
 }
