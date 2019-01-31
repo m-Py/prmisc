@@ -22,7 +22,6 @@ decimals_only <- function(x, decimals = 2, decimals1 = FALSE) {
 }
 
 decimals_only_ <- function(x, decimals, decimals1) {
-  x <- as.numeric(x)
   x_ <- abs(x)
   if (!is.na(x_) & x_ == 1 & decimals1 == FALSE)
     return(force_or_cut(x_, decimals))
