@@ -42,6 +42,18 @@
 #' print_anova(pes, italic_eta = FALSE)
 #'                anova_table = list(es = "none"))
 #' print_anova(noes)
+#' 
+#' ## Access individual elements of the ANOVA print list:
+#' aovpr <- print_anova(aov_results, italic_eta = FALSE)
+#' # By index: 
+#' aovpr[[1]]
+#' # By name (main effect): 
+#' aovpr$angle
+#' aovpr[["angle"]]
+#' # By name (interaction effect, here, the $-notation does not work 
+#' # due to non-standard `:` in name): 
+#' aovpr[["angle:noise"]] 
+#' 
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
