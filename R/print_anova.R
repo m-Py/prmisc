@@ -2,8 +2,8 @@
 #' Print the results of an `afex` ANOVA object
 #'
 #' @param afex_object An object returned by one of afex's ANOVA functions
-#' @param font Should the effect size symbol eta be printed in "italic"
-#'     or "nonitalic". See details.  
+#' @param italic_eta Should the effect size symbol eta be printed in
+#'     italic font. Defaults to TRUE. See details.
 #' @param decimals How many decimals should be printed for F values
 #'     and eta-squared. Defaults to 2.
 #' @param decimals_p How many decimals should be printed for p-values.
@@ -13,13 +13,15 @@
 #' 
 #' To use this function, you have to install afex and use afex to compute
 #' an ANOVA object; pass this object as the first argument.
-#'  
-#' According to APA style, the eta symbol should be printed non-italic,
-#' but the standard Latex \\eta symbol is italic. To print a 
-#' non-italic eta, use font = "nonitalic". However, this option 
-#' requires that you load the package `upgreek` in the YAML header of 
-#' your R markdown document. To this end, use the following: 
-#' 
+#'
+#' According to APA style, the _greek_ eta symbol - indicating the
+#' effect size in  the ANOVA - should be printed in non-italic font.
+#' However, but the standard Latex \\eta symbol is italic. To print a
+#' non-italic eta, use the argument `italic_eta` = FALSE. However, this
+#' option requires that you load the package `upgreek` in the YAML
+#' header of your R markdown document. To this end, use the following
+#' option in your YAML header:
+#'
 #' header-includes:
 #'   -\\usepackage{upgreek}
 #'   
@@ -31,12 +33,13 @@
 #' aov_results <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"))
 #' print_anova(aov_results)
 #' # Print nonitalic eta, which is required according to APA guidelines
-#' print_anova(aov_results, font = "nonitalic")
+#' print_anova(aov_results, italic_eta = FALSE)
 #' # Example using other (or no) effect size index
 #' pes <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"), 
 #'               anova_table = list(es = "pes"))
 #' print_anova(pes)
 #' noes <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"), 
+#' print_anova(pes, italic_eta = FALSE)
 #'                anova_table = list(es = "none"))
 #' print_anova(noes)
 #'
@@ -44,8 +47,9 @@
 #' @export
 #'
 
-print_anova <- function(afex_object, font = "italic",
+print_anova <- function(afex_object, italic_eta = TRUE,
                         decimals = 2, decimals_p = 3) {
+  font <- ifelse(italic_eta == TRUE, "italic", "nonitalic")
   rows <- rownames(afex_object$anova)
   return_list <- list()
   for (i in seq_along(rows)) {
@@ -89,10 +93,6 @@ print_anova_ <- function(afex_object, row, font = "nonitalic",
     eta_symbol <- paste0("$\\upeta_\\mathrm{", es.symbol ,"}^2 = ")
   } else if (font == "italic") {
     eta_symbol <- paste0("$\\eta_", es.symbol, "^2 = ")
-  } else {
-    stop("error in function print_anova: argument 'font' must be
-         'nonitalic' or 'italic'")
-  }
   eta <- paste0(eta_symbol, decimals_only(aov.table[row,es], decimals), "$")
   ret <- paste(F, p, eta, sep = ", ")
   if (!has_effect_size)
