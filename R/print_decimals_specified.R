@@ -19,6 +19,5 @@ force_decimals <- function(x, decimals = 2) {
 }
 
 force_decimals_ <- function(x, decimals) {
-  x <- as.numeric(x)
   return(format(round(x, decimals), nsmall = decimals))
 }

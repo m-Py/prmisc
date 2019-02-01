@@ -22,13 +22,15 @@ force_or_cut <- function(x, decimals = 2) {
 }
 
 force_or_cut_ <- function(x, decimals) {
-  x <- as.numeric(x)
+  if (is.na(x))
+    return(NA_character_)
   if (x %% 1 == 0) return(as.character(x))
   else return(force_decimals_(x, decimals))
 }
 
 ## An abstract function used to vectorize all number printing functions
 vectorize_print <- function(x, decimals, FUN, ...) {
+  x <- as.numeric(x)
   x_ <- vapply(x, FUN, FUN.VALUE = "character", decimals, ...)
   return(x_)
 }
