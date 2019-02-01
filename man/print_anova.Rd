@@ -4,14 +4,14 @@
 \alias{print_anova}
 \title{Print the results of an `afex` ANOVA object}
 \usage{
-print_anova(afex_object, font = "italic", decimals = 2,
+print_anova(afex_object, italic_eta = TRUE, decimals = 2,
   decimals_p = 3)
 }
 \arguments{
 \item{afex_object}{An object returned by one of afex's ANOVA functions}
 
-\item{font}{Should the effect size symbol eta be printed in "italic"
-or "nonitalic". See details.}
+\item{italic_eta}{Should the effect size symbol eta be printed in
+italic font. Defaults to TRUE. See details.}
 
 \item{decimals}{How many decimals should be printed for F values
 and eta-squared. Defaults to 2.}
@@ -25,12 +25,14 @@ Print the results of an `afex` ANOVA object
 \details{
 To use this function, you have to install afex and use afex to compute
 an ANOVA object; pass this object as the first argument.
- 
-According to APA style, the eta symbol should be printed non-italic,
-but the standard Latex \\eta symbol is italic. To print a 
-non-italic eta, use font = "nonitalic". However, this option 
-requires that you load the package `upgreek` in the YAML header of 
-your R markdown document. To this end, use the following: 
+
+According to APA style, the _greek_ eta symbol - indicating the
+effect size in  the ANOVA - should be printed in non-italic font.
+However, but the standard Latex \\eta symbol is italic. To print a
+non-italic eta, use the argument `italic_eta` = FALSE. However, this
+option requires that you load the package `upgreek` in the YAML
+header of your R markdown document. To this end, use the following
+option in your YAML header:
 
 header-includes:
   -\\usepackage{upgreek}
@@ -42,15 +44,30 @@ library("afex")
 data(md_12.1)
 aov_results <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"))
 print_anova(aov_results)
+
 # Print nonitalic eta, which is required according to APA guidelines
-print_anova(aov_results, font = "nonitalic")
+print_anova(aov_results, italic_eta = FALSE)
+
 # Example using other (or no) effect size index
-pes <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"), 
+pes <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"),
               anova_table = list(es = "pes"))
 print_anova(pes)
-noes <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"), 
+print_anova(pes, italic_eta = FALSE)
+noes <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"),
                anova_table = list(es = "none"))
 print_anova(noes)
+
+## Access individual elements of the ANOVA print list:
+aovpr <- print_anova(aov_results, italic_eta = FALSE)
+# By index: 
+aovpr[[1]]
+# By name (main effect): 
+aovpr$angle
+aovpr[["angle"]]
+# By name (interaction effect, here, the $-notation does not work 
+# due to non-standard `:` in name): 
+aovpr[["angle:noise"]] 
+
 
 }
 \author{

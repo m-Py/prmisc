@@ -75,7 +75,7 @@ print_anova(aov_results) # returns a list with all effects in this ANOVA
 # [1] "$F(1.81$, $16.27) = 45.31$, $p < .001$, $\\eta_G^2 = .19$"
 
 ## Print nonitalic eta, which is required according to APA guidelines
-print_anova(aov_results, font = "nonitalic")
+print_anova(aov_results, italic_eta = FALSE)
 # $angle
 # [1] "$F(1.92$, $17.31) = 40.72$, $p < .001$, $\\upeta_\\mathrm{G}^2 = .39$"
 #
