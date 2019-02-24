@@ -2,10 +2,10 @@
 % Please edit documentation in R/print_wilcoxon_rs.R
 \name{print_wilcoxon_rs}
 \alias{print_wilcoxon_rs}
-\title{Print the results of a Wilcoxon rank sum test}
+\title{Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)}
 \usage{
 print_wilcoxon_rs(wc_object, decimals_p = 3, consistent = FALSE,
-  group1 = NULL, group2 = NULL)
+  group1 = NULL, group2 = NULL, groupvar = NULL)
 }
 \arguments{
 \item{wc_object}{an object returned by \code{\link{wilcox.test}}}
@@ -20,9 +20,11 @@ Can be set to "min" or "max". See details.}
 \item{group1}{a vector containing the cases of the first group}
 
 \item{group2}{a vector containing the cases of the second group}
+
+\item{groupvar}{a vector containing a grouping variable}
 }
 \description{
-Print the results of a Wilcoxon rank sum test
+Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)
 }
 \details{
 In order to calculate a Wilcoxon rank sum test, the argument 
@@ -41,11 +43,29 @@ variable. Some software, like SPSS, consistently reports the smaller or
 larger U. If you wish to mimic this, you can specify the desired
 behaviour by providing the \code{consistent} argument. Setting 
 \code{consistent} to "min" will print the smaller of the two U, setting 
-it to "max" will print the larger U. In order to do so, you need to provide 
-the n for both groups, which \code{\link{print_wilcoxon_rs}} will calculate
-when you pass the data of both groups to the arguments \code{group1} and 
-\code{group2}, respectively. Any vector with the length of the corresponding 
-group size will produce the desired result.
+it to "max" will print the larger U. In order to do so, you need to 
+provide the n for both groups. 
+
+You can either do that by passing the data of both groups to the 
+arguments \code{group1} and \code{group2}, respectively. From those, 
+\code{\link{print_wilcoxon_rs}} will calculate the group sizes. Any 
+vector with the length of the corresponding group size will produce 
+the desired result. This is the recommended option if your 
+\code{wc_object} has been created using the default version of 
+\code{\link{wilcox.test}}, i.e. if groups were passed as \code{x} and 
+\code{y}. The order in which you pass \code{group1} and \code{group2} 
+to \code{\link{print_wilcoxon_rs}} does not have to correspond to the 
+order in which \code{x} and \code{y} were passed to 
+\code{\link{wilcox.test}}.
+
+Alternatively, you can pass a grouping variable to the argument 
+\code{groupvar}. From this, \code{\link{print_wilcoxon_rs}} will 
+calculate group sizes. This is the recommended option if your 
+\code{wc_object} has been created using the formula version of 
+\code{\link{wilcox.test}}, i.e. if a grouping variable was passed after 
+the \code{~}. To prevent mistakes, you can either use \code{group1} and 
+\code{group2} \bold{or} \code{groupvar}.
+
 By default, \code{consistent} is \code{FALSE} and 
 \code{\link{print_wilcoxon_rs}} will print U using W as provided by
 \code{\link{wilcox.test}}.
@@ -72,8 +92,7 @@ print_wilcoxon_rs(wc_iris2, consistent = "min",
 
 # include this call in Rmd inline code
 print_wilcoxon_rs(wc_iris2, consistent = "max", 
-                  group1 = dat$Sepal.Width[dat$Species == "setosa"], 
-                  group2 = dat$Sepal.Width[dat$Species == "versicolor"])
+                  groupvar = dat$Species)
 
 }
 \author{
