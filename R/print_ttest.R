@@ -9,12 +9,22 @@
 #'     (defaults to 3)
 #' @param paired Logical vector of length 1. Was the t-test a
 #'     within-subjects comparison? Determines whether Cohen's d is
-#'     printed as d_z when TRUE. Defaults to FALSE.
+#'     printed as d_z when \code{TRUE}. Defaults to \code{FALSE}.
+#'     
+#' @return A string describing the t-test; to be 
+#'     included in an R markdown document.
 #'
 #' @details 
 #' 
 #' To use this function, you need to install the R package effsize and 
 #' compute a Cohen's d object; pass this object as the second argument.
+#' 
+#' @references 
+#' Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#'     (2nd ed.). Hillsale, NJ: Lawrence Erlbaum.
+#'     
+#' Torchiano, M. (2018). effsize: Efficient Effect Size Computation. URL:
+#'     https://CRAN.R-project.org/package=effsize>.
 #'
 #' @examples 
 #' 

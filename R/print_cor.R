@@ -4,12 +4,13 @@
 #'
 #' @param cor_object An object returned by `cor.test`
 #' @param print_t Boolean, should the t-statistic be printed. 
-#'     (defaults to `FALSE`)
+#'     (defaults to \code{FALSE})
 #' @param decimals how many decimals should be printed
 #' @param decimals_p how many decimals should be printed for the p-value
 #'     (defaults to 3)
 #'
-#' @return A string describing the test
+#' @return A string describing the significance test; to be 
+#'     included in an R markdown document.
 #' 
 #' @examples 
 #' 

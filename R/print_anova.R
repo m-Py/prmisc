@@ -1,13 +1,17 @@
 
 #' Print the results of an `afex` ANOVA object
 #'
-#' @param afex_object An object returned by one of afex's ANOVA functions
+#' @param afex_object An object returned by one of afex's ANOVA functions. 
+#'     See details.
 #' @param italic_eta Should the effect size symbol eta be printed in
-#'     italic font. Defaults to TRUE. See details.
+#'     italic font. Defaults to \code{TRUE}. See details.
 #' @param decimals How many decimals should be printed for F values
 #'     and eta-squared. Defaults to 2.
 #' @param decimals_p How many decimals should be printed for p-values.
 #'     Defaults to 3.
+#'     
+#' @return A list whose elements are strings describing the ANOVA; to be 
+#'     included in an R markdown document.
 #'
 #' @details
 #'
@@ -18,8 +22,8 @@
 #' According to APA style, the _greek_ eta symbol - indicating the
 #' effect size in  the ANOVA - should be printed in non-italic font.
 #' However, the standard Latex \\eta symbol is italic. To print a
-#' non-italic eta, use the argument `italic_eta` = FALSE. However, this
-#' option requires that you load the package `upgreek` in the YAML
+#' non-italic eta, use the argument \code{italic_eta = FALSE}. However, this
+#' option requires that you load the package \code{upgreek} in the YAML
 #' header of your R markdown document. To this end, use the following
 #' option in your YAML header:
 #'
@@ -57,6 +61,11 @@
 #' # due to non-standard `:` in name): 
 #' aovpr[["angle:noise"]] 
 #' 
+#' 
+#' @references 
+#' 
+#' Singmann, H., Bolker, B., Westfall, J., & Aust, F. (2019). afex: 
+#'     Analysis of Factorial Experiments. https://CRAN.R-project.org/package=afex
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
@@ -80,8 +89,7 @@ print_anova <- function(afex_object, italic_eta = TRUE,
 }
 
 
-print_anova_ <- function(afex_object, row, font = "nonitalic",
-                        decimals = 2, decimals_p = 3) {
+print_anova_ <- function(afex_object, row, font, decimals, decimals_p) {
 
   aov.table <- afex_object$anova_table # contains the relevant values
 
