@@ -1,11 +1,12 @@
 
 #' Print the results of a chi-square test
 #'
-#' @param x A contingency table (passed as \code{table} or \code{matrix})
+#' @param x A contingency table (passed as \code{table} or \code{matrix}) or
 #'     an object of type "htest" returned by \code{\link{chisq.test}}. Can 
-#'     also handle objects returned by \code{\link[spgs]{chisq.unif.test}}.
-#' @param es Boolean. Should the phi coefficient be printed. Also 
-#'     see details.
+#'     also handle objects returned by \code{\link[spgs]{chisq.unif.test}}
+#'     from the \code{spgs} package.
+#' @param es Boolean. Should the phi coefficient be printed as a 
+#'     measure of effect size. See details.
 #' @param correct Boolean. Apply a continuity correction? See
 #'     \code{\link{chisq.test}}. Only has an effect if the chi-square-test
 #'     is computed by this function, i.e., if \code{x} is a contingency 
@@ -21,7 +22,11 @@
 #' 
 #' The argument \code{es} only has an effect if \code{x} is passed as a 2x2
 #' contingency table. In this case, the phi coefficient is computed as 
-#' a measure of effect size. 
+#' a measure of effect size (see Cohen, 1988, page 223).
+#' 
+#' @references 
+#' Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+#'     (2nd ed.). Hillsale, NJ: Lawrence Erlbaum.
 #'   
 #' @examples 
 #' 
