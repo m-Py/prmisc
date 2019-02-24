@@ -11,12 +11,13 @@
 #'
 #' @details
 #'
-#' To use this function, you have to install afex and use afex to compute
-#' an ANOVA object; pass this object as the first argument.
+#' To use this function, you have to install the package afex to compute
+#' an ANOVA object, see \code{\link{afex::aov_ez}}. Pass this object 
+#' as the first argument.
 #'
 #' According to APA style, the _greek_ eta symbol - indicating the
 #' effect size in  the ANOVA - should be printed in non-italic font.
-#' However, but the standard Latex \\eta symbol is italic. To print a
+#' However, the standard Latex \\eta symbol is italic. To print a
 #' non-italic eta, use the argument `italic_eta` = FALSE. However, this
 #' option requires that you load the package `upgreek` in the YAML
 #' header of your R markdown document. To this end, use the following

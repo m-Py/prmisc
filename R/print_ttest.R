@@ -2,10 +2,10 @@
 
 #' Print the results of a t-test
 #'
-#' @param t_object an object returned by `afex`s ANOVA functions
-#' @param d_object An object returned by `effsize::cohen.d`
-#' @param decimals how many decimals should be printed
-#' @param decimals_p how many decimals should be printed for the p-value
+#' @param t_object An object returned by \code{\link{t.test}}
+#' @param d_object An object returned by \code{\link{effsize::cohen.d}}`
+#' @param decimals How many decimals should be printed for r and t-values.
+#' @param decimals_p How many decimals should be printed for the p-value
 #'     (defaults to 3)
 #' @param paired Logical vector of length 1. Was the t-test a
 #'     within-subjects comparison? Determines whether Cohen's d is

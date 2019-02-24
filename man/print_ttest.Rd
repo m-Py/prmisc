@@ -8,13 +8,13 @@ print_ttest(t_object, d_object, decimals = 2, decimals_p = 3,
   paired = FALSE)
 }
 \arguments{
-\item{t_object}{an object returned by `afex`s ANOVA functions}
+\item{t_object}{An object returned by \code{\link{t.test}}}
 
-\item{d_object}{An object returned by `effsize::cohen.d`}
+\item{d_object}{An object returned by \code{\link{effsize::cohen.d}}`}
 
-\item{decimals}{how many decimals should be printed}
+\item{decimals}{How many decimals should be printed for r and t-values.}
 
-\item{decimals_p}{how many decimals should be printed for the p-value
+\item{decimals_p}{How many decimals should be printed for the p-value
 (defaults to 3)}
 
 \item{paired}{Logical vector of length 1. Was the t-test a
