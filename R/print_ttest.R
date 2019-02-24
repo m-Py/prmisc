@@ -34,12 +34,13 @@
 #' print_ttest(ttest, cohend) # include this call in Rmd inline code
 #' 
 #' # An example for paired data:
+#' data(sleep) # ?sleep
 #' tt <- t.test(sleep$extra[sleep$group == 1], 
 #'              sleep$extra[sleep$group == 2], paired = TRUE)
 #' cd <- cohen.d(sleep$extra[sleep$group == 1], 
 #'               sleep$extra[sleep$group == 2], paired = TRUE)
 #' print_ttest(tt, cd)
-#' # no effect size:
+#' # effect size object can be left out:
 #' print_ttest(tt)
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
