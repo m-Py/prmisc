@@ -30,7 +30,20 @@ print_ttest(ttest, cohend) # include this call in Rmd inline code
 
 # [1] "$t(22) = -5.15$, $p < .001$, $d = -2.13$"
 
-# check out help:
+# An example for paired data:
+data(sleep) # ?sleep
+tt <- t.test(sleep$extra[sleep$group == 1], 
+             sleep$extra[sleep$group == 2], paired = TRUE)
+cd <- cohen.d(sleep$extra[sleep$group == 1], 
+              sleep$extra[sleep$group == 2], paired = TRUE)
+print_ttest(tt, cd)
+# "$t(9) = -4.06$, $p = .003$, $d_z = -1.28$"
+
+# effect size object can be left out:
+print_ttest(tt)
+# "$t(9) = -4.06$, $p = .003$"
+
+# Each function includes documentation via the R help:
 ?print_ttest
 ```
 
