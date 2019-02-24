@@ -24,9 +24,18 @@
 #'   
 #' @examples 
 #' 
+#' # Pass a matrix
 #' x <- matrix(c(12, 5, 7, 7), ncol = 2)
 #' print_chi2(x) # does not use continuity correction by default
 #' print_chi2(x, correct = TRUE) # uses continuity correction
+#' 
+#' # Pass a table
+#' tab <- table(rbinom(150, 1, 0.5), rbinom(150, 1, 0.1))
+#' print_chi2(tab, correct = FALSE)
+#' 
+#' # Pass a chi-squared test object
+#' print_chi2(chi2.object = chisq.test(tab, correct = FALSE))
+#' 
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' 
@@ -45,6 +54,16 @@ print_chi2 <- function(tab = NULL, chi2.object = NULL, es = TRUE,
     stop("Error: only one of the arguments `tab` and `chi2.object` can be passed.")
   if (!(table_passed | chi2_passed))
     stop("Error: one of the arguments `tab` and `chi2.object` has to be passed.")
+  if(!is.null(chi2.object)) {
+    validate_input(chi2.object, "chi2.object", "htest")
+  }
+  if(!is.null(tab)) {
+    validate_input(tab, "tab", c("table", "matrix"))
+  }
+  validate_input(es, "es", "logical", 1)
+  validate_input(correct, "correct", "logical", 1)
+  validate_input(decimals, "decimals",  c("numeric", "integer"), 1, TRUE)
+  validate_input(decimals_p, "decimals_p", c("numeric", "integer"), 1, TRUE)
   
   N <- ""
   if (table_passed) {
@@ -54,13 +73,15 @@ print_chi2 <- function(tab = NULL, chi2.object = NULL, es = TRUE,
   p <- format_p(chi2.object$p.value, decimals_p)
   c <- paste0("$\\chi^2(", chi2.object$parameter[1], N, ") = ")
   c <- paste0(c, force_decimals(chi2.object$statistic, decimals), "$")
-  phi <- decimals_only(sqrt(chi2.object$statistic / sum(tab)), decimals)
-  phi <- paste0("$\\phi = ", phi, "$")
-  
+
   ## Create return string
-  if (es == FALSE | !is_2x2_contingency)
+  if (es == FALSE | !is_2x2_contingency) {
     rtn <- paste(c, p, sep = ", ") # do not print effect size
-  if (es == TRUE & is_2x2_contingency)
+  }
+  if (es == TRUE & is_2x2_contingency) {
+    phi <- decimals_only(sqrt(chi2.object$statistic / sum(tab)), decimals)
+    phi <- paste0("$\\phi = ", phi, "$")
     rtn <- paste(c, p, phi, sep = ", ") # print effect size for 2x2 contigency tables
+  }
   return(rtn)
 }

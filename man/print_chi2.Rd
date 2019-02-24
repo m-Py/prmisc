@@ -39,9 +39,18 @@ Printing the results of a chi-square test
 }
 \examples{
 
+# Pass a matrix
 x <- matrix(c(12, 5, 7, 7), ncol = 2)
 print_chi2(x) # does not use continuity correction by default
 print_chi2(x, correct = TRUE) # uses continuity correction
+
+# Pass a table
+tab <- table(rbinom(150, 1, 0.5), rbinom(150, 1, 0.1))
+print_chi2(tab, correct = FALSE)
+
+# Pass a chi-squared test object
+print_chi2(chi2.object = chisq.test(tab, correct = FALSE))
+
 
 }
 \author{
