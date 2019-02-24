@@ -16,7 +16,7 @@ Authors@R: c(person(given="Martin", family="Papenberg",
         email="martin.papenberg@hhu.de", role=c("aut", "cre")))
 Version: 0.01-5
 Date: 2018-11-08
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Suggests:
     afex,
     effsize,
