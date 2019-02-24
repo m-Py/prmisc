@@ -6,7 +6,7 @@
 #'     `chi2.object`.
 #' @param chi2.object an object that is returned by `chisq.test`. Do not
 #'     combine with argument `tab`. Can also handle objects returned by
-#'     `spgs::chisq.unif.test`.
+#'     \code{\link[spgs]{chisq.unif.test}}.
 #' @param es Boolean. Should the phi coefficient be printed. This
 #'     argument only has an effect if `tab` is passed as a 2x2
 #'     contingency table. Does not have an effect if `chi2.object` is
