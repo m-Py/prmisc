@@ -8,16 +8,21 @@ print_anova(afex_object, italic_eta = TRUE, decimals = 2,
   decimals_p = 3)
 }
 \arguments{
-\item{afex_object}{An object returned by one of afex's ANOVA functions}
+\item{afex_object}{An object returned by one of afex's ANOVA functions. 
+See details.}
 
 \item{italic_eta}{Should the effect size symbol eta be printed in
-italic font. Defaults to TRUE. See details.}
+italic font. Defaults to \code{TRUE}. See details.}
 
 \item{decimals}{How many decimals should be printed for F values
 and eta-squared. Defaults to 2.}
 
 \item{decimals_p}{How many decimals should be printed for p-values.
 Defaults to 3.}
+}
+\value{
+A list whose elements are strings describing the ANOVA; to be 
+    included in an R markdown document.
 }
 \description{
 Print the results of an `afex` ANOVA object
@@ -30,8 +35,8 @@ as the first argument.
 According to APA style, the _greek_ eta symbol - indicating the
 effect size in  the ANOVA - should be printed in non-italic font.
 However, the standard Latex \\eta symbol is italic. To print a
-non-italic eta, use the argument `italic_eta` = FALSE. However, this
-option requires that you load the package `upgreek` in the YAML
+non-italic eta, use the argument \code{italic_eta = FALSE}. However, this
+option requires that you load the package \code{upgreek} in the YAML
 header of your R markdown document. To this end, use the following
 option in your YAML header:
 
@@ -70,6 +75,10 @@ aovpr[["angle"]]
 aovpr[["angle:noise"]] 
 
 
+}
+\references{
+Singmann, H., Bolker, B., Westfall, J., & Aust, F. (2019). afex: 
+    Analysis of Factorial Experiments. https://CRAN.R-project.org/package=afex
 }
 \author{
 Martin Papenberg \email{martin.papenberg@hhu.de}

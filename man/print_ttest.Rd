@@ -19,7 +19,11 @@ print_ttest(t_object, d_object, decimals = 2, decimals_p = 3,
 
 \item{paired}{Logical vector of length 1. Was the t-test a
 within-subjects comparison? Determines whether Cohen's d is
-printed as d_z when TRUE. Defaults to FALSE.}
+printed as d_z when \code{TRUE}. Defaults to \code{FALSE}.}
+}
+\value{
+A string describing the t-test; to be 
+    included in an R markdown document.
 }
 \description{
 Print the results of a t-test
@@ -35,6 +39,13 @@ library("effsize") # for Cohen's d
 cohend <- cohen.d(1:10, c(7:20))
 print_ttest(ttest, cohend) # include this call in Rmd inline code
 
+}
+\references{
+Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+    (2nd ed.). Hillsale, NJ: Lawrence Erlbaum.
+    
+Torchiano, M. (2018). effsize: Efficient Effect Size Computation. URL:
+    https://CRAN.R-project.org/package=effsize>.
 }
 \author{
 Martin Papenberg \email{martin.papenberg@hhu.de}

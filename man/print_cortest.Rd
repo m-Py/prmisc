@@ -12,7 +12,7 @@ print_cortest(cor_object, print_t = FALSE, decimals = 2,
 \item{cor_object}{An object returned by `cor.test`}
 
 \item{print_t}{Boolean, should the t-statistic be printed. 
-(defaults to `FALSE`)}
+(defaults to \code{FALSE})}
 
 \item{decimals}{how many decimals should be printed}
 
@@ -20,7 +20,8 @@ print_cortest(cor_object, print_t = FALSE, decimals = 2,
 (defaults to 3)}
 }
 \value{
-A string describing the test
+A string describing the significance test; to be 
+    included in an R markdown document.
 }
 \description{
 Printing the results of a significance test for a correlation
