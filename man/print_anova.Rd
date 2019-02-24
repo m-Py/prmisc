@@ -2,14 +2,14 @@
 % Please edit documentation in R/print_anova.R
 \name{print_anova}
 \alias{print_anova}
-\title{Print the results of an `afex` ANOVA object}
+\title{Print the results of an \code{afex} ANOVA}
 \usage{
 print_anova(afex_object, italic_eta = TRUE, decimals = 2,
   decimals_p = 3)
 }
 \arguments{
-\item{afex_object}{An object returned by one of afex's ANOVA functions. 
-See details.}
+\item{afex_object}{An object returned by one of \code{afex}'s ANOVA
+functions. See details.}
 
 \item{italic_eta}{Should the effect size symbol eta be printed in
 italic font. Defaults to \code{TRUE}. See details.}
@@ -25,7 +25,7 @@ A list whose elements are strings describing the ANOVA; to be
     included in an R markdown document.
 }
 \description{
-Print the results of an `afex` ANOVA object
+Print the results of an \code{afex} ANOVA
 }
 \details{
 To use this function, you have to install the package afex to compute

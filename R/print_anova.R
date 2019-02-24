@@ -1,8 +1,8 @@
 
-#' Print the results of an `afex` ANOVA object
+#' Print the results of an \code{afex} ANOVA
 #'
-#' @param afex_object An object returned by one of afex's ANOVA functions. 
-#'     See details.
+#' @param afex_object An object returned by one of \code{afex}'s ANOVA
+#'     functions. See details.
 #' @param italic_eta Should the effect size symbol eta be printed in
 #'     italic font. Defaults to \code{TRUE}. See details.
 #' @param decimals How many decimals should be printed for F values
