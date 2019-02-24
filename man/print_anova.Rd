@@ -24,7 +24,7 @@ Print the results of an `afex` ANOVA object
 }
 \details{
 To use this function, you have to install the package afex to compute
-an ANOVA object, see \code{\link{afex::aov_ez}}. Pass this object 
+an ANOVA object, see \code{\link[afex]{aov_car}}. Pass this object 
 as the first argument.
 
 According to APA style, the _greek_ eta symbol - indicating the

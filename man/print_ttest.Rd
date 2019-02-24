@@ -10,7 +10,7 @@ print_ttest(t_object, d_object, decimals = 2, decimals_p = 3,
 \arguments{
 \item{t_object}{An object returned by \code{\link{t.test}}}
 
-\item{d_object}{An object returned by \code{\link{effsize::cohen.d}}`}
+\item{d_object}{An object returned by \code{\link[effsize]{cohen.d}}}
 
 \item{decimals}{How many decimals should be printed for r and t-values.}
 
