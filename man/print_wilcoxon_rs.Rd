@@ -5,43 +5,48 @@
 \title{Print the results of a Wilcoxon rank sum test}
 \usage{
 print_wilcoxon_rs(wc_object, decimals_p = 3, consistent = FALSE,
-  ngroup1 = FALSE, ngroup2 = FALSE)
+  group1 = NULL, group2 = NULL)
 }
 \arguments{
-\item{wc_object}{an object returned by `wilcox.test`}
+\item{wc_object}{an object returned by \code{\link{wilcox.test}}}
 
 \item{decimals_p}{how many decimals should be printed for the 
 p-value (defaults to 3)}
 
-\item{consistent}{a parameter determining for which group U
-should be reported. Defaults to FALSE.
+\item{consistent}{a parameter determining for which group the test
+statistic U should be reported. Defaults to FALSE.
 Can be set to "min" or "max". See details.}
 
-\item{ngroup1}{size of the first group}
+\item{group1}{a vector containing the cases of the first group}
 
-\item{ngroup1}{size of the second group}
+\item{group2}{a vector containing the cases of the second group}
 }
 \description{
 Print the results of a Wilcoxon rank sum test
 }
 \details{
 In order to calculate a Wilcoxon rank sum test, the argument 
-\code{paired} in \code{\link{wilcox.test}} needs to be \code{FALSE}. Otherwise, a
-Wilcoxon signed rank test will be computed instead and the
-statistics printed by \code{\link{print_wilcoxon_rs}} will be misleading.
+\code{paired} in \code{\link{wilcox.test}} needs to be \code{FALSE}. 
+Otherwise, a Wilcoxon signed rank test will be computed instead and 
+the statistics printed by \code{\link{print_wilcoxon_rs}} will be 
+misleading.
 
-Note that the W calculated in \code{\link{wilcox.test}} that is used as
-U in \code{\link{print_wilcoxon_rs}} will correspond to the U of the first
-of the two groups compared. In the default method, this is the
-vector assigned to x. In the formula method, this is the first
-group as identified by the grouping variable. Some software,
-like SPSS, consistently reports the smaller or larger U. If
-you wish to mimic this, you can specify by setting the desired
-behaviour via the \code{consistent} argument. Setting \code{consistent}
-to "min" will print the smaller U, setting it to "max" will
-print the larger U. In order to do so, you need to provide
-the n of both groups via the arguments \code{ngroup1} and \code{ngroup2},
-respectively. By default, \code{consistent} is \code{FALSE} and 
+Note that the test statistic W calculated in \code{\link{wilcox.test}} 
+that is printed as test statistic U in \code{\link{print_wilcoxon_rs}} 
+will correspond to the U of the first of the two groups compared in
+\code{\link{wilcox.test}}. In the default method of 
+\code{\link{wilcox.test}}, this is the vector assigned to x. In the 
+formula method, this is the first group as identified by the grouping 
+variable. Some software, like SPSS, consistently reports the smaller or 
+larger U. If you wish to mimic this, you can specify the desired
+behaviour by providing the \code{consistent} argument. Setting 
+\code{consistent} to "min" will print the smaller of the two U, setting 
+it to "max" will print the larger U. In order to do so, you need to provide 
+the n for both groups, which \code{\link{print_wilcoxon_rs}} will calculate
+when you pass the data of both groups to the arguments \code{group1} and 
+\code{group2}, respectively. Any vector with the length of the corresponding 
+group size will produce the desired result.
+By default, \code{consistent} is \code{FALSE} and 
 \code{\link{print_wilcoxon_rs}} will print U using W as provided by
 \code{\link{wilcox.test}}.
 }
@@ -58,15 +63,17 @@ wc_iris <-
 print_wilcoxon_rs(wc_iris)
 
 wc_iris2 <- 
-  wilcox.test(dat$Sepal.Length ~ dat$Species, 
+  wilcox.test(dat$Sepal.Width ~ dat$Species, 
               correct = FALSE, paired = FALSE)
 # include this call in Rmd inline code
 print_wilcoxon_rs(wc_iris2, consistent = "min", 
-                  ngroup1 = 25, ngroup2 = 25)
+                  group1 = dat$Sepal.Width[dat$Species == "setosa"], 
+                  group2 = dat$Sepal.Width[dat$Species == "versicolor"])
 
 # include this call in Rmd inline code
 print_wilcoxon_rs(wc_iris2, consistent = "max", 
-                  ngroup1 = 25, ngroup2 = 25)
+                  group1 = dat$Sepal.Width[dat$Species == "setosa"], 
+                  group2 = dat$Sepal.Width[dat$Species == "versicolor"])
 
 }
 \author{
