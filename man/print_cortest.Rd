@@ -9,15 +9,17 @@ print_cortest(cor_object, print_t = FALSE, decimals = 2,
   decimals_p = 3)
 }
 \arguments{
-\item{cor_object}{An object returned by `cor.test`}
+\item{cor_object}{An object of class "htest" returned by 
+\code{\link{cor.test}}}
 
 \item{print_t}{Boolean, should the t-statistic be printed. 
 (defaults to \code{FALSE})}
 
-\item{decimals}{how many decimals should be printed}
+\item{decimals}{How many decimals should be printed for r and t values
+(defaults to 2).}
 
-\item{decimals_p}{how many decimals should be printed for the p-value
-(defaults to 3)}
+\item{decimals_p}{How many decimals should be printed for the p value
+(defaults to 3).}
 }
 \value{
 A string describing the significance test; to be 
