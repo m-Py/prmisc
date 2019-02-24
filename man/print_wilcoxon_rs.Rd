@@ -2,7 +2,7 @@
 % Please edit documentation in R/print_wilcoxon_rs.R
 \name{print_wilcoxon_rs}
 \alias{print_wilcoxon_rs}
-\title{Print the results of a Wilcoxon rank sum test}
+\title{Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)}
 \usage{
 print_wilcoxon_rs(wc_object, decimals_p = 3, consistent = FALSE,
   group1 = NULL, group2 = NULL)
@@ -22,7 +22,7 @@ Can be set to "min" or "max". See details.}
 \item{group2}{a vector containing the cases of the second group}
 }
 \description{
-Print the results of a Wilcoxon rank sum test
+Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)
 }
 \details{
 In order to calculate a Wilcoxon rank sum test, the argument 

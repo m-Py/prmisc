@@ -1,6 +1,6 @@
 
 
-#' Print the results of a Wilcoxon rank sum test
+#' Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)
 #'
 #' @param wc_object an object returned by \code{\link{wilcox.test}}
 #' @param decimals_p how many decimals should be printed for the 
@@ -89,13 +89,13 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3,
   }
     
   if (consistent == "min") {
-    U <- paste0("$U = ", U_min)
+    U <- paste0("$U = $", U_min)
     
   } else if (consistent == "max") {
-    U <- paste0("$U = ", U_max)
+    U <- paste0("$U = $", U_max)
     
   } else if (consistent == FALSE) {
-    U <- paste0("$U = ", U1)
+    U <- paste0("$U = $", U1)
     
   } else {
     stop("Consistent can either be FALSE, 'min' or 'max'.")
