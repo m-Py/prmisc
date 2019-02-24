@@ -28,6 +28,12 @@
 #'
 print_ttest <- function(t_object, d_object, decimals=2, decimals_p = 3,
                         paired = FALSE) {
+  validate_input(t_object, "t_object", "htest")
+  validate_input(d_object, "d_object", "effsize")
+  validate_input(decimals, "decimals",  c("numeric", "integer"), 1, TRUE)
+  validate_input(decimals_p, "decimals_p", c("numeric", "integer"), 1, TRUE)
+  validate_input(paired, "paired", "logical", 1)
+  
   p <- format_p(t_object$p.value, decimals_p)
   t <- paste0("$t(", round(t_object$parameter, decimals), ") = ")
   t <- paste0(t, force_decimals(t_object$statistic, decimals), "$")
