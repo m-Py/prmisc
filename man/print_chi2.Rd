@@ -2,28 +2,23 @@
 % Please edit documentation in R/print_chi2.R
 \name{print_chi2}
 \alias{print_chi2}
-\title{Printing the results of a chi-square test}
+\title{Print the results of a chi-square test}
 \usage{
-print_chi2(tab = NULL, chi2.object = NULL, es = TRUE,
-  correct = FALSE, decimals = 2, decimals_p = 3)
+print_chi2(x, es = TRUE, correct = FALSE, decimals = 2,
+  decimals_p = 3)
 }
 \arguments{
-\item{tab}{A contingency table. Do not combine with argument
-`chi2.object`.}
+\item{x}{A contingency table (passed as \code{table} or \code{matrix})
+an object of type "htest" returned by \code{\link{chisq.test}}. Can 
+also handle objects returned by \code{\link[spgs]{chisq.unif.test}}.}
 
-\item{chi2.object}{an object that is returned by `chisq.test`. Do not
-combine with argument `tab`. Can also handle objects returned by
-\code{\link[spgs]{chisq.unif.test}}.}
-
-\item{es}{Boolean. Should the phi coefficient be printed. This
-argument only has an effect if `tab` is passed as a 2x2
-contingency table. Does not have an effect if `chi2.object` is
-passed.}
+\item{es}{Boolean. Should the phi coefficient be printed. Also 
+see details.}
 
 \item{correct}{Boolean. Apply a continuity correction? See
-`?chisq.test`. Only has an effect if the chi-square-test
-is computed by this function, i.e., if `tab` was passed.
-The default value is FALSE.}
+\code{\link{chisq.test}}. Only has an effect if the chi-square-test
+is computed by this function, i.e., if \code{x} is a contingency 
+table. The default value is \code{FALSE}.}
 
 \item{decimals}{How many decimals should be printed}
 
@@ -32,10 +27,15 @@ The default value is FALSE.}
 }
 \value{
 A string describing the results of the chi-square test to be
-  printed in Rmarkdown documents.
+    printed in Rmarkdown documents.
 }
 \description{
-Printing the results of a chi-square test
+Print the results of a chi-square test
+}
+\details{
+The argument \code{es} only has an effect if \code{x} is passed as a 2x2
+contingency table. In this case, the phi coefficient is computed as 
+a measure of effect size.
 }
 \examples{
 
@@ -49,7 +49,7 @@ tab <- table(rbinom(150, 1, 0.5), rbinom(150, 1, 0.1))
 print_chi2(tab, correct = FALSE)
 
 # Pass a chi-squared test object
-print_chi2(chi2.object = chisq.test(tab, correct = FALSE))
+print_chi2(chisq.test(tab, correct = FALSE))
 
 
 }

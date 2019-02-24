@@ -1,26 +1,27 @@
 
-
-#' Printing the results of a chi-square test
+#' Print the results of a chi-square test
 #'
-#' @param tab A contingency table. Do not combine with argument
-#'     `chi2.object`.
-#' @param chi2.object an object that is returned by `chisq.test`. Do not
-#'     combine with argument `tab`. Can also handle objects returned by
-#'     \code{\link[spgs]{chisq.unif.test}}.
-#' @param es Boolean. Should the phi coefficient be printed. This
-#'     argument only has an effect if `tab` is passed as a 2x2
-#'     contingency table. Does not have an effect if `chi2.object` is
-#'     passed.
+#' @param x A contingency table (passed as \code{table} or \code{matrix})
+#'     an object of type "htest" returned by \code{\link{chisq.test}}. Can 
+#'     also handle objects returned by \code{\link[spgs]{chisq.unif.test}}.
+#' @param es Boolean. Should the phi coefficient be printed. Also 
+#'     see details.
 #' @param correct Boolean. Apply a continuity correction? See
-#'     `?chisq.test`. Only has an effect if the chi-square-test
-#'     is computed by this function, i.e., if `tab` was passed.
-#'     The default value is FALSE.
+#'     \code{\link{chisq.test}}. Only has an effect if the chi-square-test
+#'     is computed by this function, i.e., if \code{x} is a contingency 
+#'     table. The default value is \code{FALSE}.
 #' @param decimals How many decimals should be printed
 #' @param decimals_p How many decimals should be printed for the p-value
 #'     (defaults to 3)
 #'
 #' @return A string describing the results of the chi-square test to be
-#'   printed in Rmarkdown documents.
+#'     printed in Rmarkdown documents.
+#'     
+#' @details 
+#' 
+#' The argument \code{es} only has an effect if \code{x} is passed as a 2x2
+#' contingency table. In this case, the phi coefficient is computed as 
+#' a measure of effect size. 
 #'   
 #' @examples 
 #' 
@@ -34,7 +35,7 @@
 #' print_chi2(tab, correct = FALSE)
 #' 
 #' # Pass a chi-squared test object
-#' print_chi2(chi2.object = chisq.test(tab, correct = FALSE))
+#' print_chi2(chisq.test(tab, correct = FALSE))
 #' 
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
@@ -44,32 +45,34 @@
 #' @export
 #'
 
-print_chi2 <- function(tab = NULL, chi2.object = NULL, es = TRUE,
-                       correct = FALSE, decimals = 2, decimals_p = 3) {
+print_chi2 <- function(x, es = TRUE, correct = FALSE, decimals = 2, decimals_p = 3) {
   ## Test input
-  table_passed <- !is.null(tab)
-  chi2_passed  <- !is.null(chi2.object)
-  is_2x2_contingency <- table_passed & all(dim(tab) == c(2, 2)) & length(dim(tab) == 2)
-  if (table_passed & chi2_passed)
-    stop("Error: only one of the arguments `tab` and `chi2.object` can be passed.")
-  if (!(table_passed | chi2_passed))
-    stop("Error: one of the arguments `tab` and `chi2.object` has to be passed.")
-  if(!is.null(chi2.object)) {
-    validate_input(chi2.object, "chi2.object", "htest")
-  }
-  if(!is.null(tab)) {
-    validate_input(tab, "tab", c("table", "matrix"))
-  }
+  validate_input(x, "x", c("table", "matrix", "htest"))
   validate_input(es, "es", "logical", 1)
   validate_input(correct, "correct", "logical", 1)
   validate_input(decimals, "decimals",  c("numeric", "integer"), 1, TRUE)
   validate_input(decimals_p, "decimals_p", c("numeric", "integer"), 1, TRUE)
+  if (class(x) == "htest") {
+    return(print_chi2_(NULL, x, es, correct, decimals, decimals_p))
+  } else {
+    return(print_chi2_(x, NULL, es, correct, decimals, decimals_p))
+  }
+}
+
+# The internal function that does all the work for print_chi2
+print_chi2_ <- function(tab = NULL, chi2.object = NULL, es,
+                        correct, decimals, decimals_p) {
   
+  # What argument was passed?
+  table_passed <- !is.null(tab)
+  is_2x2_contingency <- table_passed & all(dim(tab) == c(2, 2)) & length(dim(tab) == 2)
+
   N <- ""
   if (table_passed) {
     chi2.object <- chisq.test(tab, correct = correct)
     N <- paste0(", N = ", sum(tab))
   }
+  
   p <- format_p(chi2.object$p.value, decimals_p)
   c <- paste0("$\\chi^2(", chi2.object$parameter[1], N, ") = ")
   c <- paste0(c, force_decimals(chi2.object$statistic, decimals), "$")
