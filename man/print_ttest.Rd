@@ -4,22 +4,20 @@
 \alias{print_ttest}
 \title{Print the results of a t-test}
 \usage{
-print_ttest(t_object, d_object, decimals = 2, decimals_p = 3,
-  paired = FALSE)
+print_ttest(t_object, d_object = NULL, decimals = 2, decimals_p = 3)
 }
 \arguments{
-\item{t_object}{An object returned by \code{\link{t.test}}}
+\item{t_object}{An object of class "htest" returned by 
+\code{\link{t.test}}.}
 
-\item{d_object}{An object returned by \code{\link[effsize]{cohen.d}}}
+\item{d_object}{An object of class "effsize" returned by 
+\code{\link[effsize]{cohen.d}}. Optional argument, 
+defaults to \code{NULL}.}
 
-\item{decimals}{How many decimals should be printed for r and t-values.}
+\item{decimals}{How many decimals should be printed for the t-value.}
 
 \item{decimals_p}{How many decimals should be printed for the p-value
 (defaults to 3)}
-
-\item{paired}{Logical vector of length 1. Was the t-test a
-within-subjects comparison? Determines whether Cohen's d is
-printed as d_z when \code{TRUE}. Defaults to \code{FALSE}.}
 }
 \value{
 A string describing the t-test; to be 
@@ -29,8 +27,8 @@ A string describing the t-test; to be
 Print the results of a t-test
 }
 \details{
-To use this function, you need to install the R package effsize and 
-compute a Cohen's d object; pass this object as the second argument.
+To use this function, you need to install the R package \code{effsize}
+to compute Cohen's d; pass this object as the second argument.
 }
 \examples{
 
@@ -38,6 +36,15 @@ ttest <- t.test(1:10, y = c(7:20), var.equal = TRUE)
 library("effsize") # for Cohen's d
 cohend <- cohen.d(1:10, c(7:20))
 print_ttest(ttest, cohend) # include this call in Rmd inline code
+
+# An example for paired data:
+tt <- t.test(sleep$extra[sleep$group == 1], 
+             sleep$extra[sleep$group == 2], paired = TRUE)
+cd <- cohen.d(sleep$extra[sleep$group == 1], 
+              sleep$extra[sleep$group == 2], paired = TRUE)
+print_ttest(tt, cd)
+# no effect size:
+print_ttest(tt)
 
 }
 \references{
