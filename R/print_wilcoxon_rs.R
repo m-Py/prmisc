@@ -5,9 +5,9 @@
 #' @param wc_object an object returned by \code{\link{wilcox.test}}
 #' @param decimals_p how many decimals should be printed for the 
 #'                   p-value (defaults to 3)
-#' @param consistent a parameter determining for which group the test
-#'                   statistic U should be reported. Defaults to FALSE.
-#'                   Can be set to "min" or "max". See details.
+#' @param consistent an optional parameter determining for which group 
+#'                   the test statistic U should be reported. Can be 
+#'                   set to 'min' or 'max'. See details.
 #' @param group1 a vector containing the cases of the first group
 #' @param group2 a vector containing the cases of the second group
 #' @param groupvar a vector containing a grouping variable
@@ -29,8 +29,8 @@
 #' variable. Some software, like SPSS, consistently reports the smaller or 
 #' larger U. If you wish to mimic this, you can specify the desired
 #' behaviour by providing the \code{consistent} argument. Setting 
-#' \code{consistent} to "min" will print the smaller of the two U, setting 
-#' it to "max" will print the larger U. In order to do so, you need to 
+#' \code{consistent} to 'min' will print the smaller of the two U, setting 
+#' it to 'max' will print the larger U. In order to do so, you need to 
 #' provide the n for both groups. 
 #' 
 #' You can either do that by passing the data of both groups to the 
@@ -53,8 +53,8 @@
 #' the \code{~}. To prevent mistakes, you can either use \code{group1} and 
 #' \code{group2} \bold{or} \code{groupvar}.
 #' 
-#' By default, \code{consistent} is \code{FALSE} and 
-#' \code{\link{print_wilcoxon_rs}} will print U using W as provided by
+#' By default, when \code{consistent} is not provided, 
+#' \code{\link{print_wilcoxon_rs}} will print U using W as taken from
 #' \code{\link{wilcox.test}}.
 #'
 #' @examples 
@@ -80,15 +80,16 @@
 #'                   groupvar = dat$Species)
 #'
 #' @author Juliane Tkotz \email{juliane.tkotz@@hhu.de}
+#' @export
 #'
-print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = FALSE, 
+print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL, 
                               group1 = NULL, group2 = NULL, groupvar = NULL) {
   p <- format_p(wc_object$p.value, decimals_p)
   U1 <- wc_object$statistic
   
   
   # check if an argument for consistent is provided
-  if (consistent != FALSE) {
+  if (!is.null(consistent)) {
     
     # check if an argument for at least either group1 or group2 is provided
     if (length(group1) != 0 | length(group2) != 0) {
@@ -99,7 +100,7 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = FALSE,
         
         # check if groups are provided in required format
       } else if (length(group1) == 0 | length(group2) == 0) {
-        stop("Two vectors containing group data required if consistent != FALSE.")
+        stop("Two vectors containing group data required if argument consistent is used.")
         
       } else if (!is.atomic(group1) | !is.atomic(group2)) {
         stop("group1 and group2 must be vectors.")
@@ -135,7 +136,6 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = FALSE,
         U_max <- max(U1, U2)
       }
     }
-  }
   
   
   if (consistent == "min") {
@@ -144,12 +144,14 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = FALSE,
   } else if (consistent == "max") {
     U <- paste0("$U = ", U_max, "$")
     
-  } else if (consistent == FALSE) {
-    U <- paste0("$U = ", U1, "$")
-    
   } else {
-    stop("Consistent can either be FALSE, 'min' or 'max'.")
+    stop("Consistent can either be set to 'min' or 'max'.")
   }
+    }
+  
+  if (is.null(consistent)) {
+    U <- paste0("$U = ", U1, "$")
+    }
   
   return(paste(U, p, sep = ", "))
 }
