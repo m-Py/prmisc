@@ -86,10 +86,11 @@ print_chi2_ <- function(tab = NULL, chi2.object = NULL, es,
   if (es == FALSE | !is_2x2_contingency) {
     rtn <- paste(c, p, sep = ", ") # do not print effect size
   }
+  # print effect size for 2x2 contigency tables
   if (es == TRUE & is_2x2_contingency) {
     phi <- decimals_only(sqrt(chi2.object$statistic / sum(tab)), decimals)
     phi <- paste0("$\\phi = ", phi, "$")
-    rtn <- paste(c, p, phi, sep = ", ") # print effect size for 2x2 contigency tables
+    rtn <- paste(c, p, phi, sep = ", ") 
   }
   return(rtn)
 }

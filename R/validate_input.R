@@ -2,7 +2,9 @@
 #' A function for input validation
 #' 
 #' @param obj The object that undergoes validation
-#' @param argument_name A string indicating the name of the object
+#' @param argument_name A string indicating the name of the object 
+#'   This name is used when an error is thrown so the user 
+#'   is informed on the cause of the error.
 #' @param class_string A character vector of legal classes
 #' @param len Optional numeric vector for objects having a length
 #'   (mostly for vectors).
