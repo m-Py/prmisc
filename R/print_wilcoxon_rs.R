@@ -94,45 +94,45 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = FALSE,
     if (length(group1) != 0 | length(group2) != 0) {
       
       # make sure groupvar is not provided
-      if(length(groupvar) != 0) {
+      if (length(groupvar) != 0) {
         stop("group1 and group2 must not be used with groupvar.")
         
         # check if groups are provided in required format
-        } else if(length(group1) == 0 | length(group2) == 0) {
-          stop("Two vectors containing group data required if consistent != FALSE.")
-      
-          } else if (!is.atomic(group1) | !is.atomic(group2)) {
-            stop("group1 and group2 must be vectors.")
-      
-            } else {
-              U2 <- length(group1) * length(group2) - U1
-              U_min <- min(U1, U2)
-              U_max <- max(U1, U2)
-            }
+      } else if (length(group1) == 0 | length(group2) == 0) {
+        stop("Two vectors containing group data required if consistent != FALSE.")
+        
+      } else if (!is.atomic(group1) | !is.atomic(group2)) {
+        stop("group1 and group2 must be vectors.")
+        
+      } else {
+        U2 <- length(group1) * length(group2) - U1
+        U_min <- min(U1, U2)
+        U_max <- max(U1, U2)
       }
+    }
     
     
     # check if an argument for groupvar is provided
     if (length(groupvar) != 0) {
       
       # make sure group1 and group2 are not provided
-      if(length(group1) != 0 | length(group2) != 0) {
+      if (length(group1) != 0 | length(group2) != 0) {
         stop("group1 and group2 must not be used with groupvar.")
         
         # check if groupvar is provided in required format
-        } else if (!is.atomic(groupvar)) {
-          stop("Grouping variable must be a vector.")
-          
-        # check if exactly two groups with more than 0 observations are provided
-        } else if (length(table(groupvar)[table(groupvar) != 0]) != 2) {
-          stop("Grouping variable must consist of exactly two groups with more than 0 observations.")
+      } else if (!is.atomic(groupvar)) {
+        stop("Grouping variable must be a vector.")
         
-          } else {
-            U2 <- 
-              table(groupvar)[table(groupvar) != 0][1] * 
-              table(groupvar)[table(groupvar) != 0][2] - U1
-            U_min <- min(U1, U2)
-            U_max <- max(U1, U2)
+        # check if exactly two groups with more than 0 observations are provided
+      } else if (length(table(groupvar)[table(groupvar) != 0]) != 2) {
+        stop("Grouping variable must consist of exactly two groups with more than 0 observations.")
+        
+      } else {
+        U2 <- 
+          table(groupvar)[table(groupvar) != 0][1] * 
+          table(groupvar)[table(groupvar) != 0][2] - U1
+        U_min <- min(U1, U2)
+        U_max <- max(U1, U2)
       }
     }
   }
