@@ -19,19 +19,8 @@
 
 validate_input <- function(obj, argument_name, class_string, len = NULL, 
                            gt0 = FALSE, must_be_integer = FALSE) {
-  # Validate input for the `validate_input` function
-  stopifnot(class(class_string) == "character")
-  stopifnot(class(argument_name) == "character")
-  if (!is.null(len)) {
-    stopifnot(class(len) %in% c("numeric", "integer"))
-    stopifnot(length(len) == 1)
-    stopifnot(len >= 0)
-    stopifnot(len %% 1 == 0)
-  }
-  stopifnot(class(gt0) == "logical")
-  stopifnot(length(gt0) == 1)
-  stopifnot(class(must_be_integer) == "logical")
-  stopifnot(length(must_be_integer) == 1)
+  
+  self_validation(argument_name, class_string, len, gt0, must_be_integer)
   
   ## - Check class of object
   correct_class <- class(obj) %in% class_string
@@ -53,5 +42,24 @@ validate_input <- function(obj, argument_name, class_string, len = NULL,
   if (must_be_integer == TRUE && any(obj %% 1 != 0)) {
     stop(argument_name, " must be integer")
   }
+  return(invisible(NULL))
+}
+
+## Validate input for the `validate_input` function (these errors are 
+## not for users, but only for developers)
+self_validation <- function(argument_name, class_string, len, gt0,
+                            must_be_integer) {
+  stopifnot(class(class_string) == "character")
+  stopifnot(class(argument_name) == "character")
+  if (!is.null(len)) {
+    stopifnot(class(len) %in% c("numeric", "integer"))
+    stopifnot(length(len) == 1)
+    stopifnot(len >= 0)
+    stopifnot(len %% 1 == 0)
+  }
+  stopifnot(class(gt0) == "logical")
+  stopifnot(length(gt0) == 1)
+  stopifnot(class(must_be_integer) == "logical")
+  stopifnot(length(must_be_integer) == 1)
   return(invisible(NULL))
 }
