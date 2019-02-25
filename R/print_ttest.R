@@ -5,11 +5,12 @@
 #' @param t_object An object of class "htest" returned by 
 #'     \code{\link{t.test}}.
 #' @param d_object An object of class "effsize" returned by 
-#'     \code{\link[effsize]{cohen.d}}. Optional argument, 
-#'     defaults to \code{NULL}.
-#' @param decimals How many decimals should be printed for the t-value.
+#'     \code{\link[effsize]{cohen.d}} from package \code{effsize}. 
+#'     Optional argument.
+#' @param decimals How many decimals should be printed for the t-value
+#'     (defaults to 2).
 #' @param decimals_p How many decimals should be printed for the p-value
-#'     (defaults to 3)
+#'     (defaults to 3).
 #'     
 #' @return A string describing the t-test; to be 
 #'     included in an R markdown document.
@@ -51,8 +52,8 @@ print_ttest <- function(t_object, d_object = NULL, decimals=2, decimals_p = 3) {
   if (!is.null(d_object)) {
     validate_input(d_object, "d_object", "effsize")
   }
-  validate_input(decimals, "decimals",  c("numeric", "integer"), 1, TRUE)
-  validate_input(decimals_p, "decimals_p", c("numeric", "integer"), 1, TRUE)
+  validate_input(decimals, "decimals",  c("numeric", "integer"), 1, TRUE, TRUE)
+  validate_input(decimals_p, "decimals_p", c("numeric", "integer"), 1, TRUE, TRUE)
 
   p <- format_p(t_object$p.value, decimals_p)
   t <- paste0("$t(", round(t_object$parameter, decimals), ") = ")

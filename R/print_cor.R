@@ -29,8 +29,8 @@ print_cortest <- function(cor_object, print_t = FALSE, decimals = 2,
                           decimals_p = 3) {
   validate_input(cor_object, "cor_object", "htest")
   validate_input(print_t, "print_t", "logical", 1)
-  validate_input(decimals, "decimals",  c("numeric", "integer"), 1, TRUE)
-  validate_input(decimals_p, "decimals_p", c("numeric", "integer"), 1, TRUE)
+  validate_input(decimals, "decimals",  c("numeric", "integer"), 1, TRUE, TRUE)
+  validate_input(decimals_p, "decimals_p", c("numeric", "integer"), 1, TRUE, TRUE)
   
   p <- format_p(cor_object$p.value, decimals_p)
   t <- paste0("$t = ", force_decimals(cor_object$statistic, decimals), "$")

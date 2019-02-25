@@ -11,13 +11,14 @@ print_ttest(t_object, d_object = NULL, decimals = 2, decimals_p = 3)
 \code{\link{t.test}}.}
 
 \item{d_object}{An object of class "effsize" returned by 
-\code{\link[effsize]{cohen.d}}. Optional argument, 
-defaults to \code{NULL}.}
+\code{\link[effsize]{cohen.d}} from package \code{effsize}. 
+Optional argument.}
 
-\item{decimals}{How many decimals should be printed for the t-value.}
+\item{decimals}{How many decimals should be printed for the t-value
+(defaults to 2).}
 
 \item{decimals_p}{How many decimals should be printed for the p-value
-(defaults to 3)}
+(defaults to 3).}
 }
 \value{
 A string describing the t-test; to be 
