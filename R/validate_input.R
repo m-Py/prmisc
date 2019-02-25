@@ -29,7 +29,7 @@ validate_input <- function(obj, argument_name, class_string, len = NULL,
   
   ## Allow for all numeric types:
   if ("numeric" %in% class_string) {
-    class_string <- c("numeric", "integer", "double")
+    class_string <- c(class_string, "integer", "double")
   }
   
   ## - Check class of object
