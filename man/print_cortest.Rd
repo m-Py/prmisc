@@ -5,17 +5,13 @@
 \title{Printing the results of a significance test for a correlation
 coefficient}
 \usage{
-print_cortest(cor_object, print_t = FALSE, decimals = 2,
-  decimals_p = 3)
+print_cortest(cor_object, decimals = 2, decimals_p = 3)
 }
 \arguments{
 \item{cor_object}{An object of class "htest" returned by 
 \code{\link{cor.test}}}
 
-\item{print_t}{Boolean, should the t-statistic be printed. 
-(defaults to \code{FALSE})}
-
-\item{decimals}{How many decimals should be printed for r and t values
+\item{decimals}{How many decimals should be printed for r 
 (defaults to 2).}
 
 \item{decimals_p}{How many decimals should be printed for the p value
@@ -35,7 +31,6 @@ x <- c(44.4, 45.9, 41.9, 53.3, 44.7, 44.1, 50.7, 45.2, 60.1)
 y <- c( 2.6,  3.1,  2.5,  5.0,  3.6,  4.0,  5.2,  2.8,  3.8)
 cor_results <- cor.test(x, y)
 print_cortest(cor_results)
-print_cortest(cor_results, print_t = TRUE)
 
 }
 \author{

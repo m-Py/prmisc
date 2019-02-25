@@ -66,11 +66,7 @@ y <- c( 2.6,  3.1,  2.5,  5.0,  3.6,  4.0,  5.2,  2.8,  3.8)
 cor_results <- cor.test(x, y)
 
 print_cortest(cor_results)
-# [1] "$r = .57$, $p = .108$"
-
-# also show t statistic:
-print_cortest(cor_results, print_t = TRUE)
-[1] "$r = .57$, $t = 1.84$, $p = .108$"
+# [1] "$r(7) = .57$, $p = .108$"
 ```
 
 ## ANOVA
