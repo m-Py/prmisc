@@ -142,13 +142,13 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = FALSE,
   
   
   if (consistent == "min") {
-    U <- paste0("$U = $", U_min)
+    U <- paste0("$U = ", U_min, "$")
     
   } else if (consistent == "max") {
-    U <- paste0("$U = $", U_max)
+    U <- paste0("$U = ", U_max, "$")
     
   } else if (consistent == FALSE) {
-    U <- paste0("$U = $", U1)
+    U <- paste0("$U = ", U1, "$")
     
   } else {
     stop("Consistent can either be FALSE, 'min' or 'max'.")
