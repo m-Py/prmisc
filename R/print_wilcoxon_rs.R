@@ -80,10 +80,13 @@
 #'                   groupvar = dat$Species)
 #'
 #' @author Juliane Tkotz \email{juliane.tkotz@@hhu.de}
-#' @export
 #'
 print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL, 
                               group1 = NULL, group2 = NULL, groupvar = NULL) {
+  validate_input(wc_object, "wc_object", "htest")
+  validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
+  validate_input2(consistent, "consistent", c("min", "max"))
+  
   p <- format_p(wc_object$p.value, decimals_p)
   U1 <- wc_object$statistic
   

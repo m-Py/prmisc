@@ -74,3 +74,14 @@ self_validation <- function(argument_name, class_string, len, gt0,
   stopifnot(length(must_be_integer) == 1)
   return(invisible(NULL))
 }
+
+validate_input2 <- function(obj, argument_name, input_set) {
+  if (!is.null(obj)) {
+    
+    if (!obj %in% input_set) {
+      stop(argument_name, " can either be set to '", 
+           paste(input_set, collapse = "' or '"), "'")
+      
+    }
+  }
+}
