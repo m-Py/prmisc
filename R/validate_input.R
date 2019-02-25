@@ -5,7 +5,12 @@
 #' @param argument_name A string indicating the name of the object 
 #'   This name is used when an error is thrown so the user 
 #'   is informed on the cause of the error.
-#' @param class_string A character vector of legal classes
+#' @param class_string A character vector of legal classes. If 
+#'   \code{class_string} is "numeric", it will be expanded to 
+#'   c("numeric", "integer", "double"). The class is tested via the 
+#'   function \code{class}. This means that if \code{obj} is a matrix, 
+#'   it is necessary to pass \code{class_string = "matrix"}; you cannot 
+#'   refer to the "mode" of the matrix.
 #' @param len Optional numeric vector for objects having a length
 #'   (mostly for vectors).
 #' @param gt0 Optional logical vector indicating if numeric input has 
@@ -22,6 +27,11 @@ validate_input <- function(obj, argument_name, class_string, len = NULL,
   
   self_validation(argument_name, class_string, len, gt0, must_be_integer)
   
+  ## Allow for all numeric types:
+  if ("numeric" %in% class_string) {
+    class_string <- c("numeric", "integer", "double")
+  }
+  
   ## - Check class of object
   correct_class <- class(obj) %in% class_string
   if (!correct_class) {
@@ -34,14 +44,15 @@ validate_input <- function(obj, argument_name, class_string, len = NULL,
       stop(argument_name, " must have length ", len)
     }
   }
-  ## - Check if input must be greater than 0
+  ## - Check if input has to be greater than 0
   if (gt0 == TRUE && any(obj <= 0)) {
     stop(argument_name, " must be greater than 0")
   }
-  ## - Check if input must be integer
+  ## - Check if input has to be integer
   if (must_be_integer == TRUE && any(obj %% 1 != 0)) {
     stop(argument_name, " must be integer")
   }
+
   return(invisible(NULL))
 }
 

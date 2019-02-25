@@ -52,8 +52,8 @@ print_ttest <- function(t_object, d_object = NULL, decimals=2, decimals_p = 3) {
   if (!is.null(d_object)) {
     validate_input(d_object, "d_object", "effsize")
   }
-  validate_input(decimals, "decimals",  c("numeric", "integer"), 1, TRUE, TRUE)
-  validate_input(decimals_p, "decimals_p", c("numeric", "integer"), 1, TRUE, TRUE)
+  validate_input(decimals, "decimals",  "numeric", 1, TRUE, TRUE)
+  validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
 
   p <- format_p(t_object$p.value, decimals_p)
   t <- paste0("$t(", round(t_object$parameter, decimals), ") = ")

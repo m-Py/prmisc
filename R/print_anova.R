@@ -75,8 +75,8 @@ print_anova <- function(afex_object, italic_eta = TRUE,
                         decimals = 2, decimals_p = 3) {
   validate_input(afex_object, "afex_object", "afex_aov")
   validate_input(italic_eta, "italic_eta", "logical", 1)
-  validate_input(decimals, "decimals",  c("numeric", "integer"), 1, TRUE, TRUE)
-  validate_input(decimals_p, "decimals_p", c("numeric", "integer"), 1, TRUE, TRUE)
+  validate_input(decimals, "decimals", "numeric", 1, TRUE, TRUE)
+  validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
 
   font <- ifelse(italic_eta == TRUE, "italic", "nonitalic")
   rows <- rownames(afex_object$anova)
