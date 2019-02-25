@@ -132,8 +132,8 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = FALSE,
         
           } else {
             U2 <- 
-              table(dat$Species)[table(dat$Species) != 0][1] * 
-              table(dat$Species)[table(dat$Species) != 0][2] - U1
+              table(groupvar)[table(groupvar) != 0][1] * 
+              table(groupvar)[table(groupvar) != 0][2] - U1
             U_min <- min(U1, U2)
             U_max <- max(U1, U2)
       }
