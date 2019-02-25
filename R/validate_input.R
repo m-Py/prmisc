@@ -24,7 +24,9 @@ validate_input <- function(obj, argument_name, class_string, len = NULL,
   stopifnot(class(argument_name) == "character")
   if (!is.null(len)) {
     stopifnot(class(len) %in% c("numeric", "integer"))
+    stopifnot(length(len) == 1)
     stopifnot(len >= 0)
+    stopifnot(len %% 1 == 0)
   }
   stopifnot(class(gt0) == "logical")
   stopifnot(length(gt0) == 1)
