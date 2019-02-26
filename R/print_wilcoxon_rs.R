@@ -61,7 +61,7 @@
 #' data(iris)
 #' head(iris)
 #' dat <- subset(iris, 
-#'               Species == c("setosa", "versicolor"))
+#'               Species %in% c("setosa", "versicolor"))
 #' wc_iris <- wilcox.test(dat$Sepal.Length ~ dat$Species, 
 #'                        correct = FALSE, paired = FALSE)
 #' # include this call in Rmd inline code
@@ -79,6 +79,7 @@
 #'                   groupvar = dat$Species)
 #'
 #' @author Juliane Tkotz \email{juliane.tkotz@@hhu.de}
+#' @export
 #'
 print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,
                               group1 = NULL, group2 = NULL, groupvar = NULL) {
