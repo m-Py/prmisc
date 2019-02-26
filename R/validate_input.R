@@ -19,13 +19,16 @@
 #'   input has to be integer.
 #' @param groupsize Optional argument how many groups a grouping variable
 #'   consist of.
+#' @param input_set Optional argument specifying a set of values an
+#'   argument can take.
 #' 
 #' @return NULL 
 #' 
 #' @noRd
 
 validate_input <- function(obj, argument_name, class_string, len = NULL, 
-                           gt0 = FALSE, must_be_integer = FALSE, groupsize = NULL) {
+                           gt0 = FALSE, must_be_integer = FALSE, groupsize = NULL,
+                           input_set = NULL) {
   
   self_validation(argument_name, class_string, len, gt0, must_be_integer)
   
@@ -34,9 +37,20 @@ validate_input <- function(obj, argument_name, class_string, len = NULL,
     class_string <- c(class_string, "integer", "double")
   }
   
-  ## Special case grouping variable: Allow for numeric, character or factor
+  ## Case - grouping variable: Allow for numeric, character or factor
   if ("groupvariable" %in% class_string) {
     class_string <- c("factor", "character", "numeric", "integer", "double")
+  }
+  
+  ## Case - argument with specified set of input values
+  if("set" %in% class_string) {
+    class_string <- c(class(obj))
+    len <- 1
+    
+    if (!obj %in% input_set) {
+      stop(argument_name, " can either be set to '", 
+           paste(input_set, collapse = "' or '"), "'")
+    }
   }
   
   ## - Check class of object
@@ -65,7 +79,7 @@ validate_input <- function(obj, argument_name, class_string, len = NULL,
       stop(argument_name, " must consist of exactly ", groupsize, " groups with more than 0 observations.")
     }
   }
-
+  
   return(invisible(NULL))
 }
 
@@ -86,13 +100,6 @@ self_validation <- function(argument_name, class_string, len, gt0,
   stopifnot(class(must_be_integer) == "logical")
   stopifnot(length(must_be_integer) == 1)
   return(invisible(NULL))
-}
-
-validate_input2 <- function(obj, argument_name, input_set) {
-    if (!obj %in% input_set) {
-      stop(argument_name, " can either be set to '", 
-           paste(input_set, collapse = "' or '"), "'")
-    }
 }
 
 argument_exists <- function(arg) {
