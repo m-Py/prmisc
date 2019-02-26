@@ -92,6 +92,8 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,
   ## (c) A warning is given if (group1, group2) or (groupvar) are provided together
   ##     with consistent
   
+  if (!argument_exists(consistent)) consistent <- FALSE
+  
   groupversion <- argument_exists(group1)
   groupvarversion <- argument_exists(groupvar)
   
@@ -168,8 +170,4 @@ val_input_wilcox <- function(wc_object, decimals_p, consistent,
       stop("groupvar must not be used with group1 or group2")
     }
   }
-}
-
-argument_exists <- function(arg) {
-  !is.null(arg)
 }
