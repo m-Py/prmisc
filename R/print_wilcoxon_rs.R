@@ -1,5 +1,4 @@
 
-
 #' Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)
 #'
 #' @param wc_object an object returned by \code{\link{wilcox.test}}
@@ -81,90 +80,96 @@
 #'
 #' @author Juliane Tkotz \email{juliane.tkotz@@hhu.de}
 #'
-print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL, 
+print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,
                               group1 = NULL, group2 = NULL, groupvar = NULL) {
-  # Run default version when group1, group2 or groupvar are not provided
-  groupversion <- FALSE
-  groupvarversion <- FALSE
   
+  val_input_wilcox(wc_object, decimals_p, consistent,
+                   group1, group2, groupvar)
+  
+  ## Here the input is valid:
+  ## (a) (group1, group2) and (groupvar) do not occur together
+  ## (b) either one of (group1, group2) or (groupvar) or (wc_object) is provided
+  ## (c) A warning is given if (group1, group2) or (groupvar) are provided together
+  ##     with consistent
+  
+  groupversion <- argument_exists(group1)
+  groupvarversion <- argument_exists(groupvar)
+  
+  p <- format_p(wc_object$p.value, decimals_p)
+  U <- wc_object$statistic
+  
+  # check if an argument for consistent is provided
+  if (groupversion == TRUE) {
+    ngroup1 <- length(group1)
+    ngroup2 <- length(group2)
+  } else if (groupvarversion == TRUE) {
+    ngroup1 <- table(groupvar)[table(groupvar) != 0][1]
+    ngroup2 <- table(groupvar)[table(groupvar) != 0][2]
+  }
+  if (groupversion | groupvarversion) {
+    U2 <- ngroup1 * ngroup2 - U
+    U_min <- min(U, U2)
+    U_max <- max(U, U2)
+    if (consistent == "min") {
+      U <- U_min
+    } else if(consistent == "max") {
+      U <- U_max
+    }
+  }
+  
+  U <- paste0("$U = ", U, "$")
+  return(paste(U, p, sep = ", "))
+}
+
+val_input_wilcox <- function(wc_object, decimals_p, consistent,
+                             group1, group2, groupvar) {
+  
+  if (argument_exists(groupvar) && !argument_exists(consistent)) {
+    warning("Argument groupvar was ignored because argument consistent was NULL")
+  }
+  if (argument_exists(group1) && !argument_exists(consistent)) {
+    warning("Argument group1 was ignored because argument consistent was NULL")
+  }
+  if (argument_exists(group2) && !argument_exists(consistent)) {
+    warning("Argument group2 was ignored because argument consistent was NULL")
+  }
   
   # Input validation
   validate_input(wc_object, "wc_object", "htest")
   validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
   
-  if (!is.null(consistent)) {
-  validate_input2(consistent, "consistent", c("min", "max"))
+  if (argument_exists(consistent)) {
+    validate_input2(consistent, "consistent", c("min", "max"))
   }
   
-  if (!is.null(group1)) {
+  if (argument_exists(group1)) {
     validate_input(group1, "group1", "numeric")
-    
     if(is.null(group2)){
       stop("group2 must not be NULL when group 1 is used")
     }
-    
-    if(!is.null(groupvar)){
+    if(argument_exists(groupvar)){
       stop("groupvar must not be used with group1 or group2")
     }
-    
-    groupversion <-  TRUE
   }
   
-  if (!is.null(group2)) {
+  if (argument_exists(group2)) {
     validate_input(group2, "group2", "numeric")
-    
     if(is.null(group1)){
       stop("group1 must not be NULL when group 2 is used")
     }
-    
-    if(!is.null(groupvar)){
+    if(argument_exists(groupvar)){
       stop("groupvar must not be used with group1 or group2")
     }
   }
   
-  if (!is.null(groupvar)) {
+  if (argument_exists(groupvar)) {
     validate_input(groupvar, "groupvar", "groupvariable", groupsize = 2)
-    
-    if(!is.null(group1) | !is.null(group2)){
+    if(argument_exists(group1) | argument_exists(group2)){
       stop("groupvar must not be used with group1 or group2")
     }
-    
-    groupvarversion <- TRUE
   }
-  
-  
-  p <- format_p(wc_object$p.value, decimals_p)
-  U <- wc_object$statistic
-  
-  
-  # check if an argument for consistent is provided
-  if (!is.null(consistent)) {
-    # groupversion
-    if (groupversion == TRUE) {
-      ngroup1 <- length(group1)
-      ngroup2 <- length(group2)
-    }
-    
-    # groupvarversion
-    if (groupvarversion == TRUE) {
-        ngroup1 <- table(groupvar)[table(groupvar) != 0][1] 
-        ngroup2 <- table(groupvar)[table(groupvar) != 0][2]
-        }
-    
-    U2 <- ngroup1 * ngroup2 - U
-    U_min <- min(U, U2)
-    U_max <- max(U, U2)
-    
-    if (consistent == "min") {
-      U <- U_min
-    } 
-    
-    if (consistent == "max") {
-      U <- U_max
-    }
-  }
-    
-    U <- paste0("$U = ", U, "$")
-  
-  return(paste(U, p, sep = ", "))
+}
+
+argument_exists <- function(arg) {
+  !is.null(arg)
 }
