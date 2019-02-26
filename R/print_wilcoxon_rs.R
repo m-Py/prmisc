@@ -142,7 +142,7 @@ val_input_wilcox <- function(wc_object, decimals_p, consistent,
   validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
   
   if (argument_exists(consistent)) {
-    validate_input2(consistent, "consistent", c("min", "max"))
+    validate_input(consistent, "consistent", "set", input_set = c("min", "max"))
   }
   
   if (argument_exists(group1)) {
