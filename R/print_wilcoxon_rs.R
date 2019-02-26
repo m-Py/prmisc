@@ -141,18 +141,19 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,
   if (!is.null(consistent)) {
     # groupversion
     if (groupversion == TRUE) {
-        U2 <- length(group1) * length(group2) - U1
-        U_min <- min(U1, U2)
-        U_max <- max(U1, U2)
+      ngroup1 <- length(group1)
+      ngroup2 <- length(group2)
     }
     
     # groupvarversion
     if (groupvarversion == TRUE) {
-        U2 <- table(groupvar)[table(groupvar) != 0][1] * 
-          table(groupvar)[table(groupvar) != 0][2] - U1
-        U_min <- min(U1, U2)
-        U_max <- max(U1, U2)
+        ngroup1 <- table(groupvar)[table(groupvar) != 0][1] 
+        ngroup2 <- table(groupvar)[table(groupvar) != 0][2]
         }
+    
+    U2 <- ngroup1 * ngroup2 - U1
+    U_min <- min(U1, U2)
+    U_max <- max(U1, U2)
     
     if (consistent == "min") {
       U <- paste0("$U = ", U_min, "$")
@@ -161,9 +162,10 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,
     if (consistent == "max") {
       U <- paste0("$U = ", U_max, "$")
     }
-    }
-  
+    
+    } else {
     U <- paste0("$U = ", U1, "$")
+    }
   
   return(paste(U, p, sep = ", "))
 }
