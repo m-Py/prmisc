@@ -83,9 +83,55 @@
 #'
 print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL, 
                               group1 = NULL, group2 = NULL, groupvar = NULL) {
+  # Run default version when group1, group2 or groupvar are not provided
+  groupversion <- FALSE
+  groupvarversion <- FALSE
+  
+  
+  # Input validation
   validate_input(wc_object, "wc_object", "htest")
   validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
+  
+  if (!is.null(consistent)) {
   validate_input2(consistent, "consistent", c("min", "max"))
+  }
+  
+  if (!is.null(group1)) {
+    validate_input(group1, "group1", "numeric")
+    
+    if(is.null(group2)){
+      stop("group2 must not be NULL when group 1 is used")
+    }
+    
+    if(!is.null(groupvar)){
+      stop("groupvar must not be used with group1 or group2")
+    }
+    
+    groupversion <-  TRUE
+  }
+  
+  if (!is.null(group2)) {
+    validate_input(group2, "group2", "numeric")
+    
+    if(is.null(group1)){
+      stop("group1 must not be NULL when group 2 is used")
+    }
+    
+    if(!is.null(groupvar)){
+      stop("groupvar must not be used with group1 or group2")
+    }
+  }
+  
+  if (!is.null(groupvar)) {
+    validate_input(groupvar, "groupvar", "groupvariable", groupsize = 2)
+    
+    if(!is.null(group1) | !is.null(group2)){
+      stop("groupvar must not be used with group1 or group2")
+    }
+    
+    groupvarversion <- TRUE
+  }
+  
   
   p <- format_p(wc_object$p.value, decimals_p)
   U1 <- wc_object$statistic
@@ -93,68 +139,31 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,
   
   # check if an argument for consistent is provided
   if (!is.null(consistent)) {
-    
-    # check if an argument for at least either group1 or group2 is provided
-    if (length(group1) != 0 | length(group2) != 0) {
-      
-      # make sure groupvar is not provided
-      if (length(groupvar) != 0) {
-        stop("group1 and group2 must not be used with groupvar.")
-        
-        # check if groups are provided in required format
-      } else if (length(group1) == 0 | length(group2) == 0) {
-        stop("Two vectors containing group data required if argument consistent is used.")
-        
-      } else if (!is.atomic(group1) | !is.atomic(group2)) {
-        stop("group1 and group2 must be vectors.")
-        
-      } else {
+    # groupversion
+    if (groupversion == TRUE) {
         U2 <- length(group1) * length(group2) - U1
         U_min <- min(U1, U2)
         U_max <- max(U1, U2)
-      }
     }
     
-    
-    # check if an argument for groupvar is provided
-    if (length(groupvar) != 0) {
-      
-      # make sure group1 and group2 are not provided
-      if (length(group1) != 0 | length(group2) != 0) {
-        stop("group1 and group2 must not be used with groupvar.")
-        
-        # check if groupvar is provided in required format
-      } else if (!is.atomic(groupvar)) {
-        stop("Grouping variable must be a vector.")
-        
-        # check if exactly two groups with more than 0 observations are provided
-      } else if (length(table(groupvar)[table(groupvar) != 0]) != 2) {
-        stop("Grouping variable must consist of exactly two groups with more than 0 observations.")
-        
-      } else {
-        U2 <- 
-          table(groupvar)[table(groupvar) != 0][1] * 
+    # groupvarversion
+    if (groupvarversion == TRUE) {
+        U2 <- table(groupvar)[table(groupvar) != 0][1] * 
           table(groupvar)[table(groupvar) != 0][2] - U1
         U_min <- min(U1, U2)
         U_max <- max(U1, U2)
-      }
+        }
+    
+    if (consistent == "min") {
+      U <- paste0("$U = ", U_min, "$")
+    } 
+    
+    if (consistent == "max") {
+      U <- paste0("$U = ", U_max, "$")
+    }
     }
   
-  
-  if (consistent == "min") {
-    U <- paste0("$U = ", U_min, "$")
-    
-  } else if (consistent == "max") {
-    U <- paste0("$U = ", U_max, "$")
-    
-  } else {
-    stop("Consistent can either be set to 'min' or 'max'.")
-  }
-    }
-  
-  if (is.null(consistent)) {
     U <- paste0("$U = ", U1, "$")
-    }
   
   return(paste(U, p, sep = ", "))
 }

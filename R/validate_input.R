@@ -17,19 +17,26 @@
 #'   to be greater than 0.
 #' @param must_be_integer Optional logical vector indicating if numeric
 #'   input has to be integer.
+#' @param groupsize Optional argument how many groups a grouping variable
+#'   consist of.
 #' 
 #' @return NULL 
 #' 
 #' @noRd
 
 validate_input <- function(obj, argument_name, class_string, len = NULL, 
-                           gt0 = FALSE, must_be_integer = FALSE) {
+                           gt0 = FALSE, must_be_integer = FALSE, groupsize = NULL) {
   
   self_validation(argument_name, class_string, len, gt0, must_be_integer)
   
   ## Allow for all numeric types:
   if ("numeric" %in% class_string) {
     class_string <- c(class_string, "integer", "double")
+  }
+  
+  ## Special case grouping variable: Allow for numeric, character or factor
+  if ("groupvariable" %in% class_string) {
+    class_string <- c("factor", "character", "numeric", "integer", "double")
   }
   
   ## - Check class of object
@@ -51,6 +58,12 @@ validate_input <- function(obj, argument_name, class_string, len = NULL,
   ## - Check if input has to be integer
   if (must_be_integer == TRUE && any(obj %% 1 != 0)) {
     stop(argument_name, " must be integer")
+  }
+  ## - Check if correct number of groups is provided
+  if (!is.null(groupsize)) {
+    if (length(table(obj)[table(obj) != 0]) != groupsize) {
+      stop(argument_name, " must consist of exactly ", groupsize, " groups with more than 0 observations.")
+    }
   }
 
   return(invisible(NULL))
@@ -76,12 +89,8 @@ self_validation <- function(argument_name, class_string, len, gt0,
 }
 
 validate_input2 <- function(obj, argument_name, input_set) {
-  if (!is.null(obj)) {
-    
     if (!obj %in% input_set) {
       stop(argument_name, " can either be set to '", 
            paste(input_set, collapse = "' or '"), "'")
-      
     }
-  }
 }
