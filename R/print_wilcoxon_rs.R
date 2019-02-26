@@ -134,7 +134,7 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,
   
   
   p <- format_p(wc_object$p.value, decimals_p)
-  U1 <- wc_object$statistic
+  U <- wc_object$statistic
   
   
   # check if an argument for consistent is provided
@@ -151,21 +151,20 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,
         ngroup2 <- table(groupvar)[table(groupvar) != 0][2]
         }
     
-    U2 <- ngroup1 * ngroup2 - U1
-    U_min <- min(U1, U2)
-    U_max <- max(U1, U2)
+    U2 <- ngroup1 * ngroup2 - U
+    U_min <- min(U, U2)
+    U_max <- max(U, U2)
     
     if (consistent == "min") {
-      U <- paste0("$U = ", U_min, "$")
+      U <- U_min
     } 
     
     if (consistent == "max") {
-      U <- paste0("$U = ", U_max, "$")
+      U <- U_max
     }
+  }
     
-    } else {
-    U <- paste0("$U = ", U1, "$")
-    }
+    U <- paste0("$U = ", U, "$")
   
   return(paste(U, p, sep = ", "))
 }
