@@ -46,7 +46,7 @@ validate_input <- function(obj, argument_name, class_string, len = NULL,
          paste(class_string, collapse = "' or '"), "'")
   }
   ## - Check length of input
-  if (!is.null(len)) {
+  if (argument_exists(len)) {
     if (length(obj) != len) {
       stop(argument_name, " must have length ", len)
     }
@@ -60,7 +60,7 @@ validate_input <- function(obj, argument_name, class_string, len = NULL,
     stop(argument_name, " must be integer")
   }
   ## - Check if correct number of groups is provided
-  if (!is.null(groupsize)) {
+  if (argument_exists(groupsize)) {
     if (length(table(obj)[table(obj) != 0]) != groupsize) {
       stop(argument_name, " must consist of exactly ", groupsize, " groups with more than 0 observations.")
     }
@@ -75,7 +75,7 @@ self_validation <- function(argument_name, class_string, len, gt0,
                             must_be_integer) {
   stopifnot(class(class_string) == "character")
   stopifnot(class(argument_name) == "character")
-  if (!is.null(len)) {
+  if (argument_exists(len)) {
     stopifnot(class(len) %in% c("numeric", "integer"))
     stopifnot(length(len) == 1)
     stopifnot(len >= 0)
@@ -93,4 +93,8 @@ validate_input2 <- function(obj, argument_name, input_set) {
       stop(argument_name, " can either be set to '", 
            paste(input_set, collapse = "' or '"), "'")
     }
+}
+
+argument_exists <- function(arg) {
+  !is.null(arg)
 }
