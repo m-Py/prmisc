@@ -5,9 +5,9 @@
 #' @param wc_object an object returned by \code{\link{wilcox.test}}
 #' @param decimals_p how many decimals should be printed for the 
 #'                   p-value (defaults to 3)
-#' @param consistent a parameter determining for which group the test
-#'                   statistic U should be reported. Defaults to FALSE.
-#'                   Can be set to "min" or "max". See details.
+#' @param consistent an optional parameter determining for which group 
+#'                   the test statistic U should be reported. Can be 
+#'                   set to 'min' or 'max'. See details.
 #' @param group1 a vector containing the cases of the first group
 #' @param group2 a vector containing the cases of the second group
 #' @param groupvar a vector containing a grouping variable
@@ -29,8 +29,8 @@
 #' variable. Some software, like SPSS, consistently reports the smaller or 
 #' larger U. If you wish to mimic this, you can specify the desired
 #' behaviour by providing the \code{consistent} argument. Setting 
-#' \code{consistent} to "min" will print the smaller of the two U, setting 
-#' it to "max" will print the larger U. In order to do so, you need to 
+#' \code{consistent} to 'min' will print the smaller of the two U, setting 
+#' it to 'max' will print the larger U. In order to do so, you need to 
 #' provide the n for both groups. 
 #' 
 #' You can either do that by passing the data of both groups to the 
@@ -53,8 +53,8 @@
 #' the \code{~}. To prevent mistakes, you can either use \code{group1} and 
 #' \code{group2} \bold{or} \code{groupvar}.
 #' 
-#' By default, \code{consistent} is \code{FALSE} and 
-#' \code{\link{print_wilcoxon_rs}} will print U using W as provided by
+#' By default, when \code{consistent} is not provided, 
+#' \code{\link{print_wilcoxon_rs}} will print U using W as taken from
 #' \code{\link{wilcox.test}}.
 #'
 #' @examples 
@@ -81,75 +81,90 @@
 #'
 #' @author Juliane Tkotz \email{juliane.tkotz@@hhu.de}
 #'
-print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = FALSE, 
+print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL, 
                               group1 = NULL, group2 = NULL, groupvar = NULL) {
+  # Run default version when group1, group2 or groupvar are not provided
+  groupversion <- FALSE
+  groupvarversion <- FALSE
+  
+  
+  # Input validation
+  validate_input(wc_object, "wc_object", "htest")
+  validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
+  
+  if (!is.null(consistent)) {
+  validate_input2(consistent, "consistent", c("min", "max"))
+  }
+  
+  if (!is.null(group1)) {
+    validate_input(group1, "group1", "numeric")
+    
+    if(is.null(group2)){
+      stop("group2 must not be NULL when group 1 is used")
+    }
+    
+    if(!is.null(groupvar)){
+      stop("groupvar must not be used with group1 or group2")
+    }
+    
+    groupversion <-  TRUE
+  }
+  
+  if (!is.null(group2)) {
+    validate_input(group2, "group2", "numeric")
+    
+    if(is.null(group1)){
+      stop("group1 must not be NULL when group 2 is used")
+    }
+    
+    if(!is.null(groupvar)){
+      stop("groupvar must not be used with group1 or group2")
+    }
+  }
+  
+  if (!is.null(groupvar)) {
+    validate_input(groupvar, "groupvar", "groupvariable", groupsize = 2)
+    
+    if(!is.null(group1) | !is.null(group2)){
+      stop("groupvar must not be used with group1 or group2")
+    }
+    
+    groupvarversion <- TRUE
+  }
+  
+  
   p <- format_p(wc_object$p.value, decimals_p)
-  U1 <- wc_object$statistic
+  U <- wc_object$statistic
   
   
   # check if an argument for consistent is provided
-  if (consistent != FALSE) {
-    
-    # check if an argument for at least either group1 or group2 is provided
-    if (length(group1) != 0 | length(group2) != 0) {
-      
-      # make sure groupvar is not provided
-      if (length(groupvar) != 0) {
-        stop("group1 and group2 must not be used with groupvar.")
-        
-        # check if groups are provided in required format
-      } else if (length(group1) == 0 | length(group2) == 0) {
-        stop("Two vectors containing group data required if consistent != FALSE.")
-        
-      } else if (!is.atomic(group1) | !is.atomic(group2)) {
-        stop("group1 and group2 must be vectors.")
-        
-      } else {
-        U2 <- length(group1) * length(group2) - U1
-        U_min <- min(U1, U2)
-        U_max <- max(U1, U2)
-      }
+  if (!is.null(consistent)) {
+    # groupversion
+    if (groupversion == TRUE) {
+      ngroup1 <- length(group1)
+      ngroup2 <- length(group2)
     }
     
+    # groupvarversion
+    if (groupvarversion == TRUE) {
+        ngroup1 <- table(groupvar)[table(groupvar) != 0][1] 
+        ngroup2 <- table(groupvar)[table(groupvar) != 0][2]
+        }
     
-    # check if an argument for groupvar is provided
-    if (length(groupvar) != 0) {
-      
-      # make sure group1 and group2 are not provided
-      if (length(group1) != 0 | length(group2) != 0) {
-        stop("group1 and group2 must not be used with groupvar.")
-        
-        # check if groupvar is provided in required format
-      } else if (!is.atomic(groupvar)) {
-        stop("Grouping variable must be a vector.")
-        
-        # check if exactly two groups with more than 0 observations are provided
-      } else if (length(table(groupvar)[table(groupvar) != 0]) != 2) {
-        stop("Grouping variable must consist of exactly two groups with more than 0 observations.")
-        
-      } else {
-        U2 <- 
-          table(groupvar)[table(groupvar) != 0][1] * 
-          table(groupvar)[table(groupvar) != 0][2] - U1
-        U_min <- min(U1, U2)
-        U_max <- max(U1, U2)
-      }
+    U2 <- ngroup1 * ngroup2 - U
+    U_min <- min(U, U2)
+    U_max <- max(U, U2)
+    
+    if (consistent == "min") {
+      U <- U_min
+    } 
+    
+    if (consistent == "max") {
+      U <- U_max
     }
   }
-  
-  
-  if (consistent == "min") {
-    U <- paste0("$U = ", U_min, "$")
     
-  } else if (consistent == "max") {
-    U <- paste0("$U = ", U_max, "$")
-    
-  } else if (consistent == FALSE) {
-    U <- paste0("$U = ", U1, "$")
-    
-  } else {
-    stop("Consistent can either be FALSE, 'min' or 'max'.")
-  }
+    U <- paste0("$U = ", U, "$")
   
   return(paste(U, p, sep = ", "))
 }
