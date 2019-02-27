@@ -115,7 +115,7 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,
     U_max <- max(U, U2)
     if (consistent == "min") {
       U <- U_min
-    } else if(consistent == "max") {
+    } else if (consistent == "max") {
       U <- U_max
     }
   }
@@ -142,32 +142,32 @@ val_input_wilcox <- function(wc_object, decimals_p, consistent,
   validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
   
   if (argument_exists(consistent)) {
-    validate_input(consistent, "consistent", "set", input_set = c("min", "max"))
+    validate_input(consistent, "consistent", len = 1, input_set = c("min", "max"))
   }
   
   if (argument_exists(group1)) {
     validate_input(group1, "group1", "numeric")
-    if(is.null(group2)){
+    if (is.null(group2)) {
       stop("group2 must not be NULL when group 1 is used")
     }
-    if(argument_exists(groupvar)){
+    if (argument_exists(groupvar)) {
       stop("groupvar must not be used with group1 or group2")
     }
   }
   
   if (argument_exists(group2)) {
     validate_input(group2, "group2", "numeric")
-    if(is.null(group1)){
+    if (is.null(group1)) {
       stop("group1 must not be NULL when group 2 is used")
     }
-    if(argument_exists(groupvar)){
+    if (argument_exists(groupvar)) {
       stop("groupvar must not be used with group1 or group2")
     }
   }
   
   if (argument_exists(groupvar)) {
     validate_input(groupvar, "groupvar", "groupvariable", groupsize = 2)
-    if(argument_exists(group1) | argument_exists(group2)){
+    if (argument_exists(group1) | argument_exists(group2)) {
       stop("groupvar must not be used with group1 or group2")
     }
   }
