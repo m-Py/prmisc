@@ -42,7 +42,8 @@ validate_input <- function(obj, argument_name, class_string = NULL, len = NULL,
     }
     # Case - grouping variable: Allow for numeric, character or factor
     if ("groupvariable" %in% class_string) {
-      class_string <- setdiff(c(class_string, "factor", "character", "numeric", "integer", "double"), 
+      class_string <- setdiff(c(class_string, "factor", "character", 
+                                "numeric", "integer", "double"), 
                               "groupvariable")
     }
     correct_class <- class(obj) %in% class_string
@@ -71,7 +72,8 @@ validate_input <- function(obj, argument_name, class_string = NULL, len = NULL,
   ## - Check if correct number of groups is provided
   if (argument_exists(groupsize)) {
     if (length(table(obj)[table(obj) != 0]) != groupsize) {
-      stop(argument_name, " must consist of exactly ", groupsize, " groups with more than 0 observations.")
+      stop(argument_name, " must consist of exactly ", groupsize, 
+           " groups with more than 0 observations.")
     }
   }
   

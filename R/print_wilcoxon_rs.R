@@ -115,7 +115,7 @@ print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,
     U_max <- max(U, U2)
     if (consistent == "min") {
       U <- U_min
-    } else if (consistent == "max") {
+    } else if(consistent == "max") {
       U <- U_max
     }
   }
