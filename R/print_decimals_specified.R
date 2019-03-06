@@ -19,5 +19,8 @@ force_decimals <- function(x, decimals = 2) {
 }
 
 force_decimals_ <- function(x, decimals) {
+  if (is.na(x)) {
+    return(NA_character_)
+  }
   return(format(round(x, decimals), nsmall = decimals))
 }
