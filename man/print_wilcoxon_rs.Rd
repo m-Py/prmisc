@@ -74,8 +74,7 @@ By default, when \code{consistent} is not provided,
 
 data(iris)
 head(iris)
-dat <- subset(iris, 
-              Species \%in\% c("setosa", "versicolor"))
+dat <- subset(iris, Species \%in\% c("setosa", "versicolor"))
 wc_iris <- wilcox.test(dat$Sepal.Length ~ dat$Species, 
                        correct = FALSE, paired = FALSE)
 # include this call in Rmd inline code
