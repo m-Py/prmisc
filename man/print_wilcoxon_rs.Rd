@@ -25,8 +25,8 @@ set to 'min' or 'max'. See details.}
 \item{groupvar}{a vector containing a grouping variable}
 
 \item{effsize}{a character indicating which effect size should be
-reported, if any. Possible values are: "r", "rsqu"
-and "d". By default, no effect size will be reported.
+reported, if any. Possible values are: 'r', 'rsqu'
+and 'd'. By default, no effect size will be reported.
 See details.}
 
 \item{neg}{a logical indicating whether the effect size should
@@ -96,17 +96,17 @@ By default, when \code{consistent} is not provided,
 There are three options available for calculating an effect size via
 the argument \code{effsize}: 
 
-- the point biserial correlation r (\code{effsize = "r"}), which 
+- the point biserial correlation r (\code{effsize = 'r'}), which 
 is calculated by dividing Z-score by the square root of N. According
 to Cohen (1988) a small, medium and large effect correspond to r = .1,
 .3 and .5, respectively. Currently, \code{\link{print_wilcoxon_rs}} 
 infers the Z-score from the p-value.
 
-- r squared (identical to eta squared; \code{effsize = "rsqu"}), 
+- r squared (identical to eta squared; \code{effsize = 'rsqu'}), 
 which is the ratio of variability associated with an effect compared 
 to the ratio of overall variance
 
-- d (\code{effsize = "d"}), which is calculated from r as follows:
+- d (\code{effsize = 'd'}), which is calculated from r as follows:
  
 \code{2*r/(sqrt(1-r^2))}
 
