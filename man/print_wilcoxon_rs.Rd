@@ -5,7 +5,8 @@
 \title{Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)}
 \usage{
 print_wilcoxon_rs(wc_object, decimals_p = 3, consistent = NULL,
-  group1 = NULL, group2 = NULL, groupvar = NULL)
+  group1 = NULL, group2 = NULL, groupvar = NULL, effsize = NULL,
+  neg = FALSE, N = NULL, decimals_eff = NULL)
 }
 \arguments{
 \item{wc_object}{an object returned by \code{\link{wilcox.test}}}
@@ -22,6 +23,28 @@ set to 'min' or 'max'. See details.}
 \item{group2}{a vector containing the cases of the second group}
 
 \item{groupvar}{a vector containing a grouping variable}
+
+\item{effsize}{a character indicating which effect size should be
+reported, if any. Possible values are: 'r', 'rsqu'
+and 'd'. By default, no effect size will be reported.
+See details.}
+
+\item{neg}{a logical indicating whether the effect size should
+be reported with a negative sign. Defaults to \code{FALSE}. 
+See details.}
+
+\item{N}{an integer passing information about the total N of the
+sample. Needed when effect sizes should be calculated, but
+N cannot be inferred because neither of group1, group2 or
+groupvar have been provided. Should groups or a grouping
+variable have been provided, N must not be used.}
+
+\item{decimals_eff}{an integer specifying how many digits the effect
+size should be printed with, if an effect size
+is desired. Defaults to 2. r and r squared will
+be printed without a leading zero, d will be
+printed with a leading zero because it is possible
+for d to take values larger than one.}
 }
 \description{
 Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)
@@ -69,13 +92,43 @@ the \code{~}. To prevent mistakes, you can either use \code{group1} and
 By default, when \code{consistent} is not provided, 
 \code{\link{print_wilcoxon_rs}} will print U using W as taken from
 \code{\link{wilcox.test}}.
+
+There are three options available for calculating an effect size via
+the argument \code{effsize}: 
+
+- the point biserial correlation r (\code{effsize = 'r'}), which 
+is calculated by dividing Z-score by the square root of N. According
+to Cohen (1988) a small, medium and large effect correspond to r = .1,
+.3 and .5, respectively. Currently, \code{\link{print_wilcoxon_rs}} 
+infers the Z-score from the p-value.
+
+- r squared (identical to eta squared; \code{effsize = 'rsqu'}), 
+which is the ratio of variability associated with an effect compared 
+to the ratio of overall variance
+
+- d (\code{effsize = 'd'}), which is calculated from r as follows:
+ 
+\code{2*r/(sqrt(1-r^2))}
+
+According to Cohen (1988), a small, medium and large effect correspond 
+to r = .2, .5 and .8, respectively.
+
+Information on the direction of the effect (as indicated in the sign 
+of the Z-score) or in which order the groups have been compared is 
+not included in the output of \code{\link{wilcox.test}}. Hence, only 
+absolute effect sizes can be calculated. It is advised to report
+absolute effect sizes unless there is a meaningful for the two groups
+tested (e.g. Fritz et al, 2012). In some cases, it might be desired to
+specify the direction of an effect by including the sign of the effect.
+To that end, it is possible to print the negative effect size with 
+\code{neg = TRUE}, but caution is advised: You should always check if 
+the sign of the effect size you report is the correct one, especially 
+in the case of one-sided testing.
 }
 \examples{
 
 data(iris)
-head(iris)
-dat <- subset(iris, 
-              Species \%in\% c("setosa", "versicolor"))
+dat <- subset(iris, Species \%in\% c("setosa", "versicolor"))
 wc_iris <- wilcox.test(dat$Sepal.Length ~ dat$Species, 
                        correct = FALSE, paired = FALSE)
 # include this call in Rmd inline code
@@ -83,15 +136,26 @@ print_wilcoxon_rs(wc_iris)
 
 wc_iris2 <- wilcox.test(dat$Sepal.Width ~ dat$Species, 
                         correct = FALSE, paired = FALSE)
-# include this call in Rmd inline code
+                        
 print_wilcoxon_rs(wc_iris2, consistent = "min", 
                   group1 = dat$Sepal.Width[dat$Species == "setosa"], 
                   group2 = dat$Sepal.Width[dat$Species == "versicolor"])
 
-# include this call in Rmd inline code
 print_wilcoxon_rs(wc_iris2, consistent = "max", 
                   groupvar = dat$Species)
 
+print_wilcoxon_rs(wc_iris2, consistent = "max", 
+                  groupvar = dat$Species, effsize = "rsqu")
+                  
+}
+\references{
+Cohen, J. (1988). Statistical power analysis for the behavioral sciences
+    (2nd ed.). Hillsdale, NJ: Erlbaum.
+
+Fritz, C. O., Morris, P. E., & Richler, J. J. (2012). Effect size 
+    estimates: Current use, calculations, and interpretation. Journal 
+    of Experimental Psychology: General, 141(1), 2-18. 
+    http://dx.doi.org/10.1037/a0024338
 }
 \author{
 Juliane Tkotz \email{juliane.tkotz@hhu.de}
