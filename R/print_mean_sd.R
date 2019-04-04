@@ -7,13 +7,31 @@
 #' @param decimals_SD how many decimals should be printed for the 
 #'                    standard deviation (defaults to 2).
 #' @param parentheses logical indicating if the statistics should be
-#'                    wrapped in parentheses or not (defaults to TRUE).
+#'                    wrapped in parentheses or not (defaults to 
+#'                    \code{TRUE}). Will be ignored if \code{short} is
+#'                    \code{TRUE}.
+#' @param short logical indicating if a short version without the letters
+#'              should be printed. Argument \code{parantheses} is ignored
+#'              in this case. Defaults to \code{FALSE}. See details.
 #' @param na.rm logical indicating whether missing values should be
 #'              ignored or not. Defaults to TRUE, but if not specified
 #'              otherwise a warning will be issued if missing values have 
 #'              been detected.
 #' @param warning logical indicating whether a warning should be issued
-#'                when missing values are detected (defaults to TRUE).
+#'                when missing values are detected (defaults to 
+#'                \code{TRUE}).
+#'                
+#' @details 
+#' 
+#' The following formatting options are available:
+#' 
+#' - When \code{parentheses} is \code{TRUE}: 
+#' \eqn{(M = XX, SD = XX)}
+#' 
+#' - When \code{parentheses} is \code{FALSE}: 
+#' \eqn{M = XX, SD = XX}
+#' 
+#' - When \code{short} is \code{TRUE}: \eqn{XX (XX)}
 #'
 #' @examples 
 #' 
@@ -27,13 +45,14 @@
 #' @export
 #'
 print_mean_sd <- function(x, decimals_M = 2, decimals_SD = 2, parentheses = TRUE,
-                    na.rm = TRUE, warning = TRUE) {
+                          short = FALSE, na.rm = TRUE, warning = TRUE) {
   
   # validate input
   validate_input(x, "x", "numeric")
   validate_input(decimals_M, "decimals_M", "numeric", 1, must_be_integer = TRUE)
   validate_input(decimals_SD, "decimals_SD", "numeric", 1, must_be_integer = TRUE)
   validate_input(parentheses, "parentheses", "logical", 1)
+  validate_input(short, "short", "logical", 1)
   validate_input(na.rm, "na.rm", "logical", 1)
   validate_input(warning, "warning", "logical", 1)
   
@@ -44,6 +63,10 @@ print_mean_sd <- function(x, decimals_M = 2, decimals_SD = 2, parentheses = TRUE
   M <- force_decimals(mean(x, na.rm = na.rm), decimals_M)
   
   SD <- force_decimals(sd(x, na.rm = na.rm), decimals_SD)
+  
+  if (short == TRUE) {
+    return(paste0("$", M, " (", SD, ")$"))
+  }
   
   if (parentheses == TRUE) {
     return(paste0("$(M = ", M, ", SD = ", SD, ")$"))

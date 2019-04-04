@@ -5,7 +5,7 @@
 \title{Print mean and standard deviation}
 \usage{
 print_mean_sd(x, decimals_M = 2, decimals_SD = 2, parentheses = TRUE,
-  na.rm = TRUE, warning = TRUE)
+  short = FALSE, na.rm = TRUE, warning = TRUE)
 }
 \arguments{
 \item{x}{a vector of the sample the statistics should be printed for.}
@@ -17,7 +17,13 @@ mean (defaults to 2).}
 standard deviation (defaults to 2).}
 
 \item{parentheses}{logical indicating if the statistics should be
-wrapped in parentheses or not (defaults to TRUE).}
+wrapped in parentheses or not (defaults to 
+\code{TRUE}). Will be ignored if \code{short} is
+\code{TRUE}.}
+
+\item{short}{logical indicating if a short version without the letters
+should be printed. Argument \code{parantheses} is ignored
+in this case. Defaults to \code{FALSE}. See details.}
 
 \item{na.rm}{logical indicating whether missing values should be
 ignored or not. Defaults to TRUE, but if not specified
@@ -25,10 +31,22 @@ otherwise a warning will be issued if missing values have
 been detected.}
 
 \item{warning}{logical indicating whether a warning should be issued
-when missing values are detected (defaults to TRUE).}
+when missing values are detected (defaults to 
+\code{TRUE}).}
 }
 \description{
 Print mean and standard deviation
+}
+\details{
+The following formatting options are available:
+
+- When \code{parentheses} is \code{TRUE}: 
+\eqn{(M = XX, SD = XX)}
+
+- When \code{parentheses} is \code{FALSE}: 
+\eqn{M = XX, SD = XX}
+
+- When \code{short} is \code{TRUE}: \eqn{XX (XX)}
 }
 \examples{
 
