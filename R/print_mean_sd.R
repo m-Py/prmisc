@@ -55,7 +55,7 @@ print_mean_sd <- function(x, decimals_M = 2, decimals_SD = 2, parentheses = TRUE
   SD <- force_decimals(sd(x, na.rm = na.rm), decimals_SD)
   
   if (short == TRUE) {
-    return(paste0("$", M, " (", SD, ")$"))
+    return(paste0("$", M, "$", " $(", SD, ")$"))
   }
   
   if (parentheses == TRUE) {
