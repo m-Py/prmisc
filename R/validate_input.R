@@ -42,11 +42,11 @@ validate_input <- function(obj, argument_name, class_string = NULL, len = NULL,
     }
     # Case - grouping variable: Allow for numeric, character or factor
     if ("groupvariable" %in% class_string) {
-      class_string <- setdiff(c(class_string, "factor", "character", 
+      class_string <- setdiff(c(class_string, "factor", "ordered", "character", 
                                 "numeric", "integer", "double", "logical"), 
                               "groupvariable")
     }
-    correct_class <- class(obj) %in% class_string
+    correct_class <- class(obj)[1] %in% class_string
     if (!correct_class) {
       stop(argument_name, " must be of class '", 
            paste(class_string, collapse = "' or '"), "'")
