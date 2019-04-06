@@ -59,8 +59,8 @@ print_mean_sd <- function(x, decimals_M = 2, decimals_SD = 2, parentheses = TRUE
   }
   
   if (parentheses == TRUE) {
-    return(paste0("$(M = ", M, ", SD = ", SD, ")$"))
+    return(paste0("$(M = ", M, "$", ", $SD = ", SD, ")$"))
   } else {
-    return(paste0("$M = ", M, ", SD = ", SD, "$"))
+    return(paste0("$M = ", M, "$", ", $SD = ", SD, "$"))
   }
 }
