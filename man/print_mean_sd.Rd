@@ -5,7 +5,7 @@
 \title{Print mean and standard deviation}
 \usage{
 print_mean_sd(x, decimals_M = 2, decimals_SD = 2, parentheses = TRUE,
-  short = FALSE, na.rm = TRUE, warning = TRUE)
+  short = FALSE, na.rm = FALSE)
 }
 \arguments{
 \item{x}{a vector of the sample the statistics should be printed for.}
@@ -26,13 +26,7 @@ should be printed. Argument \code{parantheses} is ignored
 in this case. Defaults to \code{FALSE}. See details.}
 
 \item{na.rm}{logical indicating whether missing values should be
-ignored or not. Defaults to TRUE, but if not specified
-otherwise a warning will be issued if missing values have 
-been detected.}
-
-\item{warning}{logical indicating whether a warning should be issued
-when missing values are detected (defaults to 
-\code{TRUE}).}
+ignored or not. Defaults to \code{FALSE}.}
 }
 \description{
 Print mean and standard deviation
