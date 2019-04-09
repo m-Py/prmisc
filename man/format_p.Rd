@@ -4,12 +4,16 @@
 \alias{format_p}
 \title{Format a p-value according to APA standards}
 \usage{
-format_p(pvalues, decimals = 3)
+format_p(pvalues, decimals = 3, numbers_only = FALSE)
 }
 \arguments{
 \item{pvalues}{The p-values}
 
 \item{decimals}{The number of decimals to be printed}
+
+\item{numbers_only}{An integer indicating whether the p-values
+should be printed whithout the accompanying p.
+Defaults to \code{FALSE}.}
 }
 \value{
 A string representation of the p value to be used in Rmarkdown
