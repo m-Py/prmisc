@@ -32,9 +32,9 @@ print_cortest <- function(cor_object, decimals = 2, decimals_p = 3) {
   if (cor_object$method == "Pearson's product-moment correlation") {
     cor <- paste0("$r", df, decimals_only(cor_object$estimate, decimals), "$")
   } else if (cor_object$method == "Kendall's rank correlation tau") {
-    cor <- paste0("$\\tau_b", decimals_only(cor_object$estimate, decimals), "$")
+    cor <- paste0("$\\tau_b =", decimals_only(cor_object$estimate, decimals), "$")
   } else if (cor_object$method == "Spearman's rank correlation rho") {
-    cor <- paste0("$r_s", decimals_only(cor_object$estimate, decimals), "$")
+    cor <- paste0("$r_s =", decimals_only(cor_object$estimate, decimals), "$")
   }
   
   return(paste(cor, p, sep = ", "))
