@@ -11,8 +11,8 @@ print_cortest(cor_object, decimals = 2, decimals_p = 3)
 \item{cor_object}{An object of class "htest" returned by 
 \code{\link{cor.test}}}
 
-\item{decimals}{How many decimals should be printed for r 
-(defaults to 2).}
+\item{decimals}{How many decimals should be printed for the test
+statistic (defaults to 2).}
 
 \item{decimals_p}{How many decimals should be printed for the p value
 (defaults to 3).}
