@@ -11,7 +11,7 @@ format_p(pvalues, decimals = 3, numbers_only = FALSE)
 
 \item{decimals}{The number of decimals to be printed}
 
-\item{numbers_only}{An integer indicating whether the p-values
+\item{numbers_only}{Logical, indicates whether the p-values
 should be printed whithout the accompanying p.
 Defaults to \code{FALSE}.}
 }
