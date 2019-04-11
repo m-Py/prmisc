@@ -23,11 +23,13 @@ decimals_only <- function(x, decimals = 2, decimals1 = FALSE) {
 
 decimals_only_ <- function(x, decimals, decimals1) {
   x_ <- abs(x)
-  if (!is.na(x_) & x_ == 1 & decimals1 == FALSE)
-    return(force_or_cut(x_, decimals))
   if (is.na(x_))
     return(NA_character_)
-  n_small <- force_decimals(x_, decimals)
+  if (x_ == 1 & decimals1 == FALSE)
+    return(force_or_cut(x_, decimals))
+  n_small <- force_decimals_(x_, decimals)
+  if (round(x_, decimals) == 1) 
+    return(n_small)
   if (x_ >= 1) {
     ret <- n_small
   } else {
