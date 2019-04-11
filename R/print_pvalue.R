@@ -31,8 +31,9 @@ format_p <- function(pvalues, decimals = 3, numbers_only = FALSE) {
 }
 
 format_p_ <- function(pvalue, decimals, numbers_only) {
-  if (pvalue < 0 | pvalue > 1)
+  if (pvalue < 0 | pvalue > 1) {
     stop("p value is smaller than 0 or larger than 1")
+  }
   if (pvalue >= 0.001) {
     p <- paste0("$p = ", decimals_only(pvalue, decimals), "$")
   }
@@ -40,8 +41,12 @@ format_p_ <- function(pvalue, decimals, numbers_only) {
   if (round(pvalue, decimals) == 1) {
     p <- paste0("$p > .", paste0(rep("9", decimals), collapse = ""), "$")
   }
-  if (pvalue < 0.01 & decimals <= 2) p <- "$p < .01$"
-  if (pvalue < 0.001) p <- "$p < .001$"
+  if (pvalue < 0.01 & decimals <= 2) {
+    p <- "$p < .01$"
+  }
+  if (pvalue < 0.001) {
+    p <- "$p < .001$"
+  }
   if (numbers_only) {
     p <- gsub("p = ", "", p)
     p <- gsub("p ", "", p)
