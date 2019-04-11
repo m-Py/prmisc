@@ -23,12 +23,18 @@ decimals_only <- function(x, decimals = 2, decimals1 = FALSE) {
 
 decimals_only_ <- function(x, decimals, decimals1) {
   x_ <- abs(x)
-  if (!is.na(x_) & x_ == 1 & decimals1 == FALSE)
-    return(force_or_cut(x_, decimals))
-  if (is.na(x_))
+  if (!is.na(x_)) {
+    n_small <- force_decimals(x_, decimals)
+  } else {
     return(NA_character_)
-  n_small <- force_decimals(x_, decimals)
-  if (x_ >= 1) {
+  }
+  
+  if (as.numeric(n_small) == 1 & decimals1 == FALSE) {
+    return(force_or_cut(n_small, decimals))
+  }
+  
+  
+  if (as.numeric(n_small) >= 1) {
     ret <- n_small
   } else {
     ret <- paste0(".", strsplit(as.character(n_small), ".", TRUE)[[1]][2])
