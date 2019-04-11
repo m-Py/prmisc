@@ -11,7 +11,7 @@ format_p(pvalues, decimals = 3, numbers_only = FALSE)
 
 \item{decimals}{The number of decimals to be printed}
 
-\item{numbers_only}{An integer indicating whether the p-values
+\item{numbers_only}{Logical, indicates whether the p-values
 should be printed whithout the accompanying p.
 Defaults to \code{FALSE}.}
 }
@@ -32,5 +32,6 @@ format_p(0.3123, decimals = 2)
 # Format several p-values with one function call
 format_p(c(0.3123, 0.001, 0.00001, 0.19))
 format_p(c(.999, .9999, 1))
+format_p(c(0.3123, 0.001, 0.00001, 0.19, .99999), numbers_only = TRUE)
 
 }
