@@ -54,18 +54,3 @@ format_p_ <- function(pvalue, decimals, numbers_only) {
   }
   return(p)
 }
-
-format_p_no <- function(pvalue, decimals) {
-  if (pvalue < 0 | pvalue > 1)
-    stop("p value is smaller than 0 or larger than 1")
-  if (pvalue >= 0.001) {
-    p <- paste0("$", decimals_only(pvalue, decimals), "$")
-  }
-  ## Special case: p-value is 1 (or the rounded p-value is 1)
-  if (round(pvalue, decimals) == 1) {
-    p <- paste0("$> .", paste0(rep("9", decimals), collapse = ""), "$")
-  }
-  if (pvalue < 0.01 & decimals <= 2) p <- "$< .01$"
-  if (pvalue < 0.001) p <- "$< .001$"
-  return(p)
-}
