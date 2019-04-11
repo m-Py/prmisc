@@ -4,7 +4,7 @@
 #' 
 #' @param pvalues The p-values
 #' @param decimals The number of decimals to be printed
-#' @param numbers_only An integer indicating whether the p-values
+#' @param numbers_only Logical, indicates whether the p-values
 #'                     should be printed whithout the accompanying p.
 #'                     Defaults to \code{FALSE}. 
 #'
