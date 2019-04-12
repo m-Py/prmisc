@@ -4,8 +4,8 @@
 #'
 #' @param cor_object An object of class "htest" returned by 
 #'     \code{\link{cor.test}}
-#' @param decimals How many decimals should be printed for r 
-#'     (defaults to 2).
+#' @param decimals How many decimals should be printed for the test
+#'     statistic (defaults to 2).
 #' @param decimals_p How many decimals should be printed for the p value
 #'     (defaults to 3).
 #'
@@ -28,6 +28,14 @@ print_cortest <- function(cor_object, decimals = 2, decimals_p = 3) {
   validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
   p <- format_p(cor_object$p.value, decimals_p)
   df <- paste0("(", cor_object$parameter, ") = ")
-  cor <- paste0("$r", df, decimals_only(cor_object$estimate, decimals), "$")
+  
+  if (cor_object$method == "Pearson's product-moment correlation") {
+    cor <- paste0("$r", df, decimals_only(cor_object$estimate, decimals), "$")
+  } else if (cor_object$method == "Kendall's rank correlation tau") {
+    cor <- paste0("$\\tau_b =", decimals_only(cor_object$estimate, decimals), "$")
+  } else if (cor_object$method == "Spearman's rank correlation rho") {
+    cor <- paste0("$r_s =", decimals_only(cor_object$estimate, decimals), "$")
+  }
+  
   return(paste(cor, p, sep = ", "))
 }
