@@ -31,6 +31,9 @@ format_p <- function(pvalues, decimals = 3, numbers_only = FALSE) {
 }
 
 format_p_ <- function(pvalue, decimals, numbers_only) {
+  if (is.na(pvalue)) {
+    return(as.character(NA))
+  }
   if (pvalue < 0 | pvalue > 1) {
     stop("p value is smaller than 0 or larger than 1")
   }
