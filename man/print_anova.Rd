@@ -4,8 +4,7 @@
 \alias{print_anova}
 \title{Print the results of an \code{afex} ANOVA}
 \usage{
-print_anova(afex_object, italic_eta = TRUE, decimals = 2,
-  decimals_p = 3)
+print_anova(afex_object, italic_eta = TRUE, decimals = 2, decimals_p = 3)
 }
 \arguments{
 \item{afex_object}{An object returned by one of \code{afex}'s ANOVA
