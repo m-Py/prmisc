@@ -10,8 +10,8 @@ print_ttest(t_object, d_object = NULL, decimals = 2, decimals_p = 3)
 \item{t_object}{An object of class "htest" returned by 
 \code{\link{t.test}}.}
 
-\item{d_object}{An object of class "effsize" returned by 
-\code{\link[effsize]{cohen.d}} from package \code{effsize}. 
+\item{d_object}{An effect size table returned by 
+\code{\link[effectsize]{cohens_d}} from package \code{effectsize}. 
 Optional argument.}
 
 \item{decimals}{How many decimals should be printed for the t-value
@@ -28,22 +28,22 @@ A string describing the t-test; to be
 Print the results of a t-test
 }
 \details{
-To use this function, you need to install the R package \code{effsize}
+To use this function, you need to install the R package \code{effectsize}
 to compute Cohen's d; pass this object as the second argument.
 }
 \examples{
 
 ttest <- t.test(1:10, y = c(7:20), var.equal = TRUE)
-library("effsize") # for Cohen's d
-cohend <- cohen.d(1:10, c(7:20))
+library("effectsize") # for Cohen's d
+cohend <- cohens_d(1:10, c(7:20))
 print_ttest(ttest, cohend) # include this call in Rmd inline code
 
 # An example for paired data:
 data(sleep) # ?sleep
 tt <- t.test(sleep$extra[sleep$group == 1], 
              sleep$extra[sleep$group == 2], paired = TRUE)
-cd <- cohen.d(sleep$extra[sleep$group == 1], 
-              sleep$extra[sleep$group == 2], paired = TRUE)
+cd <- cohens_d(sleep$extra[sleep$group == 1], 
+               sleep$extra[sleep$group == 2], paired = TRUE)
 print_ttest(tt, cd)
 # effect size object can be left out:
 print_ttest(tt)
