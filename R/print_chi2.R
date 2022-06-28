@@ -57,7 +57,7 @@ print_chi2 <- function(x, es = TRUE, correct = FALSE, decimals = 2, decimals_p =
   validate_input(correct, "correct", "logical", 1)
   validate_input(decimals, "decimals",  "numeric", 1, TRUE, TRUE)
   validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
-  if (class(x) == "htest") {
+  if (inherits(x ,"htest")) {
     return(print_chi2_(NULL, x, es, correct, decimals, decimals_p))
   } else {
     return(print_chi2_(x, NULL, es, correct, decimals, decimals_p))

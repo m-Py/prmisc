@@ -1,7 +1,7 @@
 Type: Package
 Package: prmisc
 Title: Printing statistical results in R markdown
-Version: 0.01-6
+Version: 0.01-7
 Date: 2020-08-13
 Authors@R: 
     c(person(given = "Martin",
