@@ -22,7 +22,7 @@ Depends:
     R (>= 3.0.0)
 Suggests:
     afex,
-    effsize,
+    effectsize,
     spgs
 Encoding: UTF-8
 LazyLoad: yes
