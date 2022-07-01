@@ -1,8 +1,7 @@
 Type: Package
 Package: prmisc
 Title: Printing statistical results in R markdown
-Version: 0.01-6
-Date: 2020-08-13
+Version: 0.01-8
 Authors@R: 
     c(person(given = "Martin",
              family = "Papenberg",
@@ -27,4 +26,4 @@ Suggests:
     spgs
 Encoding: UTF-8
 LazyLoad: yes
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
