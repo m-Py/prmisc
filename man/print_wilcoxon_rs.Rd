@@ -4,9 +4,18 @@
 \alias{print_wilcoxon_rs}
 \title{Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)}
 \usage{
-print_wilcoxon_rs(wc_object, decimals_p = 3, consistent = NULL,
-  group1 = NULL, group2 = NULL, groupvar = NULL, effsize = NULL,
-  neg = FALSE, N = NULL, decimals_eff = NULL)
+print_wilcoxon_rs(
+  wc_object,
+  decimals_p = 3,
+  consistent = NULL,
+  group1 = NULL,
+  group2 = NULL,
+  groupvar = NULL,
+  effsize = NULL,
+  neg = FALSE,
+  N = NULL,
+  decimals_eff = NULL
+)
 }
 \arguments{
 \item{wc_object}{an object returned by \code{\link{wilcox.test}}}

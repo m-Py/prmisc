@@ -4,8 +4,14 @@
 \alias{print_chi2}
 \title{Print the results of a chi-square test}
 \usage{
-print_chi2(x, es = TRUE, correct = FALSE, decimals = 2,
-  decimals_p = 3)
+print_chi2(
+  x,
+  es = TRUE,
+  correct = FALSE,
+  decimals = 2,
+  decimals_p = 3,
+  italic_chi = TRUE
+)
 }
 \arguments{
 \item{x}{A contingency table (passed as \code{table} or \code{matrix}) or
@@ -25,6 +31,9 @@ table. The default value is \code{FALSE}.}
 
 \item{decimals_p}{How many decimals should be printed for the p-value
 (defaults to 3)}
+
+\item{italic_chi}{Should the chi symbol eta be printed in
+italic font. Defaults to \code{TRUE}.}
 }
 \value{
 A string describing the results of the chi-square test to be
@@ -52,6 +61,8 @@ print_chi2(tab, correct = FALSE)
 # Pass a chi-squared test object
 print_chi2(chisq.test(tab, correct = FALSE))
 
+# Use non italic chi symbol
+print_chi2(tab, italic_chi = FALSE)
 
 }
 \references{

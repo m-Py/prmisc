@@ -14,6 +14,8 @@
 #' @param decimals How many decimals should be printed
 #' @param decimals_p How many decimals should be printed for the p-value
 #'     (defaults to 3)
+#' @param italic_chi Should the chi symbol eta be printed in
+#'     italic font. Defaults to \code{TRUE}.
 #'
 #' @return A string describing the results of the chi-square test to be
 #'     printed in Rmarkdown documents.
@@ -42,6 +44,8 @@
 #' # Pass a chi-squared test object
 #' print_chi2(chisq.test(tab, correct = FALSE))
 #' 
+#' # Use non italic chi symbol
+#' print_chi2(tab, italic_chi = FALSE)
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' 
@@ -50,7 +54,9 @@
 #' @export
 #'
 
-print_chi2 <- function(x, es = TRUE, correct = FALSE, decimals = 2, decimals_p = 3) {
+print_chi2 <- function(
+    x, es = TRUE, correct = FALSE, decimals = 2, decimals_p = 3,
+    italic_chi = TRUE) {
   ## Test input
   validate_input(x, "x", c("table", "matrix", "htest"))
   validate_input(es, "es", "logical", 1)
@@ -58,15 +64,15 @@ print_chi2 <- function(x, es = TRUE, correct = FALSE, decimals = 2, decimals_p =
   validate_input(decimals, "decimals",  "numeric", 1, TRUE, TRUE)
   validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
   if (inherits(x ,"htest")) {
-    return(print_chi2_(NULL, x, es, correct, decimals, decimals_p))
+    return(print_chi2_(NULL, x, es, correct, decimals, decimals_p, italic_chi))
   } else {
-    return(print_chi2_(x, NULL, es, correct, decimals, decimals_p))
+    return(print_chi2_(x, NULL, es, correct, decimals, decimals_p, italic_chi))
   }
 }
 
 # The internal function that does all the work for print_chi2
 print_chi2_ <- function(tab = NULL, chi2.object = NULL, es,
-                        correct, decimals, decimals_p) {
+                        correct, decimals, decimals_p, italic_chi) {
   
   # What argument was passed?
   table_passed <- !is.null(tab)
@@ -79,7 +85,8 @@ print_chi2_ <- function(tab = NULL, chi2.object = NULL, es,
   }
   
   p <- format_p(chi2.object$p.value, decimals_p)
-  c <- paste0("$\\chi^2(", chi2.object$parameter[1], N, ") = ")
+  chi_symbol <- ifelse(italic_chi, "$\\chi^2(", "$\\upchi^2(")
+  c <- paste0(chi_symbol, chi2.object$parameter[1], N, ") = ")
   c <- paste0(c, force_decimals(chi2.object$statistic, decimals), "$")
 
   ## Create return string

@@ -4,8 +4,14 @@
 \alias{print_mean_sd}
 \title{Print mean and standard deviation}
 \usage{
-print_mean_sd(x, decimals_M = 2, decimals_SD = 2, parentheses = TRUE,
-  short = FALSE, na.rm = FALSE)
+print_mean_sd(
+  x,
+  decimals_M = 2,
+  decimals_SD = 2,
+  parentheses = TRUE,
+  short = FALSE,
+  na.rm = FALSE
+)
 }
 \arguments{
 \item{x}{a vector of the sample the statistics should be printed for.}
