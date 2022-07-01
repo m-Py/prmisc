@@ -24,8 +24,8 @@ library("prmisc")
 
 ```R
 ttest <- t.test(1:10, y = c(7:20), var.equal = TRUE)
-library("effsize") # for Cohen's d
-cohend <- cohen.d(1:10, c(7:20))
+library("effectsize") # for Cohen's d
+cohend <- cohens_d(1:10, c(7:20))
 print_ttest(ttest, cohend) # include this call in Rmd inline code
 
 # [1] "$t(22) = -5.15$, $p < .001$, $d = -2.13$"
@@ -34,8 +34,8 @@ print_ttest(ttest, cohend) # include this call in Rmd inline code
 data(sleep) # ?sleep
 tt <- t.test(sleep$extra[sleep$group == 1], 
              sleep$extra[sleep$group == 2], paired = TRUE)
-cd <- cohen.d(sleep$extra[sleep$group == 1], 
-              sleep$extra[sleep$group == 2], paired = TRUE)
+cd <- cohens_d(sleep$extra[sleep$group == 1], 
+               sleep$extra[sleep$group == 2], paired = TRUE)
 print_ttest(tt, cd)
 # "$t(9) = -4.06$, $p = .003$, $d_z = -1.28$"
 
