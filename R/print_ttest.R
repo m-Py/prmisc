@@ -23,9 +23,6 @@
 #' @references 
 #' Cohen, J. (1988). Statistical power analysis for the behavioral sciences
 #'     (2nd ed.). Hillsale, NJ: Lawrence Erlbaum.
-#'     
-#' Torchiano, M. (2018). effsize: Efficient Effect Size Computation. 
-#'     https://CRAN.R-project.org/package=effsize
 #'
 #' @examples 
 #' 
