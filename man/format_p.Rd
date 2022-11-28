@@ -4,7 +4,7 @@
 \alias{format_p}
 \title{Format a p-value according to APA standards}
 \usage{
-format_p(pvalues, decimals = 3, numbers_only = FALSE)
+format_p(pvalues, decimals = 3, numbers_only = FALSE, latex = TRUE)
 }
 \arguments{
 \item{pvalues}{The p-values}
@@ -12,8 +12,11 @@ format_p(pvalues, decimals = 3, numbers_only = FALSE)
 \item{decimals}{The number of decimals to be printed}
 
 \item{numbers_only}{Logical, indicates whether the p-values
-should be printed whithout the accompanying p.
+should be printed without the accompanying p.
 Defaults to \code{FALSE}.}
+
+\item{latex}{Logical, indicates whether the p-values should be printed with 
+or without \code{$} around it. Defaults to \code{TRUE}.}
 }
 \value{
 A string representation of the p value to be used in Rmarkdown
@@ -29,6 +32,7 @@ format_p(0.03123)
 format_p(0.000001231)
 format_p(0.000001231, decimals = 2)
 format_p(0.3123, decimals = 2)
+format_p(0.3123, latex = FALSE)
 # Format several p-values with one function call
 format_p(c(0.3123, 0.001, 0.00001, 0.19))
 format_p(c(.999, .9999, 1))
