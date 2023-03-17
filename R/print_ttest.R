@@ -41,7 +41,11 @@
 #' cd <- cohens_d(sleep$extra[sleep$group == 1], 
 #'                sleep$extra[sleep$group == 2], paired = TRUE)
 #' print_ttest(tt, cd)
-#' # Print the confidence interval (taken from the effectsize object):
+#' # Print the confidence interval
+#' print_ttest(tt, cd, confidence = TRUE)
+#' # The information about the CI is taken from the effectsize object:
+#' cd <- cohens_d(sleep$extra[sleep$group == 1], 
+#'                sleep$extra[sleep$group == 2], paired = TRUE, ci = .8)
 #' print_ttest(tt, cd, confidence = TRUE)
 #' # effect size object can be left out:
 #' print_ttest(tt)
