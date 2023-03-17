@@ -55,7 +55,7 @@ tt <- t.test(sleep$extra[sleep$group == 1],
 cd <- cohens_d(sleep$extra[sleep$group == 1], 
                sleep$extra[sleep$group == 2], paired = TRUE)
 print_ttest(tt, cd)
-# Print the 95\% confidence interval:
+# Print the confidence interval (taken from the effectsize object):
 print_ttest(tt, cd, confidence = TRUE)
 # effect size object can be left out:
 print_ttest(tt)

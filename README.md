@@ -39,6 +39,9 @@ cd <- cohens_d(sleep$extra[sleep$group == 1],
 print_ttest(tt, cd)
 # "$t(9) = -4.06$, $p = .003$, $d_z = -1.28$"
 
+# Print the confidence interval (taken from the effectsize object):
+print_ttest(tt, cd, confidence = TRUE)
+
 # effect size object can be left out:
 print_ttest(tt)
 # "$t(9) = -4.06$, $p = .003$"
