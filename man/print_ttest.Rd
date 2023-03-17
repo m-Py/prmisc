@@ -4,7 +4,13 @@
 \alias{print_ttest}
 \title{Print the results of a t-test}
 \usage{
-print_ttest(t_object, d_object = NULL, decimals = 2, decimals_p = 3)
+print_ttest(
+  t_object,
+  d_object = NULL,
+  decimals = 2,
+  decimals_p = 3,
+  confidence = FALSE
+)
 }
 \arguments{
 \item{t_object}{An object of class "htest" returned by 
@@ -19,6 +25,10 @@ Optional argument.}
 
 \item{decimals_p}{How many decimals should be printed for the p-value
 (defaults to 3).}
+
+\item{confidence}{Logical. Whether a confidence interval for the effectsize 
+should be printed or not. Can only be \code{TRUE} if \code{d_object} is
+provided.}
 }
 \value{
 A string describing the t-test; to be 
@@ -45,6 +55,8 @@ tt <- t.test(sleep$extra[sleep$group == 1],
 cd <- cohens_d(sleep$extra[sleep$group == 1], 
                sleep$extra[sleep$group == 2], paired = TRUE)
 print_ttest(tt, cd)
+# Print the 95\% confidence interval:
+print_ttest(tt, cd, confidence = TRUE)
 # effect size object can be left out:
 print_ttest(tt)
 
