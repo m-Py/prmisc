@@ -88,10 +88,10 @@ print_ttest <- function(t_object, d_object = NULL, decimals=2, decimals_p = 3, c
     if (confidence) {
       conf_int <- 
         paste0(
-          "$", d_object$CI * 100, "\\%$ $CI$ $[", force_decimals(d_object$CI_low), ", ", 
-          force_decimals(d_object$CI_high),  "]$"
+          "$", d_object$CI * 100, "\\%$ $CI$ $[", force_decimals(d_object$CI_low), 
+          "$, ", "$",force_decimals(d_object$CI_high),  "]$"
         )
-      return(cat(paste(t, p, d, conf_int, sep = ", ")))
+      return(paste(t, p, d, conf_int, sep = ", "))
     }
     
     return(paste(t, p, d, sep = ", "))
