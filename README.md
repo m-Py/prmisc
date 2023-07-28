@@ -41,13 +41,13 @@ print_ttest(tt, cd)
 
 # Print the confidence interval:
 print_ttest(tt, cd, confidence = TRUE)
-# "$t(9) = -4.06$, $p = .003$, $d_z = -1.28$, 95% CI [-2.23, -0.44]"
+# "$t(9) = -4.06$, $p = .003$, $d_z = -1.28$, $95\\%$ $CI$ $[-2.12$, $-0.41]$"
 
 # The information about the CI is taken from the effectsize object:
 cd <- cohens_d(sleep$extra[sleep$group == 1], 
                sleep$extra[sleep$group == 2], paired = TRUE, ci = .8)
 print_ttest(tt, cd, confidence = TRUE)
-# "$t(9) = -4.06$, $p = .003$, $d_z = -1.28$, 80% CI [-1.91, -0.73]"
+# "$t(9) = -4.06$, $p = .003$, $d_z = -1.28$, $80\\%$ $CI$ $[-1.81$, $-0.70]$"
 
 # effect size object can be left out:
 print_ttest(tt)
