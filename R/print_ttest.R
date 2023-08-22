@@ -11,6 +11,9 @@
 #'     (defaults to 2).
 #' @param decimals_p How many decimals should be printed for the p-value
 #'     (defaults to 3).
+#' @param confidence Logical. Whether a confidence interval for the effectsize 
+#'     should be printed or not. Can only be \code{TRUE} if \code{d_object} is
+#'     provided.
 #'     
 #' @return A string describing the t-test; to be 
 #'     included in an R markdown document.
@@ -38,13 +41,19 @@
 #' cd <- cohens_d(sleep$extra[sleep$group == 1], 
 #'                sleep$extra[sleep$group == 2], paired = TRUE)
 #' print_ttest(tt, cd)
+#' # Print the confidence interval
+#' print_ttest(tt, cd, confidence = TRUE)
+#' # The information about the CI is taken from the effectsize object:
+#' cd <- cohens_d(sleep$extra[sleep$group == 1], 
+#'                sleep$extra[sleep$group == 2], paired = TRUE, ci = .8)
+#' print_ttest(tt, cd, confidence = TRUE)
 #' # effect size object can be left out:
 #' print_ttest(tt)
 #'
 #' @author Martin Papenberg \email{martin.papenberg@@hhu.de}
 #' @export
 #'
-print_ttest <- function(t_object, d_object = NULL, decimals=2, decimals_p = 3) {
+print_ttest <- function(t_object, d_object = NULL, decimals=2, decimals_p = 3, confidence = FALSE) {
   validate_input(t_object, "t_object", "htest")
   if (!is.null(d_object)) {
     # Validate input
@@ -61,7 +70,10 @@ print_ttest <- function(t_object, d_object = NULL, decimals=2, decimals_p = 3) {
     if (t_paired != d_paired) {
       stop(paste0("t-test is ", t_paired, ", but Cohen's d is ", d_paired))
     }
+  } else {
+    if (confidence) stop("Cannot print confidence intervals when no d_object is provided.")
   }
+  
   validate_input(decimals, "decimals",  "numeric", 1, TRUE, TRUE)
   validate_input(decimals_p, "decimals_p", "numeric", 1, TRUE, TRUE)
   
@@ -72,7 +84,18 @@ print_ttest <- function(t_object, d_object = NULL, decimals=2, decimals_p = 3) {
     d <- "$d = "
     if (attr(d_object, "paired")) d <- "$d_z = "
     d <- paste0(d, force_decimals(d_object$Cohens_d, decimals), "$")
+    
+    if (confidence) {
+      conf_int <- 
+        paste0(
+          "$", d_object$CI * 100, "\\%$ $CI$ $[", force_decimals(d_object$CI_low), 
+          "$, ", "$",force_decimals(d_object$CI_high),  "]$"
+        )
+      return(paste(t, p, d, conf_int, sep = ", "))
+    }
+    
     return(paste(t, p, d, sep = ", "))
   }
   return(paste(t, p, sep = ", "))
 }
+
