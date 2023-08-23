@@ -4,12 +4,16 @@
 \alias{force_decimals}
 \title{Force printing a specified number of decimals for a number}
 \usage{
-force_decimals(x, decimals = 2)
+force_decimals(x, decimals = 2, round_zero = TRUE)
 }
 \arguments{
 \item{x}{the numeric values to be printed}
 
 \item{decimals}{how many decimals are to be printed. Defaults to 2.}
+
+\item{round_zero}{whether small values should be rounded to zero or whether 
+they should be displayed as e.g. < .01. See details. 
+Defaults to \code{TRUE}.}
 }
 \value{
 The number in the required format
@@ -17,10 +21,20 @@ The number in the required format
 \description{
 Force printing a specified number of decimals for a number
 }
+\details{
+By default, \code{force_decimals()} will round numbers that are small enough 
+down to zero, e.g., 0.0004 will be rounded to 0.00. If 
+\code{round_zero = FALSE}, \code{force_decimals(0.0004)} will return 
+\code{"< 0.01"} instead. See examples.
+}
 \examples{
 
 force_decimals(c(1.23456, 0.873, 2.3456))
 force_decimals(c(1.23456, 0.873, 2.3456), 3)
+
+force_decimals(c(0.004, 0.001, 0.0005, 0.02))
+force_decimals(c(0.004, 0.001, 0.0005, 0.02), round_zero = FALSE)
+force_decimals(c(0.004, 0.001, 0.0005, 0.02), 3, round_zero = FALSE)
 
 }
 \author{
