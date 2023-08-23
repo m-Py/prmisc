@@ -122,8 +122,15 @@ print_anova(aov_ez("id", "rt", md_12.1, within = c("angle", "noise"),
 ```R
 force_decimals(c(1.23456, 0.873, 2.3456), decimals = 2)
 # [1] "1.23" "0.87" "2.35"
-## Note that function `round` will not produce the same results as
+## Note that the function `round()` will not produce the same results as
 ## force_decimals in Rmd output
+
+force_decimals(c(0.004, 0.001, 0.0005, 0.02))
+# [1] "0.00" "0.00" "0.00" "0.02"
+## Small numbers are rounded to zero by default.
+## This behaviour can be controlled using the argument `round_zero`:
+force_decimals(c(0.004, 0.001, 0.0005, 0.02), round_zero = FALSE)
+# "< 0.01" "< 0.01" "< 0.01" "0.02"
 
 ## Leave integers intact:
 force_or_cut(c(1:3, 1.23456, 0.873, 2.3456), decimals = 2)
