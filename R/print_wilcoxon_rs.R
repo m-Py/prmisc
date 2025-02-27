@@ -105,6 +105,8 @@
 #' \code{neg = TRUE}, but caution is advised: You should always check if 
 #' the sign of the effect size you report is the correct one, especially 
 #' in the case of one-sided testing.
+#' 
+#' @importFrom stats qnorm sd
 #'
 #' @examples 
 #' 
