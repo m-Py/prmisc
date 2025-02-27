@@ -21,6 +21,7 @@ Description: Miscellaneous printing of numeric or statistical results in
     overview of most of the functions included in the package.
 License: MIT + file LICENSE
 URL: https://github.com/m-Py/prmisc
+BugReports: https://github.com/m-Py/prmisc/issues
 Depends: 
     R (>= 3.0.0)
 Suggests:
