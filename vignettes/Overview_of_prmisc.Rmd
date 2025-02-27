@@ -19,13 +19,11 @@ knitr::opts_chunk$set(
 library(prmisc)
 library(effectsize)
 library(afex)
-library(papaja)
 ```
-
 
 # prmisc
 
-prmisc is a small package that formats number and statistical test results according to APA style guidelines. The output can be included in Quarto or R Markdown documents. It covers some basic statistical tests (*t*-test, ANOVA, correlation, $\chi^2$ test, Mann-Whitney-U test) and some basic number printing manipulations: formatting *p*-values, removing leading zeros for numbers that cannot be greater than one, and others.
+prmisc is a small package that formats numbers and statistical test results according to APA style guidelines. The output can be included in Quarto or R Markdown documents. It covers some basic statistical tests (*t*-test, ANOVA, correlation, $\chi^2$ test, Mann-Whitney-U test) and some basic number printing manipulations: formatting *p*-values, removing leading zeros for numbers that cannot be greater than one, and others.
 
 Packages with a more rich set of functionality are [papaja](https://cran.r-project.org/package=papaja) and [apa](https://cran.r-project.org/package=apa). However, we find ourselves returning to prmisc because it offers some convenience functions not available in these packages
 
@@ -85,23 +83,6 @@ print_ttest(tt)
 
 `r print_ttest(tt)`
 
-## $\chi^2$-test
-
-Unlike the `print_ttest()` function, `prmisc::print_chi2()` can perform the statistical test by itself. By default, `prmisc::print_chi2()` does not use a continuity correction. 
-
-```{r}
-x <- matrix(c(12, 5, 7, 7), ncol = 2)
-print_chi2(x) # does not use continuity correction by default
-```
-
-`r print_chi2(x)`
-
-```{r}
-print_chi2(x, correct = TRUE) # use continuity correction
-```
-
-`r print_chi2(x, correct = TRUE)`
-
 ## Correlation coefficient
 
 Printing the results of a correlation including the significance test is straight forward. `prmisc::print_cortest()` uses the output of the base R function `cor.test()` as input.
@@ -130,13 +111,13 @@ print_anova(aov_results) # returns a list with all effects in this ANOVA
 
 `r print_anova(aov_results)$angle`
 
-Via the package papaja (`papaja::apa_print(aov_results)`), we would obtain a more rich output, including an ANOVA table. However, unlike papaja, prmisc can print the nonitalic $\eta$, which would be required according to APA guidelines: 
+Via the package papaja (`papaja::apa_print(aov_results)`), we would obtain a more rich output, including an ANOVA table. However, unlike papaja, prmisc can print the nonitalic $\eta$, which would be required according to APA guidelines. because $\eta$ is a greek symbol:
 
 ```{r}
 print_anova(aov_results, italic_eta = FALSE)
 ```
 
-This only works with Latex/PDF output. To use it in R Markdown documents, we need to load the upgreek package in the header, using `header-includes: -\usepackageupgreek`
+This only works with Latex/PDF output. To use it in R Markdown documents, we need to load the upgreek package in the YAML header, using `header-includes: -\usepackageupgreek`
 
 We can also use the partial $\eta^2$, or no effect size index:
 
@@ -151,22 +132,54 @@ print_anova(
 )
 ```
 
+
+## $\chi^2$-test
+
+Unlike the other functions that display statistical tests, `prmisc::print_chi2()` can perform the statistical test by itself. By default, `prmisc::print_chi2()` does not use a continuity correction. 
+
+```{r}
+x <- matrix(c(12, 5, 7, 7), ncol = 2)
+print_chi2(x) # does not use continuity correction by default
+```
+
+`r print_chi2(x)`
+
+```{r}
+print_chi2(x, correct = TRUE) # use continuity correction
+```
+
+`r print_chi2(x, correct = TRUE)`
+
+The $\phi$ index is displayed as measure of effect size if the input is a 2x2 contingency table. Using the `es` argument can prevent this: 
+
+```{r}
+print_chi2(x, es = FALSE) 
+```
+
+Like for $\eta$ in the output of `print_anova()`, we can also use the nonitalic symbol for $\chi$ and $\phi$, which would be required by APA guidelines (because they are greek symbols). Again, this only works for Latex/PDF output and we would need the upgreek package. 
+
+```{r}
+print_chi2(x, italic_greek = FALSE) 
+```
+
 ## Some functions for printing numbers
 
-prmisc includes several functions to format numbers. We find these particularly useful for writing papers according to APA style, when we for example have custom results tables. 
+prmisc includes several functions to format numbers. We find these particularly useful for writing papers according to APA style, for example when we create custom tables with numeric results.
+
+An important function is `force_decimals()`, which ensures that a specified number of decimals is shown in the output. 
 
 ```{r}
 force_decimals(c(1.23456, 0.873, 2.3456, 1.2), decimals = 2)
 ```
 
-Note that the function `round()` will not produce the same results as `force_decimals()` because it removes trailing zeros. 
+Note that the function `round()` will not produce the same results as `force_decimals()` because unfortunately trailing zeros are removed in the R Markdown / Quarto output.
 
 - `force_decimals()`: `r force_decimals(c(1.23456, 0.873, 2.3456, 1.2), decimals = 2)`
 - `round()`: `r round(c(1.23456, 0.873, 2.3456, 1.2), 2)`
 
 This is because `round()` returns a numeric vector and force_decimals (as all other functions) returns a character vector.
 
-Small numbers are rounded to zero by default. This behaviour can be controlled using the argument `round_zero`:
+Small numbers that are close to zero are rounded to zero by default. This behaviour can be controlled using the argument `round_zero`:
 
 ```{r}
 force_decimals(c(0.004, 0.001, 0.0005, 0.02))
