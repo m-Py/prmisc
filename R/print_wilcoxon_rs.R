@@ -110,13 +110,11 @@
 #' 
 #' data(iris)
 #' dat <- subset(iris, Species %in% c("setosa", "versicolor"))
-#' wc_iris <- wilcox.test(dat$Sepal.Length ~ dat$Species, 
-#'                        correct = FALSE, paired = FALSE)
+#' wc_iris <- wilcox.test(dat$Sepal.Length ~ dat$Species, correct = FALSE)
 #' # include this call in Rmd inline code
 #' print_wilcoxon_rs(wc_iris)
 #' 
-#' wc_iris2 <- wilcox.test(dat$Sepal.Width ~ dat$Species, 
-#'                         correct = FALSE, paired = FALSE)
+#' wc_iris2 <- wilcox.test(dat$Sepal.Width ~ dat$Species, correct = FALSE)
 #'                         
 #' print_wilcoxon_rs(wc_iris2, consistent = "min", 
 #'                   group1 = dat$Sepal.Width[dat$Species == "setosa"], 

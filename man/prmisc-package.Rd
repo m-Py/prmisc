@@ -2,6 +2,7 @@
 % Please edit documentation in R/prmisc-package.R
 \docType{package}
 \name{prmisc-package}
+\alias{prmisc}
 \alias{prmisc-package}
 \title{The prmisc Package}
 \description{
@@ -21,6 +22,13 @@ URL: \tab https://github.com/m-Py/prmisc\cr
 }
 
 Miscellaneous printing of stat results in Rmarkdown
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/m-Py/prmisc}
+}
+
 }
 \author{
 Martin Papenberg

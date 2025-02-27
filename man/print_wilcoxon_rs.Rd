@@ -138,13 +138,11 @@ in the case of one-sided testing.
 
 data(iris)
 dat <- subset(iris, Species \%in\% c("setosa", "versicolor"))
-wc_iris <- wilcox.test(dat$Sepal.Length ~ dat$Species, 
-                       correct = FALSE, paired = FALSE)
+wc_iris <- wilcox.test(dat$Sepal.Length ~ dat$Species, correct = FALSE)
 # include this call in Rmd inline code
 print_wilcoxon_rs(wc_iris)
 
-wc_iris2 <- wilcox.test(dat$Sepal.Width ~ dat$Species, 
-                        correct = FALSE, paired = FALSE)
+wc_iris2 <- wilcox.test(dat$Sepal.Width ~ dat$Species, correct = FALSE)
                         
 print_wilcoxon_rs(wc_iris2, consistent = "min", 
                   group1 = dat$Sepal.Width[dat$Species == "setosa"], 
@@ -167,5 +165,5 @@ Fritz, C. O., Morris, P. E., & Richler, J. J. (2012). Effect size
     http://dx.doi.org/10.1037/a0024338
 }
 \author{
-Juliane Tkotz \email{juliane.tkotz@hhu.de}
+Juliane Nagel \email{juliane.nagel@zi-mannheim.de}
 }
