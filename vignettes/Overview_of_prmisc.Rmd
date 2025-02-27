@@ -121,7 +121,7 @@ This only works with Latex/PDF output. To use it in R Markdown documents, we nee
 
 ```
 header-includes: 
-  -\usepackageupgreek`
+  -\usepackageupgreek
 ```
 
 We can also use the partial $\eta^2$, or no effect size index:
