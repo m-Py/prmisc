@@ -1,0 +1,219 @@
+---
+title: "Overview of prmisc"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Overview_of_prmisc}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+author: Martin Papenberg, Juli Nagel
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include = FALSE}
+library(prmisc)
+library(effectsize)
+library(afex)
+```
+
+
+# prmisc
+
+prmisc is a small package that formats number and statistical test results according to APA style guidelines. The output can be included in Quarto or R Markdown documents. It covers some basic statistical tests (*t*-test, ANOVA, correlation, $\chi^2$ test, Mann-Whitney-U test) and some basic number printing manipulations: formatting *p*-values, removing leading zeros for numbers that cannot be greater than one, and others.
+
+Packages with a more rich set of functionality are [papaja](https://cran.r-project.org/package=papaja) and [apa](https://cran.r-project.org/package=apa). However, we find ourselves returning to prmisc because it offers some convenience functions not available in these packages
+
+# Usage
+
+## *t*-test
+
+prmisc uses output of the base R `t.test()` function, and optionally `effectsize::cohens_d()` to display the results of a *t*-test:
+
+```{r}
+ttest <- t.test(1:10, y = c(7:20), var.equal = TRUE)
+library("effectsize") # for Cohen's d
+cohend <- cohens_d(1:10, c(7:20))
+print_ttest(ttest, cohend) 
+```
+
+We must include this as "inline code" to properly display it in the output of an R Markdown / Quarto file:
+
+> The results were significant, `r print_ttest(ttest, cohend)`.
+
+An example for paired data:
+
+```{r}
+data(sleep) # ?sleep
+tt <- t.test(sleep$extra[sleep$group == 1], 
+             sleep$extra[sleep$group == 2], paired = TRUE)
+cd <- cohens_d(sleep$extra[sleep$group == 1], 
+               sleep$extra[sleep$group == 2], paired = TRUE)
+print_ttest(tt, cd)
+```
+
+`r print_ttest(tt, cd)`
+
+We can also print the confidence interval of the effect size:
+
+```{r}
+print_ttest(tt, cd, confidence = TRUE)
+```
+
+`r print_ttest(tt, cd, confidence = TRUE)`
+
+The information about the CI is taken from the effectsize object:
+
+```{r}
+cd <- cohens_d(sleep$extra[sleep$group == 1], 
+               sleep$extra[sleep$group == 2], paired = TRUE, ci = .8)
+print_ttest(tt, cd, confidence = TRUE)
+```
+
+`r print_ttest(tt, cd, confidence = TRUE)`
+
+The effect size object can also be left out:
+
+```{r}
+print_ttest(tt)
+```
+
+`r print_ttest(tt)`
+
+## $\chi^2$-test
+
+Unlike the `print_ttest()` function, `prmisc::print_chi2()` can perform the statistical test by itself. By default, prmisc does not use a continuity correction. 
+
+```{r}
+x <- matrix(c(12, 5, 7, 7), ncol = 2)
+print_chi2(x) # does not use continuity correction by default
+```
+
+`r print_chi2(x)`
+
+```{r}
+print_chi2(x, correct = TRUE) # use continuity correction
+```
+
+`r print_chi2(x, correct = TRUE)`
+
+## Correlation coefficient
+
+Printing the results of a correlation including the significance test is straight forward. `prmisc::print_cortest()` uses the output of the base R function `cor.test()` as input.
+
+```{r}
+x <- c(44.4, 45.9, 41.9, 53.3, 44.7, 44.1, 50.7, 45.2, 60.1)
+y <- c( 2.6,  3.1,  2.5,  5.0,  3.6,  4.0,  5.2,  2.8,  3.8)
+cor_results <- cor.test(x, y)
+print_cortest(cor_results)
+```
+
+`r print_cortest(cor_results)`
+
+## ANOVA
+
+prmisc can format ANOVA results as returned by the [afex](https://cran.r-project.org/package=afex) package. 
+
+```{r}
+library("afex")
+# see ?aov_ez
+data(md_12.1)
+aov_results <- aov_ez("id", "rt", md_12.1, within = c("angle", "noise"))
+
+print_anova(aov_results) # returns a list with all effects in this ANOVA
+```
+
+`r print_anova(aov_results)$angle`
+
+Unlike papaja, prmisc can print the nonitalic eta, which is required according to APA guidelines: 
+
+```{r}
+print_anova(aov_results, italic_eta = FALSE)
+```
+
+This only works with Latex/PDF output however. To use it in R Markdown documents, we need to load the upgreek package in the header, using `header-includes: -\usepackageupgreek`
+
+We can also use the partial eta^2, or no effect size index:
+
+```{r}
+print_anova(
+  aov_ez("id", "rt", md_12.1, within = c("angle", "noise"),
+         anova_table = list(es = "pes"))
+)
+print_anova(
+  aov_ez("id", "rt", md_12.1, within = c("angle", "noise"),
+         anova_table = list(es = "none"))
+)
+```
+
+## Some functions for printing numbers
+
+prmisc includes several functions to format numbers according to APA style. We find these particularly useful for writing papers according to APA style, when we for example have custom results tables. 
+
+```{r}
+force_decimals(c(1.23456, 0.873, 2.3456, 1.2), decimals = 2)
+```
+
+Note that the function `round()` will not produce the same results as `force_decimals()` because it removes trailing zeros. This is because `round()` returns a numeric vector and force_decimals (as all other functions) returns a character vector. 
+
+Small numbers are rounded to zero by default. This behaviour can be controlled using the argument `round_zero`:
+
+```{r}
+force_decimals(c(0.004, 0.001, 0.0005, 0.02))
+force_decimals(c(0.004, 0.001, 0.0005, 0.02), round_zero = FALSE)
+```
+
+Sometimes we want to leave integers intact (without decimals), which can be accomplished via `force_or_cut()`:
+
+```{r}
+force_or_cut(c(1:3, 1.23456, 0.873, 2.3456), decimals = 2)
+```
+
+Compare to: 
+
+```{r}
+force_decimals(c(1:3, 1.23456, 0.873, 2.3456), decimals = 2)
+```
+
+If we do not want the zero, e.g., for p-values or correlation coefficients, use `decimals_only()`:
+
+```{r}
+decimals_only(c(0.23456, 0.873, 0.3456), decimals = 3)
+```
+
+We can format a *p*-value, the default is 3 decimals:
+
+```{r}
+format_p(0.03123)
+```
+```{r}
+format_p(0.000001231, 3)
+```
+
+```{r}
+format_p(0.3123, decimals = 2)
+```
+
+Or we format several p-values with one function call:
+
+```{r}
+format_p(c(0.3123, 0.001, 0.00001, 0.19))
+```
+
+```{r}
+format_p(c(.999, .9999, 1))
+```
+
+While all other number printing functions have two decimals by default, `format_p()` has three decimals by default.
+
+We often want to just print the mean and standard deviation of a set of observations, we can do this with `print_mean_sd()`: 
+
+```{r}
+print_mean_sd(iris$Sepal.Length)
+```
+
+Inline: `r print_mean_sd(iris$Sepal.Length)`

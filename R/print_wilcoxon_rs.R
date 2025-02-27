@@ -138,7 +138,7 @@
 #'     of Experimental Psychology: General, 141(1), 2-18. 
 #'     http://dx.doi.org/10.1037/a0024338
 #'
-#' @author Juliane Tkotz \email{juliane.tkotz@@hhu.de}
+#' @author Juliane Nagel \email{juliane.nagel@@zi-mannheim.de}
 #' @export
 #'
 print_wilcoxon_rs <- function(wc_object, decimals_p = 3, consistent = NULL,

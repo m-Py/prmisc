@@ -36,7 +36,7 @@
 #' 
 #' print_mean_sd(c(2, 10, 12.5, 3), parentheses = FALSE)
 #'
-#' @author Juliane Tkotz \email{juliane.tkotz@@hhu.de}
+#' @author Juliane Nagel \email{juliane.nagel@@zi-mannheim.de}
 #' @export
 #'
 print_mean_sd <- function(x, decimals_M = 2, decimals_SD = 2, parentheses = TRUE,

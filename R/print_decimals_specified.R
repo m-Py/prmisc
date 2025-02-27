@@ -32,7 +32,7 @@ force_decimals <- function(x, decimals = 2, round_zero = TRUE) {
   return(vectorize_print(x, decimals, force_decimals_, round_zero))
 }
 
-force_decimals_ <- function(x, decimals, round_zero) {
+force_decimals_ <- function(x, decimals, round_zero = TRUE) {
   if (is.na(x)) {
     return(NA_character_)
   }

@@ -1,21 +1,14 @@
 Type: Package
 Package: prmisc
 Title: Printing statistical results in R markdown
-Version: 0.01-9
+Version: 0.0.2
 Authors@R: 
-    c(person(given = "Martin",
-             family = "Papenberg",
-             role = c("aut", "cre"),
-             email = "martin.papenberg@hhu.de"),
+    c(person("Martin", "Papenberg", , "martin.papenberg@hhu.de", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-9900-4268")),
       person(given = c("Juliane", "V."),
-             family = "Tkotz",
+             family = "Nagel",
              role = "aut"))
-Description: Miscellaneous printing of statistical results in
-    Rmarkdown according to APA style guidelines. This package covers some
-    basic statistical tests (t-test, ANOVA, correlation, chi-squared test)
-    and some basic number printing manipulations (formatting p-values,
-    removing leading zeros for numbers that cannot be greater than one,
-    and others).
+Description: Miscellaneous printing of numeric or statistical results in Rmarkdown or Quarto according to APA style guidelines. This package covers some basic statistical tests (t-test, ANOVA, correlation, chi-squared test) and some basic number printing manipulations (formatting p-values, removing leading zeros for numbers that cannot be greater than one, and others).
 License: file LICENSE
 URL: https://github.com/m-Py/prmisc
 Depends: 
@@ -23,7 +16,10 @@ Depends:
 Suggests:
     afex,
     effectsize,
+    knitr,
+    rmarkdown,
     spgs
 Encoding: UTF-8
 LazyLoad: yes
 RoxygenNote: 7.2.3
+VignetteBuilder: knitr
