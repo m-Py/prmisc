@@ -20,11 +20,11 @@ print_wilcoxon_rs(
 \arguments{
 \item{wc_object}{an object returned by \code{\link{wilcox.test}}}
 
-\item{decimals_p}{how many decimals should be printed for the 
+\item{decimals_p}{how many decimals should be printed for the
 p-value (defaults to 3)}
 
-\item{consistent}{an optional parameter determining for which group 
-the test statistic U should be reported. Can be 
+\item{consistent}{an optional parameter determining for which group
+the test statistic U should be reported. Can be
 set to 'min' or 'max'. See details.}
 
 \item{group1}{a vector containing the cases of the first group}
@@ -39,7 +39,7 @@ and 'd'. By default, no effect size will be reported.
 See details.}
 
 \item{neg}{a logical indicating whether the effect size should
-be reported with a negative sign. Defaults to \code{FALSE}. 
+be reported with a negative sign. Defaults to \code{FALSE}.
 See details.}
 
 \item{N}{an integer passing information about the total N of the
@@ -59,79 +59,78 @@ for d to take values larger than one.}
 Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)
 }
 \details{
-In order to calculate a Wilcoxon rank sum test, the argument 
-\code{paired} in \code{\link{wilcox.test}} needs to be \code{FALSE}. 
-Otherwise, a Wilcoxon signed rank test will be computed instead and 
-the statistics printed by \code{\link{print_wilcoxon_rs}} will be 
+In order to calculate a Wilcoxon rank sum test, the argument
+\code{paired} in \code{\link{wilcox.test}} needs to be \code{FALSE}.
+Otherwise, a Wilcoxon signed rank test will be computed instead and
+the statistics printed by \code{\link{print_wilcoxon_rs}} will be
 misleading.
 
-Note that the test statistic W calculated in \code{\link{wilcox.test}} 
-that is printed as test statistic U in \code{\link{print_wilcoxon_rs}} 
+Note that the test statistic W calculated in \code{\link{wilcox.test}}
+that is printed as test statistic U in \code{\link{print_wilcoxon_rs}}
 will correspond to the U of the first of the two groups compared in
-\code{\link{wilcox.test}}. In the default method of 
-\code{\link{wilcox.test}}, this is the vector assigned to x. In the 
-formula method, this is the first group as identified by the grouping 
-variable. Some software, like SPSS, consistently reports the smaller or 
+\code{\link{wilcox.test}}. In the default method of
+\code{\link{wilcox.test}}, this is the vector assigned to x. In the
+formula method, this is the first group as identified by the grouping
+variable. Some software, like SPSS, consistently reports the smaller or
 larger U. If you wish to mimic this, you can specify the desired
-behaviour by providing the \code{consistent} argument. Setting 
-\code{consistent} to 'min' will print the smaller of the two U, setting 
-it to 'max' will print the larger U. In order to do so, you need to 
-provide the n for both groups. 
+behaviour by providing the \code{consistent} argument. Setting
+\code{consistent} to 'min' will print the smaller of the two U, setting
+it to 'max' will print the larger U. In order to do so, you need to
+provide the n for both groups.
 
-You can either do that by passing the data of both groups to the 
-arguments \code{group1} and \code{group2}, respectively. From those, 
-\code{\link{print_wilcoxon_rs}} will calculate the group sizes. Any 
-vector with the length of the corresponding group size will produce 
-the desired result. This is the recommended option if your 
-\code{wc_object} has been created using the default version of 
-\code{\link{wilcox.test}}, i.e. if groups were passed as \code{x} and 
-\code{y}. The order in which you pass \code{group1} and \code{group2} 
-to \code{\link{print_wilcoxon_rs}} does not have to correspond to the 
-order in which \code{x} and \code{y} were passed to 
+You can either do that by passing the data of both groups to the
+arguments \code{group1} and \code{group2}, respectively. From those,
+\code{\link{print_wilcoxon_rs}} will calculate the group sizes. Any
+vector with the length of the corresponding group size will produce
+the desired result. This is the recommended option if your
+\code{wc_object} has been created using the default version of
+\code{\link{wilcox.test}}, i.e. if groups were passed as \code{x} and
+\code{y}. The order in which you pass \code{group1} and \code{group2}
+to \code{\link{print_wilcoxon_rs}} does not have to correspond to the
+order in which \code{x} and \code{y} were passed to
 \code{\link{wilcox.test}}.
 
-Alternatively, you can pass a grouping variable to the argument 
-\code{groupvar}. From this, \code{\link{print_wilcoxon_rs}} will 
-calculate group sizes. This is the recommended option if your 
-\code{wc_object} has been created using the formula version of 
-\code{\link{wilcox.test}}, i.e. if a grouping variable was passed after 
-the \code{~}. To prevent mistakes, you can either use \code{group1} and 
+Alternatively, you can pass a grouping variable to the argument
+\code{groupvar}. From this, \code{\link{print_wilcoxon_rs}} will
+calculate group sizes. This is the recommended option if your
+\code{wc_object} has been created using the formula version of
+\code{\link{wilcox.test}}, i.e. if a grouping variable was passed after
+the \code{~}. To prevent mistakes, you can either use \code{group1} and
 \code{group2} \bold{or} \code{groupvar}.
 
-By default, when \code{consistent} is not provided, 
+By default, when \code{consistent} is not provided,
 \code{\link{print_wilcoxon_rs}} will print U using W as taken from
 \code{\link{wilcox.test}}.
 
 There are three options available for calculating an effect size via
-the argument \code{effsize}: 
-
-- the point biserial correlation r (\code{effsize = 'r'}), which 
+the argument \code{effsize}:
+\itemize{
+\item the point biserial correlation r (\code{effsize = 'r'}), which
 is calculated by dividing Z-score by the square root of N. According
 to Cohen (1988) a small, medium and large effect correspond to r = .1,
-.3 and .5, respectively. Currently, \code{\link{print_wilcoxon_rs}} 
+.3 and .5, respectively. Currently, \code{\link{print_wilcoxon_rs}}
 infers the Z-score from the p-value.
-
-- r squared (identical to eta squared; \code{effsize = 'rsqu'}), 
-which is the ratio of variability associated with an effect compared 
+\item r squared (identical to eta squared; \code{effsize = 'rsqu'}),
+which is the ratio of variability associated with an effect compared
 to the ratio of overall variance
+\item d (\code{effsize = 'd'}), which is calculated from r as follows:
+}
 
-- d (\code{effsize = 'd'}), which is calculated from r as follows:
- 
 \code{2*r/(sqrt(1-r^2))}
 
-According to Cohen (1988), a small, medium and large effect correspond 
+According to Cohen (1988), a small, medium and large effect correspond
 to r = .2, .5 and .8, respectively.
 
-Information on the direction of the effect (as indicated in the sign 
-of the Z-score) or in which order the groups have been compared is 
-not included in the output of \code{\link{wilcox.test}}. Hence, only 
+Information on the direction of the effect (as indicated in the sign
+of the Z-score) or in which order the groups have been compared is
+not included in the output of \code{\link{wilcox.test}}. Hence, only
 absolute effect sizes can be calculated. It is advised to report
 absolute effect sizes unless there is a meaningful for the two groups
 tested (e.g. Fritz et al, 2012). In some cases, it might be desired to
 specify the direction of an effect by including the sign of the effect.
-To that end, it is possible to print the negative effect size with 
-\code{neg = TRUE}, but caution is advised: You should always check if 
-the sign of the effect size you report is the correct one, especially 
+To that end, it is possible to print the negative effect size with
+\code{neg = TRUE}, but caution is advised: You should always check if
+the sign of the effect size you report is the correct one, especially
 in the case of one-sided testing.
 }
 \examples{
@@ -157,12 +156,12 @@ print_wilcoxon_rs(wc_iris2, consistent = "max",
 }
 \references{
 Cohen, J. (1988). Statistical power analysis for the behavioral sciences
-    (2nd ed.). Hillsdale, NJ: Erlbaum.
+(2nd ed.). Hillsdale, NJ: Erlbaum.
 
-Fritz, C. O., Morris, P. E., & Richler, J. J. (2012). Effect size 
-    estimates: Current use, calculations, and interpretation. Journal 
-    of Experimental Psychology: General, 141(1), 2-18. 
-    http://dx.doi.org/10.1037/a0024338
+Fritz, C. O., Morris, P. E., & Richler, J. J. (2012). Effect size
+estimates: Current use, calculations, and interpretation. Journal
+of Experimental Psychology: General, 141(1), 2-18.
+http://dx.doi.org/10.1037/a0024338
 }
 \author{
 Juliane Nagel \email{juliane.nagel@zi-mannheim.de}

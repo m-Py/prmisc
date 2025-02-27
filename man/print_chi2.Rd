@@ -15,16 +15,16 @@ print_chi2(
 }
 \arguments{
 \item{x}{A contingency table (passed as \code{table} or \code{matrix}) or
-an object of type "htest" returned by \code{\link{chisq.test}}. Can 
+an object of type "htest" returned by \code{\link{chisq.test}}. Can
 also handle objects returned by \code{\link[spgs]{chisq.unif.test}}
 from the \code{spgs} package.}
 
-\item{es}{Boolean. Should the phi coefficient be printed as a 
+\item{es}{Boolean. Should the phi coefficient be printed as a
 measure of effect size. See details.}
 
 \item{correct}{Boolean. Apply a continuity correction? See
 \code{\link{chisq.test}}. Only has an effect if the chi-square-test
-is computed by this function, i.e., if \code{x} is a contingency 
+is computed by this function, i.e., if \code{x} is a contingency
 table. The default value is \code{FALSE}.}
 
 \item{decimals}{How many decimals should be printed}
@@ -38,15 +38,28 @@ this should be \code{FALSE}.}
 }
 \value{
 A string describing the results of the chi-square test to be
-    printed in Rmarkdown documents.
+printed in Rmarkdown documents.
 }
 \description{
 Print the results of a chi-square test
 }
 \details{
 The argument \code{es} only has an effect if \code{x} is passed as a 2x2
-contingency table. In this case, the phi coefficient is computed as 
+contingency table. In this case, the phi coefficient is computed as
 a measure of effect size (see Cohen, 1988, page 223).
+
+According to APA style, the Greek chi symbol (and the phi coefficient) should
+be printed in non-italic font. However, the standard symbols
+\\chi and \\phi are written in italic. To print non-italic symbols, use the argument
+\code{italic_greek = FALSE}. However, this option requires that you load the Latex
+package \code{upgreek} in the YAML header of your R markdown document. To this end,
+use the following option in your YAML header:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{header-includes:
+  -\\usepackage\{upgreek\}
+}\if{html}{\out{</div>}}
+
+This option only works for Latex/PDF output.
 }
 \examples{
 
@@ -68,7 +81,7 @@ print_chi2(tab, italic_greek = FALSE)
 }
 \references{
 Cohen, J. (1988). Statistical power analysis for the behavioral sciences
-    (2nd ed.). Hillsale, NJ: Lawrence Erlbaum.
+(2nd ed.). Hillsale, NJ: Lawrence Erlbaum.
 }
 \author{
 Martin Papenberg \email{martin.papenberg@hhu.de}

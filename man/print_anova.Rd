@@ -20,27 +20,30 @@ and eta-squared. Defaults to 2.}
 Defaults to 3.}
 }
 \value{
-A list whose elements are strings describing the ANOVA; to be 
-    included in an R markdown document.
+A list whose elements are strings describing the ANOVA; to be
+included in an R markdown document.
 }
 \description{
 Print the results of an \code{afex} ANOVA
 }
 \details{
 To use this function, you have to install the package afex to compute
-an ANOVA object, see \code{\link[afex]{aov_car}}. Pass this object 
+an ANOVA object, see \code{\link[afex]{aov_car}}. Pass this object
 as the first argument.
 
-According to APA style, the _greek_ eta symbol - indicating the
+According to APA style, the Greek eta symbol - indicating the
 effect size in  the ANOVA - should be printed in non-italic font.
-However, the standard Latex \\eta symbol is italic. To print a
-non-italic eta, use the argument \code{italic_eta = FALSE}. However, this
-option requires that you load the package \code{upgreek} in the YAML
-header of your R markdown document. To this end, use the following
+However, the standard \\eta symbol is written in italic. To print a
+non-italic eta, use the argument \code{italic_eta = FALSE}. However,
+this option requires that you load the Latex package \code{upgreek} in
+the YAML header of your R markdown document. To this end, use the following
 option in your YAML header:
 
-header-includes:
-  -\\usepackage{upgreek}
+\if{html}{\out{<div class="sourceCode">}}\preformatted{header-includes:
+  -\\usepackage\{upgreek\}
+}\if{html}{\out{</div>}}
+
+This option only works for Latex/PDF output.
 }
 \examples{
 
@@ -76,8 +79,8 @@ aovpr[["angle:noise"]]
 
 }
 \references{
-Singmann, H., Bolker, B., Westfall, J., & Aust, F. (2019). afex: 
-    Analysis of Factorial Experiments. https://CRAN.R-project.org/package=afex
+Singmann, H., Bolker, B., Westfall, J., & Aust, F. (2019). afex:
+Analysis of Factorial Experiments. https://CRAN.R-project.org/package=afex
 }
 \author{
 Martin Papenberg \email{martin.papenberg@hhu.de}

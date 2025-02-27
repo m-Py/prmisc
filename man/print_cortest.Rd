@@ -8,7 +8,7 @@ coefficient}
 print_cortest(cor_object, decimals = 2, decimals_p = 3)
 }
 \arguments{
-\item{cor_object}{An object of class "htest" returned by 
+\item{cor_object}{An object of class "htest" returned by
 \code{\link{cor.test}}}
 
 \item{decimals}{How many decimals should be printed for the test
@@ -18,8 +18,8 @@ statistic (defaults to 2).}
 (defaults to 3).}
 }
 \value{
-A string describing the significance test; to be 
-    included in an R markdown document.
+A string describing the significance test; to be
+included in an R markdown document.
 }
 \description{
 Printing the results of a significance test for a correlation

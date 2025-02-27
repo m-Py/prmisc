@@ -16,14 +16,14 @@ print_mean_sd(
 \arguments{
 \item{x}{a vector of the sample the statistics should be printed for.}
 
-\item{decimals_M}{how many decimals should be printed for the 
+\item{decimals_M}{how many decimals should be printed for the
 mean (defaults to 2).}
 
-\item{decimals_SD}{how many decimals should be printed for the 
+\item{decimals_SD}{how many decimals should be printed for the
 standard deviation (defaults to 2).}
 
 \item{parentheses}{logical indicating if the statistics should be
-wrapped in parentheses or not (defaults to 
+wrapped in parentheses or not (defaults to
 \code{TRUE}). Will be ignored if \code{short} is
 \code{TRUE}.}
 
@@ -39,14 +39,13 @@ Print mean and standard deviation
 }
 \details{
 The following formatting options are available:
-
-- When \code{parentheses} is \code{TRUE}: 
+\itemize{
+\item When \code{parentheses} is \code{TRUE}:
 \eqn{(M = XX, SD = XX)}
-
-- When \code{parentheses} is \code{FALSE}: 
+\item When \code{parentheses} is \code{FALSE}:
 \eqn{M = XX, SD = XX}
-
-- When \code{short} is \code{TRUE}: \eqn{XX (XX)}
+\item When \code{short} is \code{TRUE}: \eqn{XX (XX)}
+}
 }
 \examples{
 

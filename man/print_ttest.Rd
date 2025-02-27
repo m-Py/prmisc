@@ -13,11 +13,11 @@ print_ttest(
 )
 }
 \arguments{
-\item{t_object}{An object of class "htest" returned by 
+\item{t_object}{An object of class "htest" returned by
 \code{\link{t.test}}.}
 
-\item{d_object}{An effect size table returned by 
-\code{\link[effectsize]{cohens_d}} from package \code{effectsize}. 
+\item{d_object}{An effect size table returned by
+\code{\link[effectsize]{cohens_d}} from package \code{effectsize}.
 Optional argument.}
 
 \item{decimals}{How many decimals should be printed for the t-value
@@ -26,13 +26,13 @@ Optional argument.}
 \item{decimals_p}{How many decimals should be printed for the p-value
 (defaults to 3).}
 
-\item{confidence}{Logical. Whether a confidence interval for the effectsize 
+\item{confidence}{Logical. Whether a confidence interval for the effectsize
 should be printed or not. Can only be \code{TRUE} if \code{d_object} is
 provided.}
 }
 \value{
-A string describing the t-test; to be 
-    included in an R markdown document.
+A string describing the t-test; to be
+included in an R markdown document.
 }
 \description{
 Print the results of a t-test
@@ -67,7 +67,7 @@ print_ttest(tt)
 }
 \references{
 Cohen, J. (1988). Statistical power analysis for the behavioral sciences
-    (2nd ed.). Hillsale, NJ: Lawrence Erlbaum.
+(2nd ed.). Hillsale, NJ: Lawrence Erlbaum.
 }
 \author{
 Martin Papenberg \email{martin.papenberg@hhu.de}

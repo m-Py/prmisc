@@ -20,7 +20,7 @@ Print a number having a specified number of digits or as integer
 }
 \details{
 If x integer, only the integer is printed, if x is a decimal
-    number, the decimals are printed
+number, the decimals are printed
 }
 \examples{
 

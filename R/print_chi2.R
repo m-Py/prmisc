@@ -27,6 +27,20 @@
 #' contingency table. In this case, the phi coefficient is computed as 
 #' a measure of effect size (see Cohen, 1988, page 223).
 #' 
+#' According to APA style, the Greek chi symbol (and the phi coefficient) should 
+#' be printed in non-italic font. However, the standard symbols 
+#' \\chi and \\phi are written in italic. To print non-italic symbols, use the argument 
+#' \code{italic_greek = FALSE}. However, this option requires that you load the Latex 
+#' package \code{upgreek} in the YAML header of your R markdown document. To this end, 
+#' use the following option in your YAML header:
+#' 
+#' ```
+#' header-includes:
+#'   -\usepackage{upgreek}
+#' ```
+#' 
+#' This option only works for Latex/PDF output.
+#' 
 #' @references 
 #' Cohen, J. (1988). Statistical power analysis for the behavioral sciences
 #'     (2nd ed.). Hillsale, NJ: Lawrence Erlbaum.

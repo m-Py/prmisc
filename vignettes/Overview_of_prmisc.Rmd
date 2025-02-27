@@ -117,7 +117,12 @@ Via the package papaja (`papaja::apa_print(aov_results)`), we would obtain a mor
 print_anova(aov_results, italic_eta = FALSE)
 ```
 
-This only works with Latex/PDF output. To use it in R Markdown documents, we need to load the upgreek package in the YAML header, using `header-includes: -\usepackageupgreek`
+This only works with Latex/PDF output. To use it in R Markdown documents, we need to load the upgreek package in the YAML header, using 
+
+```
+header-includes: 
+  -\usepackageupgreek`
+```
 
 We can also use the partial $\eta^2$, or no effect size index:
 

@@ -19,17 +19,21 @@
 #' an ANOVA object, see \code{\link[afex]{aov_car}}. Pass this object 
 #' as the first argument.
 #'
-#' According to APA style, the _greek_ eta symbol - indicating the
+#' According to APA style, the Greek eta symbol - indicating the
 #' effect size in  the ANOVA - should be printed in non-italic font.
-#' However, the standard Latex \\eta symbol is italic. To print a
-#' non-italic eta, use the argument \code{italic_eta = FALSE}. However, this
-#' option requires that you load the package \code{upgreek} in the YAML
-#' header of your R markdown document. To this end, use the following
+#' However, the standard \\eta symbol is written in italic. To print a
+#' non-italic eta, use the argument \code{italic_eta = FALSE}. However, 
+#' this option requires that you load the Latex package \code{upgreek} in 
+#' the YAML header of your R markdown document. To this end, use the following 
 #' option in your YAML header:
-#'
+#' 
+#' ```
 #' header-includes:
-#'   -\\usepackage{upgreek}
-#'
+#'   -\usepackage{upgreek}
+#' ```
+#' 
+#' This option only works for Latex/PDF output.
+#' 
 #' @examples
 #'
 #' library("afex")

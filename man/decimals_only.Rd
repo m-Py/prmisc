@@ -11,7 +11,7 @@ decimals_only(x, decimals = 2, decimals1 = FALSE)
 
 \item{decimals}{how many decimals are to be printed. Defaults to 2.}
 
-\item{decimals1}{Boolean - should a value of exactly 1 be converted 
+\item{decimals1}{Boolean - should a value of exactly 1 be converted
 to 1.00. Defaults to FALSE.}
 }
 \value{
