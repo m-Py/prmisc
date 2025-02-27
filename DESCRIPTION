@@ -1,15 +1,25 @@
 Type: Package
 Package: prmisc
-Title: Printing statistical results in R markdown
+Title: Printing Numeric and Statistical Output in R Markdown and Quarto Documents
 Version: 0.0.2
-Authors@R: 
-    c(person("Martin", "Papenberg", , "martin.papenberg@hhu.de", role = c("aut", "cre"),
+Authors@R: c(
+    person("Martin", "Papenberg", , "martin.papenberg@hhu.de", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9900-4268")),
-      person(given = c("Juliane", "V."),
-             family = "Nagel",
-             role = "aut"))
-Description: Miscellaneous printing of numeric or statistical results in Rmarkdown or Quarto according to APA style guidelines. This package covers some basic statistical tests (t-test, ANOVA, correlation, chi-squared test) and some basic number printing manipulations (formatting p-values, removing leading zeros for numbers that cannot be greater than one, and others).
-License: file LICENSE
+    person(c("Juliane", "V."), "Nagel", role = "aut",
+           comment = c(ORCID = "0000-0002-5310-8088"))
+  )
+Description: Miscellaneous printing of numeric or statistical results in
+    Rmarkdown or Quarto according to APA style guidelines. This package
+    covers some basic statistical tests (t-test, ANOVA, correlation,
+    chi-squared test) and some basic number printing manipulations
+    (formatting p-values, removing leading zeros for numbers that cannot
+    be greater than one, and others). Other packages exist for formatting
+    numbers and tests according to APA guidelines, such as 'papaja'
+    (<https://cran.r-project.org/package=papaja>) and 'apa'
+    (<https://cran.r-project.org/package=apa>), but they do not offer all
+    convenience functionality included in prmisc. The vignette has an
+    overview of most of the functions included in the package.
+License: MIT + file LICENSE
 URL: https://github.com/m-Py/prmisc
 Depends: 
     R (>= 3.0.0)
@@ -19,7 +29,8 @@ Suggests:
     knitr,
     rmarkdown,
     spgs
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 LazyLoad: yes
 RoxygenNote: 7.2.3
-VignetteBuilder: knitr

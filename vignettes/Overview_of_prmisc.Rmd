@@ -2,7 +2,7 @@
 title: "Overview of prmisc"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Overview_of_prmisc}
+  %\VignetteIndexEntry{Overview of prmisc}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 author: Martin Papenberg, Juli Nagel
@@ -15,10 +15,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, include = FALSE}
+```{r setup, message = FALSE}
 library(prmisc)
 library(effectsize)
 library(afex)
+library(papaja)
 ```
 
 
@@ -32,7 +33,7 @@ Packages with a more rich set of functionality are [papaja](https://cran.r-proje
 
 ## *t*-test
 
-prmisc uses output of the base R `t.test()` function, and optionally `effectsize::cohens_d()` to display the results of a *t*-test:
+prmisc uses the output of the base R `t.test()` function, and optionally `effectsize::cohens_d()` to display the results of a *t*-test:
 
 ```{r}
 ttest <- t.test(1:10, y = c(7:20), var.equal = TRUE)
@@ -86,7 +87,7 @@ print_ttest(tt)
 
 ## $\chi^2$-test
 
-Unlike the `print_ttest()` function, `prmisc::print_chi2()` can perform the statistical test by itself. By default, prmisc does not use a continuity correction. 
+Unlike the `print_ttest()` function, `prmisc::print_chi2()` can perform the statistical test by itself. By default, `prmisc::print_chi2()` does not use a continuity correction. 
 
 ```{r}
 x <- matrix(c(12, 5, 7, 7), ncol = 2)
@@ -129,15 +130,15 @@ print_anova(aov_results) # returns a list with all effects in this ANOVA
 
 `r print_anova(aov_results)$angle`
 
-Unlike papaja, prmisc can print the nonitalic eta, which is required according to APA guidelines: 
+Via the package papaja (`papaja::apa_print(aov_results)`), we would obtain a more rich output, including an ANOVA table. However, unlike papaja, prmisc can print the nonitalic $\eta$, which would be required according to APA guidelines: 
 
 ```{r}
 print_anova(aov_results, italic_eta = FALSE)
 ```
 
-This only works with Latex/PDF output however. To use it in R Markdown documents, we need to load the upgreek package in the header, using `header-includes: -\usepackageupgreek`
+This only works with Latex/PDF output. To use it in R Markdown documents, we need to load the upgreek package in the header, using `header-includes: -\usepackageupgreek`
 
-We can also use the partial eta^2, or no effect size index:
+We can also use the partial $\eta^2$, or no effect size index:
 
 ```{r}
 print_anova(
@@ -152,13 +153,18 @@ print_anova(
 
 ## Some functions for printing numbers
 
-prmisc includes several functions to format numbers according to APA style. We find these particularly useful for writing papers according to APA style, when we for example have custom results tables. 
+prmisc includes several functions to format numbers. We find these particularly useful for writing papers according to APA style, when we for example have custom results tables. 
 
 ```{r}
 force_decimals(c(1.23456, 0.873, 2.3456, 1.2), decimals = 2)
 ```
 
-Note that the function `round()` will not produce the same results as `force_decimals()` because it removes trailing zeros. This is because `round()` returns a numeric vector and force_decimals (as all other functions) returns a character vector. 
+Note that the function `round()` will not produce the same results as `force_decimals()` because it removes trailing zeros. 
+
+- `force_decimals()`: `r force_decimals(c(1.23456, 0.873, 2.3456, 1.2), decimals = 2)`
+- `round()`: `r round(c(1.23456, 0.873, 2.3456, 1.2), 2)`
+
+This is because `round()` returns a numeric vector and force_decimals (as all other functions) returns a character vector.
 
 Small numbers are rounded to zero by default. This behaviour can be controlled using the argument `round_zero`:
 
