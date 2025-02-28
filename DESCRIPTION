@@ -9,15 +9,16 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-5310-8088"))
   )
 Description: Miscellaneous printing of numeric or statistical results in
-    Rmarkdown or Quarto according to APA style guidelines. This package
+    R Markdown or Quarto documents according to the style guidelines of 
+    the American Psychological Association (APA). This package
     covers some basic statistical tests (t-test, ANOVA, correlation,
     chi-squared test) and some basic number printing manipulations
     (formatting p-values, removing leading zeros for numbers that cannot
     be greater than one, and others). Other packages exist for formatting
-    numbers and tests according to APA guidelines, such as 'papaja'
+    numbers and tests according to the guidelines of the APA, such as 'papaja'
     (<https://cran.r-project.org/package=papaja>) and 'apa'
     (<https://cran.r-project.org/package=apa>), but they do not offer all
-    convenience functionality included in prmisc. The vignette has an
+    convenience functionality included in 'prmisc'. The vignette has an
     overview of most of the functions included in the package.
 License: MIT + file LICENSE
 URL: https://github.com/m-Py/prmisc
