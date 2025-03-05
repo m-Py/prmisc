@@ -23,7 +23,7 @@ library(afex)
 
 # prmisc
 
-prmisc is a small package that formats numbers and statistical test results according to APA style guidelines. The output can be included in Quarto or R Markdown documents. It covers some basic statistical tests (*t*-test, ANOVA, correlation, $\chi^2$ test, Mann-Whitney-U test) and some basic number printing manipulations: formatting *p*-values, removing leading zeros for numbers that cannot be greater than one, and others.
+prmisc is a small package that formats numbers and statistical test results according to [APA style guidelines](https://apastyle.apa.org/). The output can be included in Quarto or R Markdown documents. It covers some basic statistical tests (*t*-test, ANOVA, correlation, $\chi^2$ test, Mann-Whitney-U test) and some basic number printing manipulations: formatting *p*-values, removing leading zeros for numbers that cannot be greater than one, and others.
 
 Packages with a more rich set of functionality are [papaja](https://cran.r-project.org/package=papaja) and [apa](https://cran.r-project.org/package=apa). However, we find ourselves returning to prmisc because it offers some convenience functions not available in these packages
 
@@ -182,7 +182,7 @@ Note that the function `round()` will not produce the same results as `force_dec
 - `force_decimals()`: `r force_decimals(c(1.23456, 0.873, 2.3456, 1.2), decimals = 2)`
 - `round()`: `r round(c(1.23456, 0.873, 2.3456, 1.2), 2)`
 
-This is because `round()` returns a numeric vector and force_decimals (as all other functions) returns a character vector.
+This is because `round()` returns a numeric vector and `force_decimals()` (as all other functions in prmisc) returns a string.
 
 Small numbers that are close to zero are rounded to zero by default. This behaviour can be controlled using the argument `round_zero`:
 
