@@ -10,8 +10,8 @@
 #' @param latex Logical, indicates whether the p-values should be printed with 
 #'              or without \code{$} around it. Defaults to \code{TRUE}.
 #'
-#' @return A string representation of the p value to be used in Rmarkdown
-#'   documents.
+#' @return Character vector of length \code{length(pvalues)}. 
+#'   A string representation of the p value(s) to be used in Rmarkdown documents.
 #' 
 #' @export
 #' 

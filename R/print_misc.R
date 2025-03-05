@@ -5,7 +5,7 @@
 #' @param decimals The number of digits that should be printed if x is a
 #'     decimal number. Defaults to 2.
 #'
-#' @return The number in the required format
+#' @return Character vector of length \code{length(x)}. The number(s) in the required format. 
 #'
 #' @details If x integer, only the integer is printed, if x is a decimal
 #'     number, the decimals are printed

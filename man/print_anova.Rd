@@ -20,8 +20,8 @@ and eta-squared. Defaults to 2.}
 Defaults to 3.}
 }
 \value{
-A list whose elements are strings describing the ANOVA; to be
-included in an R markdown document.
+A list whose elements are strings describing the effects of the ANOVA (main effects and interactions);
+to be included in an R markdown document.
 }
 \description{
 Print the results of an \code{afex} ANOVA

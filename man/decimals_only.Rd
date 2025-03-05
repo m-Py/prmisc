@@ -15,7 +15,7 @@ decimals_only(x, decimals = 2, decimals1 = FALSE)
 to 1.00. Defaults to FALSE.}
 }
 \value{
-The number in the required format
+Character vector of length \code{length(x)}. The number(s) in the required format.
 }
 \description{
 Printing a specified number of decimals and ignore leading zeros

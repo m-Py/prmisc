@@ -55,6 +55,9 @@ be printed without a leading zero, d will be
 printed with a leading zero because it is possible
 for d to take values larger than one.}
 }
+\value{
+A string describing the results of the Wilcoxon test; to be included in an R markdown document.
+}
 \description{
 Print the results of a Wilcoxon rank sum test (Mann-Whitney-U test)
 }

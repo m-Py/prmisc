@@ -7,7 +7,7 @@
 #'                   they should be displayed as e.g. < .01. See details. 
 #'                   Defaults to \code{TRUE}.
 #'
-#' @return The number in the required format
+#' @return Character vector of length \code{length(x)}. The number(s) in the required format. 
 #' 
 #' @details 
 #' 

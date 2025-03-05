@@ -6,7 +6,7 @@
 #' @param decimals1 Boolean - should a value of exactly 1 be converted 
 #'     to 1.00. Defaults to FALSE.
 #'
-#' @return The number in the required format
+#' @return Character vector of length \code{length(x)}. The number(s) in the required format. 
 #' 
 #' @examples 
 #' 

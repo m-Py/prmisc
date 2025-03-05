@@ -13,7 +13,7 @@ force_or_cut(x, decimals = 2)
 decimal number. Defaults to 2.}
 }
 \value{
-The number in the required format
+Character vector of length \code{length(x)}. The number(s) in the required format.
 }
 \description{
 Print a number having a specified number of digits or as integer

@@ -16,7 +16,7 @@ they should be displayed as e.g. < .01. See details.
 Defaults to \code{TRUE}.}
 }
 \value{
-The number in the required format
+Character vector of length \code{length(x)}. The number(s) in the required format.
 }
 \description{
 Force printing a specified number of decimals for a number

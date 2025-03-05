@@ -10,8 +10,8 @@
 #' @param decimals_p How many decimals should be printed for p-values.
 #'     Defaults to 3.
 #'     
-#' @return A list whose elements are strings describing the ANOVA; to be 
-#'     included in an R markdown document.
+#' @return A list whose elements are strings describing the effects of the ANOVA (main effects and interactions); 
+#'     to be included in an R markdown document.
 #'
 #' @details
 #'

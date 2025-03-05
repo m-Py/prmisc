@@ -19,8 +19,8 @@ Defaults to \code{FALSE}.}
 or without \code{$} around it. Defaults to \code{TRUE}.}
 }
 \value{
-A string representation of the p value to be used in Rmarkdown
-documents.
+Character vector of length \code{length(pvalues)}.
+A string representation of the p value(s) to be used in Rmarkdown documents.
 }
 \description{
 Format a p-value according to APA standards

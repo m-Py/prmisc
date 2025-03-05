@@ -15,7 +15,9 @@
 #'              in this case. Defaults to \code{FALSE}. See details.
 #' @param na.rm logical indicating whether missing values should be
 #'              ignored or not. Defaults to \code{FALSE}.
-#'                
+#' 
+#' @return A string with information on mean and standard deviation in \code{x}. 
+#' 
 #' @details 
 #' 
 #' The following formatting options are available:

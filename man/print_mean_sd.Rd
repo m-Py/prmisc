@@ -34,6 +34,9 @@ in this case. Defaults to \code{FALSE}. See details.}
 \item{na.rm}{logical indicating whether missing values should be
 ignored or not. Defaults to \code{FALSE}.}
 }
+\value{
+A string with information on mean and standard deviation in \code{x}.
+}
 \description{
 Print mean and standard deviation
 }
