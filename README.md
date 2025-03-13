@@ -4,7 +4,7 @@ Miscellaneous printing of statistical results in Rmarkdown according to APA styl
 
 # Installation
 
-prmisc is available from CRAN and can be installed via `install.packages()`:
+prmisc is available from [CRAN](https://cran.r-project.org/package=prmisc) and can be installed via `install.packages()`:
 
 ```R
 install.packages("prmisc")
