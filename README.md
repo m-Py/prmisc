@@ -1,21 +1,13 @@
 # prmisc
 
-Miscellaneous printing of statistical results in Rmarkdown according to
-APA style guidelines. This package covers some basic statistical tests
-(t-test, ANOVA, correlation, chi-squared test) and some basic number
-printing manipulations (formatting p-values, removing leading zeros for
-numbers that cannot be greater than one, and others). For more printing
-functions in R markdown documents see the R package
-[papaja](https://github.com/crsh/papaja).
+Miscellaneous printing of statistical results in Rmarkdown according to APA style guidelines. This package covers some basic statistical tests (t-test, ANOVA, correlation, chi-squared test) and some basic number printing manipulations (formatting p-values, removing leading zeros for numbers that cannot be greater than one, and others). Other functions for printing statistical tests and numbers can be found in the R packages [apa](https://cran.r-project.org/package=apa) and [papaja](https://cran.r-project.org/package=papaja).
 
 # Installation
 
-```R
-library("devtools") # if not available: install.packages("devtools")
-install_github("m-Py/prmisc")
+prmisc is available from CRAN and can be installed via `install.packages()`:
 
-# load the package via
-library("prmisc")
+```R
+install.packages("prmisc")
 ```
 
 # Usage
